@@ -1,74 +1,103 @@
 const BOT_STATES = {
-    IDLE: 'IDLE',
-    ASKING_ZIP: 'ASKING_ZIP',
-    ASKING_PHOTOS: 'ASKING_PHOTOS',
-    ESTIMATING: 'ESTIMATING',
-    BOOKING: 'BOOKING'
+    INTRO: 'INTRO',
+    ITEM_TYPE: 'ITEM_TYPE',
+    VOLUME: 'VOLUME',
+    COMPLETE: 'COMPLETE'
 };
 
-let currentState = BOT_STATES.ASKING_ZIP;
+let currentState = BOT_STATES.INTRO;
 let userData = {
-    zip: '',
-    photos: []
+    city: 'Bakersfield',
+    item: '',
+    volume: ''
 };
 
-const VALID_ZIPS = ["93301", "93302", "93303", "93304", "93305", "93306", "93307", "93308", "93309", "93311", "93312", "93313", "93314"];
+const UI = {
+    container: document.getElementById('bot-container'),
+    messages: document.getElementById('bot-messages'),
+    form: document.getElementById('bot-form'),
+    input: document.getElementById('bot-input'),
+    toggle: document.getElementById('bot-toggle')
+};
 
 function addMessage(text, isBot = true) {
-    const container = document.getElementById('bot-messages');
+    if (!UI.messages) return;
     const msg = document.createElement('div');
     msg.className = `message ${isBot ? 'bot' : 'user'} glass`;
-    msg.style.alignSelf = isBot ? 'flex-start' : 'flex-end';
-    msg.style.padding = '0.75rem 1rem';
-    msg.style.fontSize = '0.9rem';
-    msg.style.maxWidth = '80%';
-    if (!isBot) msg.style.background = 'var(--primary)';
-    msg.innerHTML = text;
-    container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
+    msg.innerHTML = `
+        ${isBot ? '<i class="fa-solid fa-robot" style="font-size: 0.8rem; margin-bottom: 5px; display: block; opacity: 0.6;"></i>' : ''}
+        <div>${text}</div>
+    `;
+    UI.messages.appendChild(msg);
+    UI.messages.scrollTop = UI.messages.scrollHeight;
 }
 
-function processInput() {
-    const input = document.getElementById('bot-input');
-    const text = input.value.trim();
-    if (!text) return;
+async function initBot() {
+    try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        if (data.city) userData.city = data.city;
+    } catch (e) { 
+        console.log('Location bypass'); 
+    }
 
-    addMessage(text, false);
-    input.value = '';
-
-    setTimeout(() => handleState(text), 500);
+    setTimeout(() => {
+        addMessage(`👋 Hey! T&M here. We're currently clearing loads in <b>${userData.city}</b>. Ready to get that junk gone?`);
+        setTimeout(() => {
+            addMessage("What are we looking at? (e.g., Couch, Garage Cleanout, Yard Waste)");
+            currentState = BOT_STATES.ITEM_TYPE;
+        }, 1000);
+    }, 1500);
 }
 
-function handleState(text) {
+if (UI.form) {
+    UI.form.onsubmit = (e) => {
+        e.preventDefault();
+        const val = UI.input.value.trim();
+        if (!val) return;
+
+        addMessage(val, false);
+        UI.input.value = '';
+        processBotFlow(val);
+    };
+}
+
+function processBotFlow(input) {
     switch (currentState) {
-        case BOT_STATES.ASKING_ZIP:
-            if (VALID_ZIPS.includes(text)) {
-                userData.zip = text;
-                addMessage(`Great! I see you're in the <strong>${text}</strong> area. T&M's father-son crew is active near you today.`);
-                addMessage("To give you a ballpark estimate, what are you hauling? (Or text a photo to <strong>661-996-6950</strong> for an immediate price)");
-                currentState = BOT_STATES.ESTIMATING;
-            } else {
-                addMessage("We primarily serve Greater Bakersfield. Try a local 93xxx ZIP?");
-            }
+        case BOT_STATES.ITEM_TYPE:
+            userData.item = input;
+            addMessage(`Got it. A ${input}. Roughly how much space does it take? (e.g., A few items, Half a trailer, Full trailer)`);
+            currentState = BOT_STATES.VOLUME;
             break;
-
-        case BOT_STATES.ESTIMATING:
-            addMessage("Got it. Our <strong>16ft high-capacity trailer</strong> handles big jobs in one trip. Typical Bakersfield rates:");
-            addMessage("• Small loads: <strong>$85-$150</strong><br>• Half Trailer: <strong>$250-$400</strong><br>• Full Trailer: <strong>$600-$750</strong>");
-            addMessage("Would you like to schedule a firm quote or have us call you?");
-            currentState = BOT_STATES.BOOKING;
+            
+        case BOT_STATES.VOLUME:
+            userData.volume = input;
+            addMessage("Perfect. Based on that, I'd ballpark that between <b>$85 - $250</b>, but I can give you a firm price if you text me a photo.");
+            setTimeout(() => {
+                addMessage("Tap below to text us a photo and get a guaranteed quote in 5 mins! 👇");
+                const link = document.createElement('div');
+                link.innerHTML = `<a href="sms:+16619966950" class="btn btn-red" style="width:100%; margin-top:10px; display:block; text-align:center;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS NOW</a>`;
+                UI.messages.appendChild(link);
+                UI.messages.scrollTop = UI.messages.scrollHeight;
+            }, 1000);
+            currentState = BOT_STATES.COMPLETE;
             break;
-
-        case BOT_STATES.BOOKING:
-            addMessage("Excellent. A specialist will reach out to confirm a window. Could you leave your <strong>Phone Number</strong>?");
+        
+        case BOT_STATES.COMPLETE:
+            addMessage("Feel free to text me at 661-996-6950 if you have more questions!");
             break;
-
-        default:
-            addMessage("I'm here to help! Would you like to start over or call us directly?");
     }
 }
 
-// Global enter listener
-document.getElementById('bot-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') processInput();
-});
+if (UI.toggle) {
+    UI.toggle.onclick = () => {
+        UI.container.classList.toggle('active');
+    };
+}
+
+// Global toggle for other buttons
+window.toggleBot = () => {
+    UI.container.classList.add('active');
+};
+
+initBot();

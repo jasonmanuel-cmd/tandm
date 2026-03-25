@@ -10,53 +10,45 @@ service_template = """<!DOCTYPE html>
     <meta name="description" content="{description}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../index.css">
-    <script type="application/ld+json">
-    {{
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "{name}",
-      "provider": {{ "@type": "LocalBusiness", "name": "T&M Hauling" }},
-      "areaServed": {{"@type": "City", "name": "Bakersfield"}},
-      "offers": {{ "@type": "Offer", "priceRange": "$$", "description": "Dynamic pricing based on load volume." }}
-    }}
-    </script>
 </head>
-<body style="padding-top: 5rem;">
+<body style="padding-top: 5rem; background: #0a0a0a; color: white;">
     <header class="scrolled">
         <div class="container nav-content">
-            <a href="/" class="logo">T&M <span>HAULING</span></a>
+            <a href="/" class="logo">
+                <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
+            </a>
             <div class="header-actions">
-                <a href="tel:+16619966950" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Quote</a>
+                <a href="tel:+16619966950" class="btn btn-red"><i class="fa-solid fa-phone"></i> CALL NOW</a>
             </div>
         </div>
     </header>
     <main>
         <section class="section-padding">
             <div class="container">
-                <nav style="margin-bottom: 2rem; font-size: 0.9rem;">
-                    <a href="/" style="color: var(--text-muted); text-decoration: none;">Home</a> / <span style="color: var(--primary);">{name}</span>
+                <nav style="margin-bottom: 2rem; font-size: 0.9rem; opacity: 0.6;">
+                    <a href="/" style="color: white; text-decoration: none;">Home</a> / <span style="color: var(--primary);">{name}</span>
                 </nav>
-                <h1 class="hero-title" style="font-size: 3rem;">{name} in <span style="color:var(--primary)">Bakersfield, CA</span></h1>
-                <div class="glass" style="padding: 2rem; margin-bottom: 3rem;">
-                    <p style="font-size: 1.25rem; font-weight: 500;">{lead_para}</p>
+                <h1 class="hero-title">{name} in <span style="color:var(--primary)">Bakersfield, CA</span></h1>
+                <div class="glass" style="margin-bottom: 3rem;">
+                    <p style="font-size: 1.4rem; font-weight: 500; line-height: 1.4;">{lead_para}</p>
                 </div>
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;">
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem;">
                     <div class="aeo-content">
-                        <h2>{name} Professional Q&A</h2>
+                        <h2 class="section-title" style="font-size: 2.5rem;">The T&M Difference</h2>
                         <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
                             {qa_blocks}
                         </div>
                     </div>
                     <aside>
-                        <div class="glass" style="padding: 2rem; position: sticky; top: 7rem;">
-                            <h3 style="margin-bottom: 1rem;">Instant Quote</h3>
-                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Text a photo of your {name_lower} for a guaranteed price range.</p>
-                            <a href="sms:+16619966950" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-camera"></i> Text Photos</a>
-                            <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
-                                <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> 10-Min Response Avg.
+                        <div class="glass" style="position: sticky; top: 7rem;">
+                            <h3 style="margin-bottom: 1rem; font-family:var(--font-header);">INSTANT ESTIMATE</h3>
+                            <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 2rem;">Text a photo of your {name_lower} for a guaranteed price range.</p>
+                            <a href="sms:+16619966950" class="btn btn-red" style="width: 100%;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS</a>
+                            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: #888; text-align: center;">
+                                <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> Typical response: 10 mins
                             </div>
                         </div>
                     </aside>
@@ -77,30 +69,39 @@ geo_template = """<!DOCTYPE html>
     <meta name="description" content="Local junk removal in {neighborhood}, Bakersfield. T&M Hauling offers same-day hauling near {landmark}. Reliable, affordable, and 5-star rated.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../index.css">
 </head>
-<body style="padding-top: 5rem;">
+<body style="padding-top: 5rem; background: #0a0a0a; color: white;">
     <header class="scrolled">
         <div class="container nav-content">
-            <a href="/" class="logo">T&M <span>HAULING</span></a>
+            <a href="/" class="logo">
+                <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
+            </a>
         </div>
     </header>
     <main>
         <section class="section-padding">
             <div class="container">
-                <h1 class="hero-title" style="font-size: 3rem;">Junk Removal in <span style="color:var(--primary)">{neighborhood}</span></h1>
-                <p class="sub-title">Providing {neighborhood} residents with the fastest hauling service, often within 2 hours of booking.</p>
-                <div class="glass" style="padding: 2rem; margin: 3rem 0;">
-                    <h3>Recent {neighborhood} Jobs</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                        <div class="work-card">
-                            <i class="fa-solid fa-truck" style="color: var(--primary); font-size: 1.5rem;"></i>
-                            <h4 style="margin-top: 1rem;">Full Property Restoration</h4>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Our 16ft heavy trailer cleared a multi-year debris pile in just one morning. Neighborhood pride restored.</p>
+                <h1 class="hero-title">Junk Removal in <span style="color:var(--primary)">{neighborhood}</span></h1>
+                <p style="font-size: 1.25rem; color: #ccc; margin-bottom: 4rem;">Providing {neighborhood} residents near {landmark} with the fastest hauling service in Kern County.</p>
+                <div class="glass" style="margin: 3rem 0;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                        <div class="val-card">
+                            <i class="fa-solid fa-truck-fast val-icon"></i>
+                            <h4 class="val-title">SAME DAY SERVICE</h4>
+                            <p>We are often active near {landmark} and can be at your door in under 2 hours.</p>
+                        </div>
+                        <div class="val-card">
+                            <i class="fa-solid fa-user-group val-icon"></i>
+                            <h4 class="val-title">LOCAL FAMILY CREW</h4>
+                            <p>Trained, respectful father-son team serving {neighborhood} since day one.</p>
                         </div>
                     </div>
+                </div>
+                <div class="text-center">
+                    <a href="tel:+16619966950" class="btn btn-red btn-large">CALL FOR {neighborhood} PICKUP</a>
                 </div>
             </div>
         </section>
@@ -110,60 +111,44 @@ geo_template = """<!DOCTYPE html>
 
 services = [
     {
-        "name": "Storage Unit Cleanouts",
-        "name_lower": "storage unit",
-        "title": "Storage Unit Cleanouts",
-        "description": "How much for a storage unit cleanout in Bakersfield? T&M Hauling offers rapid unit clearing and item sorting. We handle all local storage facilities.",
-        "lead_para": "Are you paying rent on a storage unit full of things you don't need? Our father-and-son team provides end-to-end storage unit cleanouts. With our high-capacity 16ft trailer, we can often clear an entire unit in a single trip.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you coordinate with the storage facility?</h3><p>Yes. Providing we have your permission, we meet the facility manager and clear the unit without you being present.</p></div>"""
+        "name": "Hot Tub Removal",
+        "name_lower": "hot tub",
+        "title": "Hot Tub Removal",
+        "description": "Professional hot tub removal in Bakersfield. We dismantle, haul, and dispose of old spas.",
+        "lead_para": "Got an old hot tub taking up space? T&M Hauling specializes in spa dismantling and removal. We handle the wiring, the heavy shell, and the structural haul-away.",
+        "qa_blocks": """<div class="qa-block"><h3 style="color:var(--primary)">Do you disconnect electricity?</h3><p>We require the power to be disconnected by a licensed electrician first, then we handle the full demolition and haul.</p></div>"""
     },
     {
-        "name": "Estate Clean Up",
-        "name_lower": "estate",
-        "title": "Estate Clean Up",
-        "description": "Professional estate clean up services in Bakersfield.",
-        "lead_para": "Handling an estate is overwhelming. T&M Hauling provides compassionate, professional estate clean up services. As a local father-son operation, we treat your property with family respect.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you help sort items?</h3><p>Yes, we help set aside items that look like family heirlooms or important documents.</p></div>"""
+        "name": "Mattress Disposal",
+        "name_lower": "mattress",
+        "title": "Mattress Disposal",
+        "description": "Same-day mattress disposal and pickup in Bakersfield.",
+        "lead_para": "Don't let old mattresses sit in your garage. T&M Hauling offers rapid mattress and box spring pickup with responsible disposal.",
+        "qa_blocks": """<div class="qa-block"><h3 style="color:var(--primary)">How much for one mattress?</h3><p>Typical pickups start at $85, or less if bundled with other items.</p></div>"""
     },
     {
-        "name": "Garage Clean Up",
-        "name_lower": "garage",
-        "title": "Garage Clean Up",
-        "description": "Same-day garage clean up in Bakersfield.",
-        "lead_para": "Looking for same-day garage clean up in Bakersfield? T&M Hauling provides instant-quote garage junk removal. Our team handles the heavy lifting so you get your space back by dinner.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you sweep up after?</h3><p>Yes, we broom-sweep the area after every cleanout.</p></div>"""
+        "name": "Hoarder House Cleanouts",
+        "name_lower": "hoarder house",
+        "title": "Hoarder house Cleanouts",
+        "description": "Compassionate and discreet hoarder house cleanout services in Kern County.",
+        "lead_para": "Massive property clearing requires a patient and professional team. T&M Hauling handles large-scale hoarder house cleanouts with discretion and speed.",
+        "qa_blocks": """<div class="qa-block"><h3 style="color:var(--primary)">How long does it take?</h3><p>Most full-property cleanouts are finished in 1-2 days using our 16ft high-capacity trailers.</p></div>"""
     },
     {
-        "name": "Apartment Clean Out",
-        "name_lower": "apartment",
-        "title": "Apartment Clean Out",
-        "description": "Apartment junk removal for tenants and landlords in Bakersfield.",
-        "lead_para": "Need an apartment cleared fast? T&M Hauling offers specialized apartment clean out services, navigating stairs and tight spaces with professional ease.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you handle stairs?</h3><p>Absolutely. Our crews are trained for multi-story buildings and elevators.</p></div>"""
+        "name": "Yard Waste Removal",
+        "name_lower": "yard waste",
+        "title": "Yard Waste Removal",
+        "description": "Debris removal for lawns and backyards in Bakersfield.",
+        "lead_para": "From brush piles to fallen trees, T&M Hauling clears your backyard landscape debris fast.",
+        "qa_blocks": """<div class="qa-block"><h3 style="color:var(--primary)">Do you take dirt?</h3><p>We handle green waste and brush. Soil and gravel may require specialized heavy loads—call for a quote.</p></div>"""
     },
     {
-        "name": "Scrap Metal Removal",
-        "name_lower": "scrap metal",
-        "title": "Scrap Metal Removal",
-        "description": "Bakersfield scrap metal hauling and appliance recycling.",
-        "lead_para": "Got old metal taking up space? T&M Hauling offers specialized scrap metal removal in Bakersfield. We handle everything from old copper pipes to large appliances.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you take appliances?</h3><p>Yes! Refrigerators, ovens, and washers are all eligible for our metal recycling flow.</p></div>"""
-    },
-    {
-        "name": "General Junk Removal",
-        "name_lower": "junk",
-        "title": "General Junk Removal",
-        "description": "The best general junk removal in Bakersfield.",
-        "lead_para": "If you have more than two items to move, it's a T&M job. Our general junk removal covers everything from old furniture to backyard clutter.",
-        "qa_blocks": """<div class="qa-block"><h3>What is your minimum fee?</h3><p>Our minimum fee starts at $85 for single items in the central Bakersfield area.</p></div>"""
-    },
-    {
-        "name": "Construction Debris Removal",
-        "name_lower": "construction debris",
-        "title": "Construction Debris Removal",
-        "description": "Construction debris hauling for Bakersfield contractors.",
-        "lead_para": "Keep your job site clean and safe. T&M Hauling provides professional construction debris removal, using our heavy-duty trailers to handle shingles, drywall, and rubble.",
-        "qa_blocks": """<div class="qa-block"><h3>Do you take concrete?</h3><p>Yes, we haul concrete, wood, and drywall. Note that concrete loads may have weight limits.</p></div>"""
+        "name": "Appliance Hauling",
+        "name_lower": "appliance",
+        "title": "Appliance Hauling",
+        "description": "Fast refrigerator, stove, and washer removal in Bakersfield.",
+        "lead_para": "Old appliances are heavy and hard to move. T&M Hauling clears out fridges, stoves, washers, and dryers instantly.",
+        "qa_blocks": """<div class="qa-block"><h3 style="color:var(--primary)">Do you recycle old appliances?</h3><p>Yes! We follow all California e-waste and metal recycling guidelines.</p></div>"""
     }
 ]
 
@@ -173,8 +158,22 @@ neighborhoods = [
     {"name": "Stockdale", "landmark": "CSU Bakersfield"},
     {"name": "Downtown", "landmark": "The Fox Theater"},
     {"name": "Oildale", "landmark": "Standard Park"},
-    {"name": "East Bakersfield", "landmark": "Bakersfield College"}
+    {"name": "East Bakersfield", "landmark": "Bakersfield College"},
+    {"name": "Southwest Bakersfield", "landmark": "The Marketplace"},
+    {"name": "Northwest Bakersfield", "landmark": "Riverlakes Golf Course"},
+    {"name": "Northeast Bakersfield", "landmark": "Bakersfield College Area"},
+    {"name": "Silver Creek", "landmark": "Silver Creek Park"},
+    {"name": "Westchester", "landmark": "Bakersfield High"},
+    {"name": "City Hills", "landmark": "City Hills Drive"},
+    {"name": "Quailwood", "landmark": "Quailwood Elementary"},
+    {"name": "Tevis Ranch", "landmark": "Tevis Ranch Park"},
+    {"name": "Laurelglen", "landmark": "Laurelglen Elementary"},
+    {"name": "Haggin Oaks", "landmark": "Haggin Oaks Market"},
+    {"name": "Riverlakes", "landmark": "Lake Ming"},
+    {"name": "Brimhall", "landmark": "Brimhall Road"},
+    {"name": "Oleander", "landmark": "Oleander Park"}
 ]
+
 
 os.makedirs("services", exist_ok=True)
 os.makedirs("neighborhoods", exist_ok=True)
