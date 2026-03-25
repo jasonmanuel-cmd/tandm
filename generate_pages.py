@@ -10,45 +10,53 @@ service_template = """<!DOCTYPE html>
     <meta name="description" content="{description}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../index.css">
 </head>
-<body style="padding-top: 5rem; background: #0a0a0a; color: white;">
-    <header class="scrolled">
+<body style="padding-top: 8rem; background: #050505; color: white;">
+    <header id="main-header">
         <div class="container nav-content">
             <a href="/" class="logo">
                 <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
             </a>
+            <nav class="desktop-nav">
+                <a href="/#services">SERVICES</a>
+                <a href="/#schedule">SCHEDULE</a>
+            </nav>
             <div class="header-actions">
-                <a href="tel:+16619966950" class="btn btn-red"><i class="fa-solid fa-phone"></i> CALL NOW</a>
+                <a href="tel:+16619966950" class="btn btn-red" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">CALL NOW</a>
             </div>
         </div>
     </header>
     <main>
-        <section class="section-padding">
+        <section style="padding: var(--section-padding) 0;">
             <div class="container">
-                <nav style="margin-bottom: 2rem; font-size: 0.9rem; opacity: 0.6;">
-                    <a href="/" style="color: white; text-decoration: none;">Home</a> / <span style="color: var(--primary);">{name}</span>
+                <nav style="margin-bottom: 3rem; font-size: 0.8rem; letter-spacing: 1px; opacity: 0.5;">
+                    <a href="/" style="color: white; text-decoration: none;">HOME</a> / <span style="color: var(--primary);">{name}</span>
                 </nav>
-                <h1 class="hero-title">{name} in <span style="color:var(--primary)">Bakersfield, CA</span></h1>
-                <div class="glass" style="margin-bottom: 3rem;">
-                    <p style="font-size: 1.4rem; font-weight: 500; line-height: 1.4;">{lead_para}</p>
+                <div class="reveal active">
+                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">SPECIALIZED SERVICE</p>
+                    <h1 class="hero-title" style="font-size: clamp(2.5rem, 8vw, 5rem);">{name} in <span style="color:var(--primary)">Bakersfield, CA</span></h1>
                 </div>
-                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem;">
+                <div class="glass" style="margin: 4rem 0; padding: 3rem;">
+                    <p style="font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 400; line-height: 1.6; color: #dfdfdf;">{lead_para}</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 5rem; align-items: start;">
                     <div class="aeo-content">
-                        <h2 class="section-title" style="font-size: 2.5rem;">The T&M Difference</h2>
-                        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
+                        <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 3rem;">THE T&M PROTOCOL</h2>
+                        <div style="display: flex; flex-direction: column; gap: 3rem;">
                             {qa_blocks}
                         </div>
                     </div>
                     <aside>
-                        <div class="glass" style="position: sticky; top: 7rem;">
-                            <h3 style="margin-bottom: 1rem; font-family:var(--font-header);">INSTANT ESTIMATE</h3>
-                            <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 2rem;">Text a photo of your {name_lower} for a guaranteed price range.</p>
-                            <a href="sms:+16619966950" class="btn btn-red" style="width: 100%;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS</a>
-                            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: #888; text-align: center;">
-                                <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> Typical response: 10 mins
+                        <div class="glass" style="position: sticky; top: 10rem; padding: 3rem; text-align: center; border-bottom: 5px solid var(--primary);">
+                            <p style="color:var(--primary); font-weight: 700; letter-spacing: 2px; font-size: 0.75rem; margin-bottom: 1rem;">FAST RESPONSE</p>
+                            <h3 style="margin-bottom: 1.5rem; font-family:var(--font-header); font-size: 1.8rem;">INSTANT ESTIMATE</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem;">Text a photo of your {name_lower} project for a guaranteed quote range.</p>
+                            <a href="sms:+16619966950" class="btn btn-red" style="width: 100%;"><i class="fa-solid fa-camera"></i> TEXT FOR QUOTE</a>
+                            <div style="margin-top: 2rem; font-size: 0.8rem; color: #555; font-weight: 600;">
+                                <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> TYPICAL RESPONSE: 10 MINS
                             </div>
                         </div>
                     </aside>
@@ -73,35 +81,39 @@ geo_template = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../index.css">
 </head>
-<body style="padding-top: 5rem; background: #0a0a0a; color: white;">
-    <header class="scrolled">
+<body style="padding-top: 8rem; background: #050505; color: white;">
+    <header id="main-header">
         <div class="container nav-content">
             <a href="/" class="logo">
                 <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
             </a>
+            <div class="header-actions">
+                <a href="tel:+16619966950" class="btn btn-red" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">CALL TEAM</a>
+            </div>
         </div>
     </header>
     <main>
-        <section class="section-padding">
+        <section style="padding: var(--section-padding) 0;">
             <div class="container">
-                <h1 class="hero-title">Junk Removal in <span style="color:var(--primary)">{neighborhood}</span></h1>
-                <p style="font-size: 1.25rem; color: #ccc; margin-bottom: 4rem;">Providing {neighborhood} residents near {landmark} with the fastest hauling service in Kern County.</p>
-                <div class="glass" style="margin: 3rem 0;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
-                        <div class="val-card">
-                            <i class="fa-solid fa-truck-fast val-icon"></i>
-                            <h4 class="val-title">SAME DAY SERVICE</h4>
-                            <p>We are often active near {landmark} and can be at your door in under 2 hours.</p>
-                        </div>
-                        <div class="val-card">
-                            <i class="fa-solid fa-user-group val-icon"></i>
-                            <h4 class="val-title">LOCAL FAMILY CREW</h4>
-                            <p>Trained, respectful father-son team serving {neighborhood} since day one.</p>
-                        </div>
+                <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">KERN COUNTY OPS</p>
+                <h1 class="hero-title" style="font-size: clamp(2.5rem, 8vw, 5rem);">Junk Removal in <span style="color:var(--primary)">{neighborhood}</span></h1>
+                <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 5rem; max-width: 700px;">Providing {neighborhood} residents near {landmark} with the fastest property clearing and junk recovery service in Kern County.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+                    <div class="glass" style="padding: 3rem; text-align: center;">
+                        <i class="fa-solid fa-truck-fast" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 2rem;"></i>
+                        <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">SQUAD ON STANDBY</h4>
+                        <p style="color: var(--text-muted);">We are frequently operational near {landmark} and can arrive at your {neighborhood} location in under 2 hours.</p>
+                    </div>
+                    <div class="glass" style="padding: 3rem; text-align: center;">
+                        <i class="fa-solid fa-user-group" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 2rem;"></i>
+                        <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">ELITE COHESION</h4>
+                        <p style="color: var(--text-muted);">T&M is a highly-coordinated father-son team serving {neighborhood} with professional precision.</p>
                     </div>
                 </div>
-                <div class="text-center">
-                    <a href="tel:+16619966950" class="btn btn-red btn-large">CALL FOR {neighborhood} PICKUP</a>
+                
+                <div class="text-center" style="margin-top: 6rem;">
+                    <a href="tel:+16619966950" class="btn btn-red btn-large">INITIATE {neighborhood} PICKUP</a>
                 </div>
             </div>
         </section>
