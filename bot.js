@@ -72,12 +72,18 @@ function processBotFlow(input) {
             
         case BOT_STATES.VOLUME:
             userData.volume = input;
-            addMessage("Perfect. Based on that, I'd ballpark that between <b>$85 - $250</b>, but I can give you a firm price if you text me a photo.");
+            addMessage("Perfect. Based on that, I'd ballpark that between <b>$85 - $450</b> depending on total volume.");
             setTimeout(() => {
-                addMessage("Tap below to text us a photo and get a guaranteed quote in 5 mins! 👇");
-                const link = document.createElement('div');
-                link.innerHTML = `<a href="sms:+16619966950" class="btn btn-red" style="width:100%; margin-top:10px; display:block; text-align:center;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS NOW</a>`;
-                UI.messages.appendChild(link);
+                addMessage("You can get a more precise visual estimate using our <b>Truck Volume Calculator</b> on this page, or text us a photo for a guaranteed price! 👇");
+                const actions = document.createElement('div');
+                actions.style.display = 'flex';
+                actions.style.flexDirection = 'column';
+                actions.style.gap = '10px';
+                actions.innerHTML = `
+                    <a href="#estimator" class="btn btn-white" style="width:100%; display:block; text-align:center; border: 1px solid #333;" onclick="toggleBot()"><i class="fa-solid fa-calculator"></i> USE VISUAL ESTIMATOR</a>
+                    <a href="sms:+16619966950" class="btn btn-red" style="width:100%; display:block; text-align:center;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS NOW</a>
+                `;
+                UI.messages.appendChild(actions);
                 UI.messages.scrollTop = UI.messages.scrollHeight;
             }, 1000);
             currentState = BOT_STATES.COMPLETE;

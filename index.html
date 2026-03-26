@@ -235,40 +235,86 @@
             </div>
         </section>
 
-        <!-- [GOD MODE] Price Estimator -->
-        <section style="padding: var(--section-padding) 0; background: #fff; color: var(--text-dark);">
+        <!-- [GOD MODE] Visual Volume Estimator -->
+        <section id="estimator" style="padding: var(--section-padding) 0; background: #fff; color: var(--text-dark);">
             <div class="container">
                 <div class="text-center reveal" style="margin-bottom: 5rem;">
-                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">TRANSPARENCY</p>
-                    <h2 class="section-title" style="color: var(--text-dark);">QUICK ESTIMATOR</h2>
-                    <p style="color: #666; font-size: 1.1rem;">Select your project type for an immediate ballpark range.</p>
+                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">BRUTAL TRANSPARENCY</p>
+                    <h2 class="section-title" style="color: var(--text-dark);">VISUAL ESTIMATOR</h2>
+                    <p style="color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">No photos? No problem. Use our tactical load visualizer to calculate your investment in seconds.</p>
                 </div>
                 
-                <div class="reveal glass" style="max-width: 900px; margin: 0 auto; color: var(--text-dark); background: #fdfdfd; padding: 4rem; border: 1px solid #eee;">
-                    <div id="estimator-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-                        <div class="est-item" data-price="85" onclick="toggleEstItem(this)">
-                            <i class="fa-solid fa-couch" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);"></i>
-                            <div style="font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">SOFA / SECTIONAL</div>
+                <div class="reveal estimator-container">
+                    <!-- Left: Truck Visual -->
+                    <div class="truck-viewport">
+                        <div class="truck-graphic">
+                            <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Truck Cab -->
+                                <path d="M400 150 L480 150 L480 100 L430 80 L400 80 Z" fill="#333"/>
+                                <rect x="440" y="90" width="30" height="30" fill="#aaf" opacity="0.5"/>
+                                <!-- Truck Body (Outline) -->
+                                <rect x="20" y="50" width="380" height="100" fill="none" stroke="#333" stroke-width="4"/>
+                                <!-- Wheels -->
+                                <circle cx="80" cy="165" r="20" fill="#222"/>
+                                <circle cx="340" cy="165" r="20" fill="#222"/>
+                                <circle cx="440" cy="165" r="20" fill="#222"/>
+                                <!-- Cargo Area Clip Path -->
+                                <defs>
+                                    <clipPath id="cargo-clip">
+                                        <rect x="22" y="52" width="376" height="96" />
+                                    </clipPath>
+                                </defs>
+                                <rect id="cargo-fill-svg" x="22" y="148" width="376" height="0" fill="#c41e14" clip-path="url(#cargo-clip)" style="transition: all 0.6s ease;"/>
+                            </svg>
                         </div>
-                        <div class="est-item" data-price="75" onclick="toggleEstItem(this)">
-                            <i class="fa-solid fa-bed" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);"></i>
-                            <div style="font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">MATTRESS SET</div>
-                        </div>
-                        <div class="est-item" data-price="120" onclick="toggleEstItem(this)">
-                            <i class="fa-solid fa-kitchen-set" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);"></i>
-                            <div style="font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">LARGE APPLIANCE</div>
-                        </div>
-                        <div class="est-item" data-price="250" onclick="toggleEstItem(this)">
-                            <i class="fa-solid fa-warehouse" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);"></i>
-                            <div style="font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">GARAGE CLEANOUT</div>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: #999; letter-spacing: 2px;">LOAD VOLUME</div>
+                            <div id="load-percentage" style="font-size: 2.5rem; font-family: var(--font-header); color: var(--text-dark);">0%</div>
                         </div>
                     </div>
-                    
-                    <div style="background: #f8f8f8; padding: 3rem; border-radius: 16px; text-align: center; border-bottom: 8px solid var(--primary);">
-                        <div style="font-size: 0.8rem; color: #999; font-weight: 700; letter-spacing: 2px; margin-bottom: 0.5rem;">PROJECT ESTIMATE:</div>
-                        <div id="est-total" style="font-size: 4.5rem; font-family: var(--font-header); color: var(--text-dark); line-height: 1;">$0 - $0</div>
-                        <p style="font-size: 0.85rem; color: #888; margin: 2rem 0;">*Final pricing determined by volume, weight, and accessibility. Text photos for a fixed quote.</p>
-                        <a href="sms:+16619966950" class="btn btn-red" style="width: 100%;">TEXT PHOTO FOR FIRM QUOTE</a>
+
+                    <!-- Right: Controls -->
+                    <div class="estimator-controls">
+                        <h4 style="margin-bottom: 1.5rem; color: var(--text-dark); font-size: 1.2rem;">CALCULATE DISPLACEMENT</h4>
+                        
+                        <div class="quick-add-grid">
+                            <div class="quick-add-item" onclick="addVolume(10, this)">
+                                <i class="fa-solid fa-couch"></i>
+                                <span>Large Sofa</span>
+                            </div>
+                            <div class="quick-add-item" onclick="addVolume(8, this)">
+                                <i class="fa-solid fa-bed"></i>
+                                <span>Mattress</span>
+                            </div>
+                            <div class="quick-add-item" onclick="addVolume(15, this)">
+                                <i class="fa-solid fa-refrigerator"></i>
+                                <span>Large App</span>
+                            </div>
+                            <div class="quick-add-item" onclick="addVolume(25, this)">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <span>10 Boxes</span>
+                            </div>
+                        </div>
+
+                        <div class="range-container">
+                            <label style="display: block; margin-bottom: 1rem; font-weight: 700; font-size: 0.8rem; color: #444;">MANUAL ADJUSTMENT (TRUCK LOAD):</label>
+                            <input type="range" min="0" max="100" value="0" class="load-slider" id="load-slider" oninput="updateFromSlider(this.value)">
+                            <div class="load-labels">
+                                <span>MIN LOAD</span>
+                                <span>1/4</span>
+                                <span>1/2</span>
+                                <span>3/4</span>
+                                <span>FULL</span>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8f8f8; padding: 2rem; border-radius: 16px; border-left: 6px solid var(--primary);">
+                            <div style="font-size: 0.75rem; color: #999; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 0.5rem;">ESTIMATED INVESTMENT:</div>
+                            <div id="est-total" style="font-size: 3rem; font-family: var(--font-header); color: var(--text-dark); line-height: 1;">$0 - $0</div>
+                            <p style="font-size: 0.8rem; color: #888; margin-top: 1rem; line-height: 1.4;">Includes labor, transport, and disposal fees.</p>
+                        </div>
+                        
+                        <a href="#schedule" class="btn btn-red" style="width: 100%; margin-top: 2rem;" onclick="preFillVolume()">LOCK IN ESTIMATE & BOOK</a>
                     </div>
                 </div>
             </div>
@@ -458,15 +504,64 @@
 
     <script src="bot.js"></script>
     <script>
-        // Price Estimator
-        let estTotal = 0;
-        function toggleEstItem(el) {
-            const p = parseInt(el.dataset.price);
+        // Visual Estimator Logic
+        let currentLoad = 0;
+        const prices = { min: 95, quarter: 250, half: 450, full: 850 };
+
+        function updateFromSlider(val) {
+            currentLoad = parseInt(val);
+            syncEstimator();
+        }
+
+        function addVolume(amount, el) {
             el.classList.toggle('active');
-            estTotal += el.classList.contains('active') ? p : -p;
-            const min = Math.floor(estTotal * 0.9);
-            const max = Math.ceil(estTotal * 1.2);
-            document.getElementById('est-total').innerText = estTotal > 0 ? `$${min} - $${max}` : '$0 - $0';
+            if (el.classList.contains('active')) {
+                currentLoad = Math.min(100, currentLoad + amount);
+            } else {
+                currentLoad = Math.max(0, currentLoad - amount);
+            }
+            document.getElementById('load-slider').value = currentLoad;
+            syncEstimator(true);
+        }
+
+        function syncEstimator(preventLoop = false) {
+            // Update UI
+            document.getElementById('load-percentage').innerText = currentLoad + '%';
+            
+            // Update SVG - Scale height and move Y position
+            const fill = document.getElementById('cargo-fill-svg');
+            if (fill) {
+                const h = (currentLoad / 100) * 96;
+                fill.setAttribute('height', h);
+                fill.setAttribute('y', 148 - h);
+            }
+
+            // Pricing Algorithm: Defensive Brackets
+            let minP, maxP;
+            if (currentLoad === 0) {
+                minP = 0; maxP = 0;
+            } else if (currentLoad <= 15) {
+                minP = prices.min; maxP = 150;
+            } else if (currentLoad <= 35) {
+                minP = 225; maxP = 350;
+            } else if (currentLoad <= 65) {
+                minP = 425; maxP = 600;
+            } else if (currentLoad <= 85) {
+                minP = 650; maxP = 850;
+            } else {
+                minP = 850; maxP = 1100;
+            }
+
+            document.getElementById('est-total').innerText = currentLoad > 0 ? `$${minP} - $${maxP}` : '$0 - $0';
+        }
+
+        function preFillVolume() {
+            const desc = document.querySelector('textarea[name="description"]');
+            if (desc) {
+                const quote = document.getElementById('est-total').innerText;
+                const existing = desc.value.includes('[AUTO-ESTIMATE]') ? '' : desc.value;
+                desc.value = `[AUTO-ESTIMATE]: Estimated ${currentLoad}% load (${quote}).\n` + existing;
+            }
         }
 
         // FAQ Toggle
@@ -512,15 +607,10 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Bot Toggle
+        // Bot Toggle - Improved for CSS transitions
         function toggleBot() {
             const bot = document.getElementById('bot-container');
-            if (bot.style.display === 'flex') {
-                bot.style.display = 'none';
-            } else {
-                bot.style.display = 'flex';
-                // Trigger auto-focus or welcome message if needed
-            }
+            if (bot) bot.classList.toggle('active');
         }
         document.getElementById('bot-toggle').onclick = toggleBot;
 
