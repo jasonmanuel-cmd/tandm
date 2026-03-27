@@ -17,7 +17,7 @@
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     
     /* Spacing & Scaling */
-    --section-padding: clamp(5rem, 10vw, 10rem);
+    --section-padding: clamp(4rem, 8vw, 8rem);
     --container-width: 1200px;
     
     /* Effects */
@@ -136,11 +136,14 @@ h1, h2, h3, h4, .val-title, .hero-title, .section-title, .faq-subtitle {
 }
 
 .hero-title {
-    font-size: clamp(3rem, 10vw, 8rem);
-    line-height: 0.85;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+    line-height: 0.9;
     color: white;
-    text-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.6);
     margin-bottom: 2rem;
+}
+@media (max-width: 600px) {
+    .hero-title { font-size: 3.2rem; line-height: 1; }
 }
 
 .section-title {
@@ -447,7 +450,13 @@ header {
     }
     
     .glass {
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+    .hero-section {
+        padding: 12rem 0 6rem;
+    }
+    .hero-subtext {
+        font-size: 1.1rem;
     }
 }
 

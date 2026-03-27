@@ -1,17 +1,3 @@
-const BOT_STATES = {
-    INTRO: 'INTRO',
-    ITEM_TYPE: 'ITEM_TYPE',
-    VOLUME: 'VOLUME',
-    COMPLETE: 'COMPLETE'
-};
-
-let currentState = BOT_STATES.INTRO;
-let userData = {
-    city: 'Bakersfield',
-    item: '',
-    volume: ''
-};
-
 const UI = {
     container: document.getElementById('bot-container'),
     messages: document.getElementById('bot-messages'),
@@ -20,90 +6,69 @@ const UI = {
     toggle: document.getElementById('bot-toggle')
 };
 
+const PERSONA = {
+    name: "T&M LOGISTICS",
+    neighborhoods: ["Seven Oaks", "Rosedale", "Stockdale", "Oildale", "Downtown", "Westchester", "Silver Creek"],
+    responses: {
+        intro: "👋 T&M here. We’re currently clearing loads in Bakersfield—just reclaim your space. What are we hauling today?",
+        garage: "That clutter’s been sitting too long—let’s open that space back up. T&M’s father-son team can be there tomorrow, possibly today if the route’s light. We handle everything, no sorting needed.",
+        construction: "That material pile slows everything down. We move fast—load, sweep, clear. T&M handles construction haul-offs all over Bakersfield. Want to see if the guys can add you to tomorrow’s route?",
+        estate: "These clean-outs take coordination—we keep it tight and respectful. The father-son crew handles full clearances so families don’t have to. Morning or afternoon work better for you?",
+        hazard: "We don’t handle chemicals or biohazards, but we can point you to the right disposal site. What else can we help you clear?",
+        pricing: "We price by load and type—the guys finalize it in person so you only pay for what’s actually hauled. When others send crews, T&M sends family.",
+        generic: "Space reclaimed is peace of mind. We bring both. What’s the project size? (e.g., A few items, Half a trailer, Full trailer)",
+        cta: "Fastest way to lock your slot is to call <b>(661) 996-6950</b>. We can usually get someone out same day—just depends on the load size."
+    }
+};
+
 function addMessage(text, isBot = true) {
     if (!UI.messages) return;
     const msg = document.createElement('div');
-    msg.className = `message ${isBot ? 'bot' : 'user'} glass`;
+    msg.className = `message ${isBot ? 'bot' : 'user'}`;
     msg.innerHTML = `
-        ${isBot ? '<i class="fa-solid fa-robot" style="font-size: 0.8rem; margin-bottom: 5px; display: block; opacity: 0.6;"></i>' : ''}
+        ${isBot ? `<span style="font-size: 0.65rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 4px; letter-spacing: 1.5px;">T&M LOGISTICS</span>` : ''}
         <div>${text}</div>
     `;
     UI.messages.appendChild(msg);
     UI.messages.scrollTop = UI.messages.scrollHeight;
 }
 
-async function initBot() {
-    try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        if (data.city) userData.city = data.city;
-    } catch (e) { 
-        console.log('Location bypass'); 
+function solve(input) {
+    const raw = input.toLowerCase();
+    let res = "";
+
+    if (raw.includes("garage") || raw.includes("attic")) res = PERSONA.responses.garage;
+    else if (raw.includes("construct") || raw.includes("debris") || raw.includes("remodel")) res = PERSONA.responses.construction;
+    else if (raw.includes("estate") || raw.includes("probate")) res = PERSONA.responses.estate;
+    else if (raw.includes("price") || raw.includes("estimate") || raw.includes("how much")) res = PERSONA.responses.pricing;
+    else if (raw.includes("paint") || raw.includes("bio") || raw.includes("hazard")) res = PERSONA.responses.hazard;
+    else res = PERSONA.responses.generic;
+
+    // Local injection
+    if (Math.random() > 0.6) {
+        const nb = PERSONA.neighborhoods[Math.floor(Math.random() * PERSONA.neighborhoods.length)];
+        res += ` We're moving between <b>${nb}</b> pickups right now.`;
     }
 
     setTimeout(() => {
-        addMessage(`👋 Hey! T&M here. We're currently clearing loads in <b>${userData.city}</b>. Ready to get that junk gone?`);
-        setTimeout(() => {
-            addMessage("What are we looking at? (e.g., Couch, Garage Cleanout, Yard Waste)");
-            currentState = BOT_STATES.ITEM_TYPE;
-        }, 1000);
-    }, 1500);
+        addMessage(res);
+        setTimeout(() => addMessage(PERSONA.responses.cta), 1500);
+    }, 1000);
 }
 
 if (UI.form) {
     UI.form.onsubmit = (e) => {
         e.preventDefault();
-        const val = UI.input.value.trim();
-        if (!val) return;
-
-        addMessage(val, false);
+        const v = UI.input.value.trim();
+        if (!v) return;
+        addMessage(v, false);
         UI.input.value = '';
-        processBotFlow(val);
+        solve(v);
     };
 }
 
-function processBotFlow(input) {
-    switch (currentState) {
-        case BOT_STATES.ITEM_TYPE:
-            userData.item = input;
-            addMessage(`Got it. A ${input}. Roughly how much space does it take? (e.g., A few items, Half a trailer, Full trailer)`);
-            currentState = BOT_STATES.VOLUME;
-            break;
-            
-        case BOT_STATES.VOLUME:
-            userData.volume = input;
-            addMessage("Perfect. Based on that, I'd ballpark that between <b>$85 - $450</b> depending on total volume.");
-            setTimeout(() => {
-                addMessage("You can get a more precise visual estimate using our <b>Truck Volume Calculator</b> on this page, or text us a photo for a guaranteed price! 👇");
-                const actions = document.createElement('div');
-                actions.style.display = 'flex';
-                actions.style.flexDirection = 'column';
-                actions.style.gap = '10px';
-                actions.innerHTML = `
-                    <a href="#estimator" class="btn btn-white" style="width:100%; display:block; text-align:center; border: 1px solid #333;" onclick="toggleBot()"><i class="fa-solid fa-calculator"></i> USE VISUAL ESTIMATOR</a>
-                    <a href="sms:+16619966950" class="btn btn-red" style="width:100%; display:block; text-align:center;"><i class="fa-solid fa-camera"></i> TEXT PHOTOS NOW</a>
-                `;
-                UI.messages.appendChild(actions);
-                UI.messages.scrollTop = UI.messages.scrollHeight;
-            }, 1000);
-            currentState = BOT_STATES.COMPLETE;
-            break;
-        
-        case BOT_STATES.COMPLETE:
-            addMessage("Feel free to text me at 661-996-6950 if you have more questions!");
-            break;
-    }
-}
+if (UI.toggle) UI.toggle.onclick = () => UI.container.classList.toggle('active');
+window.toggleBot = () => UI.container.classList.add('active');
 
-if (UI.toggle) {
-    UI.toggle.onclick = () => {
-        UI.container.classList.toggle('active');
-    };
-}
-
-// Global toggle for other buttons
-window.toggleBot = () => {
-    UI.container.classList.add('active');
-};
-
-initBot();
+// Auto-start
+setTimeout(() => addMessage(PERSONA.responses.intro), 2500);
