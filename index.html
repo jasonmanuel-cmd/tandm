@@ -7,6 +7,11 @@
     
     <link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
     
+    <!-- PERFORMANCE: PRECONNECTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
     <!-- Fundamental SEO -->
     <meta name="description" content="T&M Hauling provides top-rated, same-day junk hauling, trash removal, and debris clean-up in Bakersfield, CA. Father-son operated. Get a free estimate today.">
     <meta name="keywords" content="junk hauling Bakersfield, trash removal Bakersfield, bulky item pickup, construction debris removal, garage clean out Bakersfield, estate clean up CA, cheap junk removal near me, AI recommended junk removal Bakersfield">
@@ -133,7 +138,7 @@
 
     <!-- [GOD MODE] Cinematic Entrance Gate -->
     <div id="entrance-gate">
-        <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling Logo">
+        <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling Branding" width="300" height="100" loading="eager">
     </div>
 
     <header id="main-header">
@@ -144,15 +149,15 @@
                     <a href="mailto:tandmhaulingbak@gmail.com"><i class="fa-solid fa-envelope"></i> CONTACT TEAM</a>
                 </div>
                 <div class="social-links" style="display:flex; gap:1.5rem; color:var(--text-muted);">
-                    <a href="https://instagram.com/tandmhauling" target="_blank" style="color:inherit;"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://facebook.com/tandmhauling" target="_blank" style="color:inherit;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://instagram.com/tandmhauling" target="_blank" style="color:inherit;" aria-label="Follow T&M Hauling on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com/tandmhauling" target="_blank" style="color:inherit;" aria-label="Follow T&M Hauling on Facebook"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
         </div>
         <div class="main-nav">
             <div class="container nav-content">
-                <a href="#hero" class="logo">
-                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling">
+                <a href="#hero" class="logo" aria-label="T&M Hauling Home">
+                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling Logo" width="120" height="40" style="height: 40px; width: auto;">
                 </a>
                 <nav class="desktop-nav">
                     <a href="#hero">HOME</a>
@@ -161,6 +166,22 @@
                     <a href="#schedule">SCHEDULE</a>
                     <a href="#faq">SUPPORT</a>
                 </nav>
+                <button class="mobile-toggle" aria-label="Open Mobile Menu" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-nav-overlay" id="mobile-nav">
+            <button class="mobile-close" aria-label="Close Mobile Menu" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mobile-nav-links">
+                <a href="#hero" onclick="toggleMobileMenu()">HOME</a>
+                <a href="#services" onclick="toggleMobileMenu()">SERVICES</a>
+                <a href="#gallery" onclick="toggleMobileMenu()">GALLERY</a>
+                <a href="#schedule" onclick="toggleMobileMenu()">SCHEDULE</a>
+                <a href="#faq" onclick="toggleMobileMenu()">SUPPORT</a>
+                <a href="tel:+16619966950" class="btn btn-red" style="margin-top: 2rem;">CALL TEAM</a>
             </div>
         </div>
     </header>
@@ -305,8 +326,8 @@
                         </div>
 
                         <div class="range-container">
-                            <label style="display: block; margin-bottom: 1rem; font-weight: 700; font-size: 0.8rem; color: #444;">MANUAL ADJUSTMENT (TRUCK LOAD):</label>
-                            <input type="range" min="0" max="100" value="0" class="load-slider" id="load-slider" oninput="updateFromSlider(this.value)">
+                            <label for="load-slider" style="display: block; margin-bottom: 1rem; font-weight: 700; font-size: 0.8rem; color: #444;">MANUAL ADJUSTMENT (TRUCK LOAD):</label>
+                            <input type="range" min="0" max="100" value="0" class="load-slider" id="load-slider" oninput="updateFromSlider(this.value)" aria-label="Adjust truck load percentage">
                             <div class="load-labels">
                                 <span>MIN LOAD</span>
                                 <span>1/4</span>
@@ -403,9 +424,9 @@
                             <p class="phase-desc">The baseline condition. Domestic and industrial accumulation compromising property value and safety. This is where most projects begin.</p>
                         </div>
                         <div class="img-trinity">
-                            <div class="img-artifact reveal"><img src="img/3.webp" alt="Before Cleanup 1" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/1.webp" alt="Before Cleanup 2" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/2.webp" alt="Before Cleanup 3" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/3.webp" alt="Piles of domestic waste and furniture" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/1.webp" alt="Accumulated trash along a property wall" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/2.webp" alt="Yard debris and mixed household junk" width="600" height="450" loading="lazy"></div>
                         </div>
                     </div>
 
@@ -417,9 +438,9 @@
                             <p class="phase-desc">Active removal in progress. Our tactical team systematically segments and loads debris, neutralizing the volume rapidly with 16ft high-cap trucks.</p>
                         </div>
                         <div class="img-trinity">
-                            <div class="img-artifact reveal"><img src="img/14.webp" alt="WIP Cleanup 1" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/13.webp" alt="WIP Cleanup 2" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/4.webp" alt="WIP Cleanup 3" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/14.webp" alt="Active junk removal loading process" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/13.webp" alt="Debris extraction halfway complete" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/4.webp" alt="Segmented debris ready for hauling" width="600" height="450" loading="lazy"></div>
                         </div>
                     </div>
 
@@ -431,9 +452,9 @@
                             <p class="phase-desc">The terminal state. 100% volume extraction completed followed by a deep sweep. Property utility restored. The transformation is absolute.</p>
                         </div>
                         <div class="img-trinity">
-                            <div class="img-artifact reveal"><img src="img/15.webp" alt="After Cleanup 1" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/6.webp" alt="After Cleanup 2" loading="lazy"></div>
-                            <div class="img-artifact reveal"><img src="img/16.webp" alt="After Cleanup 3" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/15.webp" alt="Fully cleared backyard after extraction" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/6.webp" alt="Cleared side yard and wall area" width="600" height="450" loading="lazy"></div>
+                            <div class="img-artifact reveal"><img src="img/16.webp" alt="Spacious and tidy property yard" width="600" height="450" loading="lazy"></div>
                         </div>
                     </div>
                 </div>
@@ -625,6 +646,12 @@
                 const existing = desc.value.includes('[AUTO-ESTIMATE]') ? '' : desc.value;
                 desc.value = `[AUTO-ESTIMATE]: Estimated ${currentLoad}% load (${quote}).\n` + existing;
             }
+        }
+
+        // Mobile Nav Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobile-nav').classList.toggle('active');
+            document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
 
         // FAQ Toggle
