@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- PERFORMANCE: HERO IMAGE PRELOAD -->
+    <link rel="preload" as="image" href="https://tandmbak.com/wp-content/uploads/2024/10/tm-hauling-bakersfield-8-scaled.webp">
     
     <!-- Fundamental SEO -->
     <meta name="description" content="T&M Hauling provides top-rated, same-day junk hauling, trash removal, and debris clean-up in Bakersfield, CA. Father-son operated. Get a free estimate today.">
@@ -127,13 +130,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="index.css">
+
+    <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body style="padding-top: 0;">
 
-    <!-- [GOD MODE] Live Social Proof Notification -->
-    <div id="social-proof" class="glass" style="position: fixed; bottom: 85px; left: 20px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; transform: translateY(200%); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999; border-radius: 50px; font-size: 0.85rem; border-left: 4px solid var(--primary); color: white;">
-        <i class="fa-solid fa-circle-check" style="color: var(--primary);"></i>
-        <div>Verified booking in <span id="sp-loc" style="font-weight:700;">Seven Oaks</span> <span id="sp-time" style="opacity:0.6; font-size:0.75rem;">(4m ago)</span></div>
+    <!-- Trust Badge -->
+    <div id="trust-badge" class="glass" style="position: fixed; bottom: 85px; left: 20px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; z-index: 999; border-radius: 50px; font-size: 0.85rem; border-left: 4px solid var(--primary); color: white; opacity: 0; transition: opacity 0.6s ease 2s;">
+        <i class="fa-solid fa-star" style="color: #ffcc00;"></i>
+        <div><span style="font-weight:700;">5.0 Rated</span> <span style="opacity:0.6; font-size:0.75rem;">— Father-Son Team, Bakersfield CA</span></div>
     </div>
 
     <!-- [GOD MODE] Cinematic Entrance Gate -->
@@ -611,6 +620,18 @@
                 <a href="neighborhoods/westchester.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">WESTCHESTER</a>
                 <a href="neighborhoods/quailwood.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">QUAILWOOD</a>
                 <a href="neighborhoods/silver-creek.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">SILVER CREEK</a>
+                <a href="neighborhoods/brimhall.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">BRIMHALL</a>
+                <a href="neighborhoods/city-hills.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">CITY HILLS</a>
+                <a href="neighborhoods/downtown.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">DOWNTOWN</a>
+                <a href="neighborhoods/east-bakersfield.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">EAST BAKERSFIELD</a>
+                <a href="neighborhoods/haggin-oaks.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">HAGGIN OAKS</a>
+                <a href="neighborhoods/laurelglen.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">LAURELGLEN</a>
+                <a href="neighborhoods/northeast-bakersfield.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">NE BAKERSFIELD</a>
+                <a href="neighborhoods/northwest-bakersfield.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">NW BAKERSFIELD</a>
+                <a href="neighborhoods/oleander.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">OLEANDER</a>
+                <a href="neighborhoods/riverlakes.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">RIVERLAKES</a>
+                <a href="neighborhoods/southwest-bakersfield.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">SW BAKERSFIELD</a>
+                <a href="neighborhoods/tevis-ranch.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">TEVIS RANCH</a>
             </div>
         </div>
     </section>
@@ -663,20 +684,33 @@
     <script>
         // Mobile Nav Toggle
         function toggleMobileMenu() {
-            document.getElementById('mobile-nav').classList.toggle('active');
-            document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
+            const nav = document.getElementById('mobile-nav');
+            const isOpen = nav.classList.toggle('active');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         }
 
-        // FAQ Toggle
+        // Fix: clear overflow on resize so user can't get trapped
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                const nav = document.getElementById('mobile-nav');
+                if (nav) nav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // FAQ Toggle — uses a large max-height open value so scrollHeight race condition is avoided
         function toggleFaq(el) {
             const content = el.nextElementSibling;
-            const icon = el.children[1];
-            if (content.style.maxHeight === "0px" || !content.style.maxHeight) {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.style.transform = "rotate(45deg)";
+            const icon = el.querySelector('i');
+            const isOpen = content.classList.contains('open');
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 50 + 'px';
+                content.classList.add('open');
+                if (icon) icon.style.transform = 'rotate(45deg)';
             } else {
-                content.style.maxHeight = "0px";
-                icon.style.transform = "rotate(0deg)";
+                content.style.maxHeight = '0px';
+                content.classList.remove('open');
+                if (icon) icon.style.transform = 'rotate(0deg)';
             }
         }
 
@@ -686,21 +720,16 @@
                 const gate = document.getElementById('entrance-gate');
                 if (gate) {
                     gate.style.transform = 'translateY(-100%)';
-                    setTimeout(() => gate.remove(), 1200);
+                    setTimeout(() => { if (gate.parentNode) gate.remove(); }, 1200);
                 }
             }, 1000);
         });
 
-        // Social Pulse
-        const neighborhoods = ["Seven Oaks", "Rosedale", "Stockdale", "Oildale", "Downtown", "Westchester", "Silver Creek"];
-        setInterval(() => {
-            const sp = document.getElementById('social-proof');
-            if (!sp) return;
-            document.getElementById('sp-loc').innerText = neighborhoods[Math.floor(Math.random() * neighborhoods.length)];
-            document.getElementById('sp-time').innerText = `(${Math.floor(Math.random() * 15) + 2}m ago)`;
-            sp.style.transform = 'translateY(0)';
-            setTimeout(() => sp.style.transform = 'translateY(200%)', 5000);
-        }, 20000);
+        // Trust Badge — show once after 2s, stays visible
+        window.addEventListener('load', () => {
+            const badge = document.getElementById('trust-badge');
+            if (badge) badge.style.opacity = '1';
+        });
 
         // Scroll Observer
         const observer = new IntersectionObserver((entries) => {
@@ -710,30 +739,127 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Bot Toggle - Improved for CSS transitions
+        // Hero Slider
+        (function () {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+            let cur = 0;
+            setInterval(() => {
+                slides[cur].classList.remove('active');
+                cur = (cur + 1) % slides.length;
+                slides[cur].classList.add('active');
+            }, 5000);
+        })();
+
+        // Bot Toggle
         function toggleBot() {
             const bot = document.getElementById('bot-container');
             if (bot) bot.classList.toggle('active');
         }
-        document.getElementById('bot-toggle').onclick = toggleBot;
+        const botToggle = document.getElementById('bot-toggle');
+        if (botToggle) botToggle.onclick = toggleBot;
 
-        // Slider
-        let isDragging = false;
-        const baHandle = document.getElementById('ba-handle');
-        const baBefore = document.getElementById('ba-before');
-        const moveSlider = (x) => {
-            const rect = baBefore.parentElement.getBoundingClientRect();
-            let p = ((x - rect.left) / rect.width) * 100;
-            p = Math.max(0, Math.min(100, p));
-            baBefore.style.width = `${p}%`;
-            baHandle.style.left = `${p}%`;
-        };
-        baHandle.onmousedown = () => isDragging = true;
-        window.onmouseup = () => isDragging = false;
-        window.onmousemove = (e) => isDragging && moveSlider(e.pageX);
-        baHandle.ontouchstart = () => isDragging = true;
-        window.ontouchend = () => isDragging = false;
-        window.ontouchmove = (e) => isDragging && moveSlider(e.touches[0].pageX);
+        // Before/After Slider — fixed touch handling with preventDefault to stop page scroll
+        (function () {
+            const baHandle = document.getElementById('ba-handle');
+            const baBefore = document.getElementById('ba-before');
+            if (!baHandle || !baBefore) return;
+
+            let isDragging = false;
+
+            const moveSlider = (x) => {
+                const rect = baBefore.parentElement.getBoundingClientRect();
+                let p = ((x - rect.left) / rect.width) * 100;
+                p = Math.max(0, Math.min(100, p));
+                baBefore.style.width = `${p}%`;
+                baHandle.style.left = `${p}%`;
+            };
+
+            baHandle.addEventListener('mousedown', () => { isDragging = true; });
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            window.addEventListener('mousemove', (e) => { if (isDragging) moveSlider(e.pageX); });
+
+            baHandle.addEventListener('touchstart', (e) => { isDragging = true; }, { passive: true });
+            window.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+            // passive: false required to allow preventDefault (stops page scroll while dragging)
+            window.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    moveSlider(e.touches[0].pageX);
+                }
+            }, { passive: false });
+        })();
+
+        // Form: validation + loading state
+        (function () {
+            const form = document.getElementById('booking-form');
+            if (!form) return;
+
+            const showError = (input, msg) => {
+                let err = input.parentElement.querySelector('.form-error-msg');
+                if (!err) {
+                    err = document.createElement('span');
+                    err.className = 'form-error-msg';
+                    err.style.cssText = 'color:#e05050;font-size:0.75rem;display:block;margin-top:4px;';
+                    input.parentElement.appendChild(err);
+                }
+                err.textContent = msg;
+                input.style.borderColor = '#e05050';
+            };
+
+            const clearError = (input) => {
+                const err = input.parentElement.querySelector('.form-error-msg');
+                if (err) err.remove();
+                input.style.borderColor = '';
+            };
+
+            form.addEventListener('submit', (e) => {
+                let valid = true;
+
+                const phone = form.querySelector('[name="phone"]');
+                const email = form.querySelector('[name="email"]');
+                const service = form.querySelector('[name="service_type"]');
+                const date = form.querySelector('[name="preferred_date"]');
+
+                [phone, email, service, date].forEach(el => clearError(el));
+
+                if (phone && !/^\+?[\d\s\-().]{7,}$/.test(phone.value.trim())) {
+                    showError(phone, 'Please enter a valid phone number.');
+                    valid = false;
+                }
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+                    showError(email, 'Please enter a valid email address.');
+                    valid = false;
+                }
+                if (service && !service.value) {
+                    showError(service, 'Please select a service type.');
+                    valid = false;
+                }
+                if (date) {
+                    const selected = new Date(date.value);
+                    const today = new Date(); today.setHours(0,0,0,0);
+                    if (!date.value || selected < today) {
+                        showError(date, 'Please select today or a future date.');
+                        valid = false;
+                    }
+                }
+
+                if (!valid) { e.preventDefault(); return; }
+
+                // Loading state
+                const btn = form.querySelector('[type="submit"]');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = 'SENDING REQUEST...';
+                    btn.style.opacity = '0.7';
+                }
+            });
+
+            // Clear errors on input
+            form.querySelectorAll('.form-input').forEach(el => {
+                el.addEventListener('input', () => clearError(el));
+            });
+        })();
     </script>
 </body>
 </html>

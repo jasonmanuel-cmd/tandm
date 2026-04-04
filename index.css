@@ -932,3 +932,166 @@ header {
     .hero-ctas { flex-direction: column; width: 100%; }
     .hero-ctas .btn { width: 100%; text-align: center; }
 }
+
+/* ==========================================================================
+   FORM STATES
+   ========================================================================== */
+.form-input.error {
+    border-color: #e05050 !important;
+}
+
+.form-error-msg {
+    color: #e05050;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 4px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary) !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES (replace common inline styles)
+   ========================================================================== */
+.text-center { text-align: center; }
+.text-primary { color: var(--primary); }
+.text-muted { color: var(--text-muted); }
+.text-white { color: white; }
+
+.label-eyebrow {
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.section-pad {
+    padding: var(--section-padding) 0;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.stats-row {
+    display: flex;
+    gap: 2rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 2rem;
+}
+
+.hero-badges {
+    display: flex;
+    gap: 1.5rem;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    flex-wrap: wrap;
+}
+
+.hero-ctas {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* ==========================================================================
+   SERVICE PAGE STYLES
+   ========================================================================== */
+.service-page-hero {
+    padding: var(--section-padding) 0;
+}
+
+.qa-block {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.qa-block:last-child {
+    border-bottom: none;
+}
+
+.qa-block h3 {
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.qa-block p {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.service-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.feature-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.feature-pill i {
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   NEIGHBORHOOD PAGE STYLES
+   ========================================================================== */
+.neighborhood-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.neighborhood-card {
+    text-align: center;
+}
+
+.neighborhood-card i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.neighborhood-card h4 {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 0.75rem;
+}
+
+.neighborhood-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

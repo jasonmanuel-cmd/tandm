@@ -17,16 +17,26 @@ service_template = """<!DOCTYPE html>
 </head>
 <body style="padding-top: 8rem; background: #050505; color: white;">
     <header id="main-header">
-        <div class="container nav-content">
-            <a href="/" class="logo">
-                <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
-            </a>
-            <nav class="desktop-nav">
-                <a href="/#services">SERVICES</a>
-                <a href="/#schedule">SCHEDULE</a>
-            </nav>
-            <div class="header-actions">
-                <a href="tel:+16619966950" class="btn btn-red" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">CALL NOW</a>
+        <div class="top-bar">
+            <div class="container top-bar-inner">
+                <div class="contact-info">
+                    <a href="tel:+16619966950"><i class="fa-solid fa-phone"></i> (661) 996-6950</a>
+                    <a href="tel:+16619966951"><i class="fa-solid fa-phone"></i> (661) 996-6951</a>
+                    <a href="mailto:tandmhaulingbak@gmail.com"><i class="fa-solid fa-envelope"></i> TANDMHAULINGBAK@GMAIL.COM</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="container nav-content">
+                <a href="/" class="logo">
+                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
+                </a>
+                <nav class="desktop-nav">
+                    <a href="/">HOME</a>
+                    <a href="/#services">SERVICES</a>
+                    <a href="/#schedule">SCHEDULE</a>
+                    <a href="../contact.html">CONTACT</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -68,7 +78,7 @@ service_template = """<!DOCTYPE html>
 
     <footer class="footer-main">
         <div class="container" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px;">&copy; 2026 T&M HAULING | <a href="../privacy.html" style="color:inherit;">PRIVACY POLICY</a> | <a href="../terms.html" style="color:inherit;">TERMS OF SERVICE</a></p>
+            <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px;">&copy; 2026 T&M HAULING | <a href="../contact.html" style="color:inherit; text-decoration:none;">CONTACT</a> | <a href="../privacy.html" style="color:inherit;">PRIVACY POLICY</a> | <a href="../terms.html" style="color:inherit;">TERMS OF SERVICE</a></p>
         </div>
     </footer>
 </body>
@@ -91,12 +101,23 @@ geo_template = """<!DOCTYPE html>
 </head>
 <body style="padding-top: 8rem; background: #050505; color: white;">
     <header id="main-header">
-        <div class="container nav-content">
-            <a href="/" class="logo">
-                <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
-            </a>
-            <div class="header-actions">
-                <a href="tel:+16619966950" class="btn btn-red" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">CALL TEAM</a>
+        <div class="top-bar">
+            <div class="container top-bar-inner">
+                <div class="contact-info">
+                    <a href="tel:+16619966950"><i class="fa-solid fa-phone"></i> (661) 996-6950</a>
+                    <a href="tel:+16619966951"><i class="fa-solid fa-phone"></i> (661) 996-6951</a>
+                    <a href="mailto:tandmhaulingbak@gmail.com"><i class="fa-solid fa-envelope"></i> TANDMHAULINGBAK@GMAIL.COM</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-nav">
+            <div class="container nav-content">
+                <a href="/" class="logo">
+                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling" style="height: 40px;">
+                </a>
+                <div class="header-actions">
+                    <a href="tel:+16619966950" class="btn btn-red" style="padding: 0.75rem 1.5rem; font-size: 0.8rem;">CALL TEAM</a>
+                </div>
             </div>
         </div>
     </header>
@@ -128,7 +149,7 @@ geo_template = """<!DOCTYPE html>
     </main>
     <footer class="footer-main">
         <div class="container" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px;">&copy; 2026 T&M HAULING | <a href="../privacy.html" style="color:inherit;">PRIVACY POLICY</a> | <a href="../terms.html" style="color:inherit;">TERMS OF SERVICE</a></p>
+            <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px;">&copy; 2026 T&M HAULING | <a href="../contact.html" style="color:inherit; text-decoration:none;">CONTACT</a> | <a href="../privacy.html" style="color:inherit;">PRIVACY POLICY</a> | <a href="../terms.html" style="color:inherit;">TERMS OF SERVICE</a></p>
         </div>
     </footer>
 </body>
