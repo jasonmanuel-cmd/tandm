@@ -53,7 +53,7 @@
           "url": "https://tandmbak.com",
           "telephone": "+16619966950",
           "priceRange": "$$",
-          "image": "https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png",
+          "image": "https://tandmbak.com/TM-L-2-scaled.png",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Bakersfield Metro",
@@ -82,7 +82,13 @@
           "url": "https://tandmbak.com",
           "name": "T&M Hauling",
           "publisher": { "@id": "https://tandmbak.com/#organization" },
-          "inLanguage": "en-US"
+          "inLanguage": "en-US",
+          "hasPart": {
+            "@type": "WebPage",
+            "name": "Before and After Gallery",
+            "url": "https://tandmbak.com/gallery/index.html",
+            "description": "Real junk removal before and after photos in Bakersfield and Kern County."
+          }
         },
         {
           "@type": "FAQPage",
@@ -169,9 +175,24 @@
         <div><span style="font-weight:700;">5.0 Rated</span> <span style="opacity:0.6; font-size:0.75rem;">— Father-Son Team, Bakersfield CA</span></div>
     </div>
 
-    <!-- Cinematic entrance (same-origin logo so splash works on any host) -->
+    <!-- Cinematic entrance: ~15s min; truck hauls load away, then gate lifts -->
     <div id="entrance-gate" aria-hidden="true">
-        <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling" width="300" height="100" loading="eager" fetchpriority="high">
+        <div class="entrance-gate-inner">
+            <img class="entrance-logo" src="TM-L-2-scaled.png" alt="T&amp;M Hauling" width="300" height="100" loading="eager" fetchpriority="high">
+            <div class="entrance-scene" aria-hidden="true">
+                <div class="entrance-road"></div>
+                <div class="entrance-load"></div>
+                <svg class="entrance-truck" viewBox="0 0 120 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="28" width="72" height="22" rx="3" fill="#1e5a9a"/>
+                    <rect x="72" y="32" width="38" height="18" rx="2" fill="#2d6dad"/>
+                    <circle cx="24" cy="52" r="9" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
+                    <circle cx="58" cy="52" r="9" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
+                    <circle cx="92" cy="52" r="9" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
+                    <rect x="78" y="36" width="22" height="10" rx="1" fill="rgba(255,255,255,0.25)"/>
+                </svg>
+            </div>
+            <p class="entrance-caption">Loading the crew… then we’ll <span class="text-accent-red">haul this screen out of your way</span>.</p>
+        </div>
     </div>
 
     <header id="main-header">
@@ -190,14 +211,14 @@
         </div>
         <div class="main-nav">
             <div class="container nav-content">
-                <a href="#hero" class="logo" aria-label="T&M Hauling Home">
-                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&M Hauling Logo" width="120" height="40" style="height: 40px; width: auto;">
+                <a href="#hero" class="logo" aria-label="T&amp;M Hauling Home">
+                    <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling Logo" width="120" height="40" style="height: 40px; width: auto;" fetchpriority="high">
                 </a>
                 <nav class="desktop-nav">
                     <a href="#hero">HOME</a>
                     <a href="#about">ABOUT</a>
                     <a href="#services">SERVICES</a>
-                    <a href="#projects">PROJECTS</a>
+                    <a href="gallery/index.html">PROJECTS</a>
                     <a href="#reviews">REVIEWS</a>
                     <a href="#schedule">SCHEDULE</a>
                     <a href="#faq">FAQ</a>
@@ -222,7 +243,7 @@
                 <a href="#hero" onclick="toggleMobileMenu()">HOME</a>
                 <a href="#about" onclick="toggleMobileMenu()">ABOUT</a>
                 <a href="#services" onclick="toggleMobileMenu()">SERVICES</a>
-                <a href="#projects" onclick="toggleMobileMenu()">PROJECTS</a>
+                <a href="gallery/index.html" onclick="toggleMobileMenu()">PROJECTS</a>
                 <a href="#reviews" onclick="toggleMobileMenu()">REVIEWS</a>
                 <a href="#schedule" onclick="toggleMobileMenu()">SCHEDULE</a>
                 <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
@@ -244,13 +265,14 @@
             <div class="container hero-container">
                 <div class="hero-text-content">
                     <p class="hero-subtitle">Bakersfield's #1 Junk Hauling Team</p>
-                    <h1 class="hero-title">WE HAUL IT ALL.<br><span style="color:var(--primary)">RESIDENTIAL & COMMERCIAL.</span></h1>
+                    <h1 class="hero-title">WE HAUL IT ALL.<br><span style="color:var(--primary)">RESIDENTIAL &amp; COMMERCIAL.</span></h1>
+                    <p class="hero-kicker text-accent-red">Same-day when we can — Bakersfield &amp; Kern County.</p>
                     <div style="display:flex; gap:1.5rem; color:var(--primary); font-weight:800; font-size:0.8rem; margin-bottom:2rem; letter-spacing:1px; flex-wrap:wrap;">
                         <span><i class="fa-solid fa-map-pin"></i> BAKERSFIELD</span>
                         <span><i class="fa-solid fa-truck-pickup"></i> JUNK HAULING</span>
                         <span><i class="fa-solid fa-shield-halved"></i> FULLY INSURED</span>
                     </div>
-                    <p class="hero-subtext">Professional junk removal and property clearing in Bakersfield. Father-son operated. We handle everything from household junk to construction debris with the best prices in town.</p>
+                    <p class="hero-subtext">Professional junk removal and property clearing in Bakersfield. Father-son operated. We handle everything from household junk to construction debris — <span class="text-accent-red">straight talk, fair pricing</span>, and we show up when we say we will.</p>
                     <div class="hero-ctas" style="display:flex; gap:1.5rem;">
                         <a href="tel:+16619966950" class="btn btn-red">CALL FOR ESTIMATE</a>
                         <a href="#schedule" class="btn btn-white">ONLINE BOOKING</a>
@@ -263,7 +285,7 @@
         <section class="about-section reveal" id="about" style="padding: var(--section-padding) 0; background: #000;">
             <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center;">
                 <div class="about-image">
-                    <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&amp;M Hauling logo" style="width: 100%; max-width: 420px; margin: 0 auto; display: block; border-radius: 12px; border: 1px solid var(--glass-border);">
+                    <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling logo" style="width: 100%; max-width: 420px; margin: 0 auto; display: block; border-radius: 12px; border: 1px solid var(--glass-border);">
                 </div>
                 <div class="about-text">
                     <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">OUR STORY</p>
@@ -334,13 +356,13 @@
                 <div class="text-center reveal" style="margin-bottom: 5rem;">
                     <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">SPOTLIGHT</p>
                     <h2 class="section-title">THE TRANSFORMATION</h2>
-                    <p style="color:var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Drag the slider to compare before and after — below, every job is organized by project with the original photo file names.</p>
+                    <p style="color:var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Quick previews below — <span class="text-accent-red">full galleries</span> live on the project pages (better on phones and tablets). Drag each slider to compare.</p>
                 </div>
                 
                 <div class="reveal spotlight-ba-grid">
                     <div class="ba-slider-card">
-                        <p class="ba-filename-label" title="chrisbefore (1).jpg → chrisafter (1).jpg">chrisbefore (1).jpg ↔ chrisafter (1).jpg</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="Before and after comparison">
+                        <p class="spotlight-job-label">Chris</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="Chris job — before and after">
                             <div class="ba-after" style="background-image: url('before-after/chrisafter%20%281%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%281%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
@@ -351,8 +373,8 @@
                         </div>
                     </div>
                     <div class="ba-slider-card">
-                        <p class="ba-filename-label" title="house1before (2).jpg → house1after (2).jpg">house1before (2).jpg ↔ house1after (2).jpg</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="Before and after comparison">
+                        <p class="spotlight-job-label">House 1</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="House 1 job — before and after">
                             <div class="ba-after" style="background-image: url('before-after/house1after%20%282%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/house1before%20%282%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
@@ -363,8 +385,8 @@
                         </div>
                     </div>
                     <div class="ba-slider-card">
-                        <p class="ba-filename-label" title="marcusbefore (1).jpg → marcusafter (1).jpg">marcusbefore (1).jpg ↔ marcusafter (1).jpg</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="Before and after comparison">
+                        <p class="spotlight-job-label">Marcus</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="Marcus job — before and after">
                             <div class="ba-after" style="background-image: url('before-after/marcusafter%20%281%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%281%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
@@ -376,7 +398,7 @@
                     </div>
                 </div>
                 <div class="text-center reveal" style="margin-top: 3rem;">
-                    <a href="#gallery" class="btn btn-white">SEE ALL BEFORE &amp; AFTER</a>
+                    <a href="gallery/index.html" class="btn btn-white">SEE ALL BEFORE &amp; AFTER</a>
                 </div>
             </div>
         </section>
@@ -486,629 +508,16 @@
             </div>
         </section>
 
-        <!-- PROJECT GALLERY: REAL BEFORE & AFTER BY JOB -->
-        <section class="gallery-section reveal" id="gallery">
-            <div class="container">
-                <div class="text-center reveal" style="margin-bottom: 5rem;">
-                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">VISUAL PROOF</p>
-                    <h2 class="section-title">REAL JOBS · BEFORE &amp; AFTER</h2>
-                    <p style="color: var(--text-muted); max-width: 640px; margin: 0 auto;">Each area is a real project. Labels use your original photo file names. Drag any slider to compare.</p>
-                </div>
-
-                <div class="gallery-jobs-wrap">
-                <article class="job-showcase reveal" id="job-chris">
-                    <header class="job-showcase-header">
-                        <p class="job-showcase-eyebrow">PROJECT</p>
-                        <h3 class="job-showcase-title">Chris</h3>
-                        <p class="job-showcase-desc">17 before &amp; after comparisons — drag the slider on each photo.</p>
-                    </header>
-                    <div class="ba-slider-grid">
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (1).jpg → chrisafter (1).jpg">chrisbefore (1).jpg ↔ chrisafter (1).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%281%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%281%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (2).jpg → chrisafter (2).jpg">chrisbefore (2).jpg ↔ chrisafter (2).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%282%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%282%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (3).jpg → chrisafter (3).jpg">chrisbefore (3).jpg ↔ chrisafter (3).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%283%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%283%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (4).jpg → chrisafter (4).jpg">chrisbefore (4).jpg ↔ chrisafter (4).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%284%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%284%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (5).jpg → chrisafter (5).jpg">chrisbefore (5).jpg ↔ chrisafter (5).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%285%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%285%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (6).jpg → chrisafter (6).jpg">chrisbefore (6).jpg ↔ chrisafter (6).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%286%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%286%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (7).jpg → chrisafter (7).jpg">chrisbefore (7).jpg ↔ chrisafter (7).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%287%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%287%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (8).jpg → chrisafter (8).jpg">chrisbefore (8).jpg ↔ chrisafter (8).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%288%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%288%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (9).jpg → chrisafter (9).jpg">chrisbefore (9).jpg ↔ chrisafter (9).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%289%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%289%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (10).jpg → chrisafter (10).jpg">chrisbefore (10).jpg ↔ chrisafter (10).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2810%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2810%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (11).jpg → chrisafter (11).jpg">chrisbefore (11).jpg ↔ chrisafter (11).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2811%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2811%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (12).jpg → chrisafter (12).jpg">chrisbefore (12).jpg ↔ chrisafter (12).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2812%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2812%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (13).jpg → chrisafter (13).jpg">chrisbefore (13).jpg ↔ chrisafter (13).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2813%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2813%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (14).jpg → chrisafter (14).jpg">chrisbefore (14).jpg ↔ chrisafter (14).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2814%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2814%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (15).jpg → chrisafter (15).jpg">chrisbefore (15).jpg ↔ chrisafter (15).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2815%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2815%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (16).jpg → chrisafter (16).jpg">chrisbefore (16).jpg ↔ chrisafter (16).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2816%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2816%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="chrisbefore (17).jpg → chrisafter (17).jpg">chrisbefore (17).jpg ↔ chrisafter (17).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/chrisafter%20%2817%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%2817%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="job-showcase reveal" id="job-house1">
-                    <header class="job-showcase-header">
-                        <p class="job-showcase-eyebrow">PROJECT</p>
-                        <h3 class="job-showcase-title">House 1</h3>
-                        <p class="job-showcase-desc">14 before &amp; after comparisons — drag the slider on each photo.</p>
-                    </header>
-                    <div class="ba-slider-grid">
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (1).jpg → house1after (1).jpg">house1before (1).jpg ↔ house1after (1).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%281%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%281%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (2).jpg → house1after (2).jpg">house1before (2).jpg ↔ house1after (2).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%282%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%282%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (3).jpg → house1after (3).jpg">house1before (3).jpg ↔ house1after (3).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%283%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%283%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (4).jpg → house1after (4).jpg">house1before (4).jpg ↔ house1after (4).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%284%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%284%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (5).jpg → house1after (5).jpg">house1before (5).jpg ↔ house1after (5).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%285%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%285%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (6).jpg → house1after (6).jpg">house1before (6).jpg ↔ house1after (6).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%286%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%286%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (7).jpg → house1after (7).jpg">house1before (7).jpg ↔ house1after (7).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%287%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%287%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (8).jpg → house1after (8).jpg">house1before (8).jpg ↔ house1after (8).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%288%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%288%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (9).jpg → house1after (9).jpg">house1before (9).jpg ↔ house1after (9).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%289%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%289%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (10).jpg → house1after (10).jpg">house1before (10).jpg ↔ house1after (10).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%2810%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%2810%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (11).jpg → house1after (11).jpg">house1before (11).jpg ↔ house1after (11).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%2811%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%2811%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (12).jpg → house1after (12).jpg">house1before (12).jpg ↔ house1after (12).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%2812%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%2812%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (13).jpg → house1after (13).jpg">house1before (13).jpg ↔ house1after (13).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%2813%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%2813%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="house1before (14).jpg → house1after (14).jpg">house1before (14).jpg ↔ house1after (14).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/house1after%20%2814%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/house1before%20%2814%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="job-showcase reveal" id="job-marcus">
-                    <header class="job-showcase-header">
-                        <p class="job-showcase-eyebrow">PROJECT</p>
-                        <h3 class="job-showcase-title">Marcus</h3>
-                        <p class="job-showcase-desc">6 before &amp; after comparisons — drag the slider on each photo.</p>
-                    </header>
-                    <div class="ba-slider-grid">
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (1).jpg → marcusafter (1).jpg">marcusbefore (1).jpg ↔ marcusafter (1).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%281%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%281%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (2).jpg → marcusafter (2).jpg">marcusbefore (2).jpg ↔ marcusafter (2).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%282%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%282%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (3).jpg → marcusafter (3).jpg">marcusbefore (3).jpg ↔ marcusafter (3).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%283%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%283%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (4).jpg → marcusafter (4).jpg">marcusbefore (4).jpg ↔ marcusafter (4).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%284%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%284%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (5).jpg → marcusafter (5).jpg">marcusbefore (5).jpg ↔ marcusafter (5).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%285%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%285%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="marcusbefore (6).jpg → marcusafter (6).jpg">marcusbefore (6).jpg ↔ marcusafter (6).jpg</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/marcusafter%20%286%29.jpg');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%286%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="job-showcase reveal" id="job-thenest">
-                    <header class="job-showcase-header">
-                        <p class="job-showcase-eyebrow">PROJECT</p>
-                        <h3 class="job-showcase-title">The Nest</h3>
-                        <p class="job-showcase-desc">11 before &amp; after comparisons — drag the slider on each photo.</p>
-                    </header>
-                    <div class="ba-slider-grid">
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (1).jpg → thenestafter (1).JPG">thenestbefore (1).jpg ↔ thenestafter (1).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%281%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%281%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (2).jpg → thenestafter (2).JPG">thenestbefore (2).jpg ↔ thenestafter (2).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%282%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%282%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (3).jpg → thenestafter (3).JPG">thenestbefore (3).jpg ↔ thenestafter (3).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%283%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%283%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (4).jpg → thenestafter (4).JPG">thenestbefore (4).jpg ↔ thenestafter (4).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%284%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%284%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (5).jpg → thenestafter (5).JPG">thenestbefore (5).jpg ↔ thenestafter (5).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%285%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%285%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (6).jpg → thenestafter (6).JPG">thenestbefore (6).jpg ↔ thenestafter (6).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%286%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%286%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (7).jpg → thenestafter (7).JPG">thenestbefore (7).jpg ↔ thenestafter (7).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%287%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%287%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (8).jpg → thenestafter (8).JPG">thenestbefore (8).jpg ↔ thenestafter (8).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%288%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%288%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (9).jpg → thenestafter (9).JPG">thenestbefore (9).jpg ↔ thenestafter (9).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%289%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%289%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (10).jpg → thenestafter (10).JPG">thenestbefore (10).jpg ↔ thenestafter (10).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%2810%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%2810%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                        <div class="ba-slider-card">
-                            <p class="ba-filename-label" title="thenestbefore (11).jpg → thenestafter (11).JPG">thenestbefore (11).jpg ↔ thenestafter (11).JPG</p>
-                            <div class="ba-container" role="img" aria-label="Before and after comparison">
-                                <div class="ba-after" style="background-image: url('before-after/thenestafter%20%2811%29.JPG');"></div>
-                                <div class="ba-before" style="background-image: url('before-after/thenestbefore%20%2811%29.jpg'); width: 50%;"></div>
-                                <button type="button" class="ba-handle" aria-label="Drag to compare before and after">
-                                    <i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i>
-                                </button>
-                                <span class="ba-tag ba-tag-before">Before</span>
-                                <span class="ba-tag ba-tag-after">After</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                </div>
+        <!-- Gallery: full before/after on dedicated pages -->
+        <section id="gallery-teaser" class="gallery-teaser-section reveal" style="padding: var(--section-padding) 0; background: rgba(8, 16, 28, 0.75); border-top: 1px solid var(--glass-border);">
+            <div class="container text-center">
+                <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">VISUAL PROOF</p>
+                <h2 class="section-title">REAL JOBS · BEFORE &amp; AFTER</h2>
+                <p style="color: var(--text-muted); max-width: 640px; margin: 0 auto 2.5rem; font-size: 1.05rem; line-height: 1.65;">
+                    We moved the full gallery to its own section of the site — <span class="text-accent-red">faster home page</span>, easier browsing on phones and tablets. Pick a job category and drag each slider.
+                </p>
+                <a href="gallery/index.html" class="btn btn-red">OPEN PROJECT GALLERY</a>
+                <p style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted);">Chris · House 1 · Marcus · The Nest</p>
             </div>
         </section>
 
@@ -1118,7 +527,11 @@
                 <div class="reveal" style="text-align: center; margin-bottom: 5rem;">
                     <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">SECURE BOOKING</p>
                     <h2 class="section-title">SCHEDULE ONLINE</h2>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 1.5rem;">Select your service needs and date, our customer service associates will reach out to confirm and you are all set. Simply effective.</p>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 1.5rem;">Select your service needs and date — we’ll confirm by phone or email. Prefer Google? <span class="text-accent-red">Message us there too</span>; we watch it all day.</p>
+                    <div class="booking-channel-row reveal" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                        <a href="https://share.google/05y5uX2DmmRPEeol2" target="_blank" rel="noopener noreferrer" class="btn btn-white" style="display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fa-brands fa-google" aria-hidden="true"></i> Google — book or message</a>
+                        <a href="https://g.page/r/tandmhauling" target="_blank" rel="noopener noreferrer" class="btn btn-red" style="display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-star" aria-hidden="true"></i> Read reviews</a>
+                    </div>
                     <div style="display: flex; justify-content: center; gap: 2rem; color: var(--primary); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">
                         <span><i class="fa-solid fa-clock"></i> OPEN MON-SUN: 9:00AM - 5:00PM</span>
                     </div>
@@ -1137,7 +550,7 @@
                         <input type="email" name="email" placeholder="Email Address" required class="form-input">
                     </div>
                     <div class="form-row">
-                        <select name="service_type" required class="form-input" style="background: rgba(255,255,255,0.03); color: white;">
+                        <select name="service_type" required class="form-input" aria-label="Service type">
                             <option value="" disabled selected>Select Service Need</option>
                             <option value="Junk Removal">General Junk Removal</option>
                             <option value="Garage Clean Out">Garage Clean Up</option>
@@ -1147,7 +560,7 @@
                             <option value="Construction Debris">Construction Debris</option>
                             <option value="Other">Other Extraction</option>
                         </select>
-                        <input type="date" name="preferred_date" required class="form-input" style="background: rgba(255,255,255,0.03); color: white;">
+                        <input type="date" name="preferred_date" required class="form-input" aria-label="Preferred date">
                     </div>
                     <div style="margin-bottom: 2rem;">
                         <textarea name="message" placeholder="Message Details (Items, volume, accessibility)" required class="form-input" style="height: 120px; width: 100%; border-radius: 12px;"></textarea>
@@ -1299,7 +712,7 @@
 
     <footer class="footer-main">
         <div class="container" style="text-align: center;">
-            <img src="https://tandmbak.com/wp-content/uploads/2024/10/TM-L-2-scaled.png" alt="T&amp;M Hauling" style="height: 48px; margin-bottom: 1.5rem;">
+            <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling" style="height: 48px; margin-bottom: 1.5rem;">
             <div style="display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 2rem;">
                 <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://share.google/05y5uX2DmmRPEeol2" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="Google Business Profile"><i class="fa-brands fa-google"></i></a>
@@ -1314,6 +727,7 @@
                     <h5 style="color: white; margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px;">QUICK LINKS</h5>
                     <a href="#about" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">ABOUT US</a>
                     <a href="#services" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">SERVICES</a>
+                    <a href="gallery/index.html" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">PROJECT GALLERY</a>
                     <a href="#reviews" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">TESTIMONIALS</a>
                     <a href="contact.html" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none;">CONTACT</a>
                 </div>
@@ -1379,7 +793,7 @@
             }
         }
 
-        // Entrance gate: ~1s after window load, or 5s max if load never completes
+        // Entrance gate: ~15s from first paint; truck hauls load at ~11s; failsafe at ~24s
         (function () {
             const gate = document.getElementById('entrance-gate');
             if (!gate) return;
@@ -1392,10 +806,15 @@
                     if (gate.parentNode) gate.remove();
                 }, 1200);
             }
-            window.addEventListener('load', function () {
-                setTimeout(dismiss, 900);
-            });
-            window.setTimeout(dismiss, 5000);
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                dismiss();
+                return;
+            }
+            setTimeout(function () {
+                gate.classList.add('entrance-haul');
+            }, 11000);
+            setTimeout(dismiss, 15000);
+            setTimeout(dismiss, 24000);
         })();
 
         // Trust Badge — show once after 2s, stays visible
