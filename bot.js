@@ -7,7 +7,7 @@ const UI = {
 };
 
 const PERSONA = {
-    name: "T&M LOGISTICS",
+    name: "T&M Hauling",
     // Fallback keyword responses if API is unavailable
     fallback: {
         garage: "That clutter's been sitting too long — let's open that space back up. T&M's father-son team can be there tomorrow, possibly today. We handle everything, no sorting needed.",
@@ -15,10 +15,10 @@ const PERSONA = {
         estate: "These clean-outs take coordination — we keep it tight and respectful. The father-son crew handles full clearances so families don't have to. Morning or afternoon work better for you?",
         pricing: "We price by load and type — the guys finalize it in person so you only pay for what's actually hauled. Text a photo to (661) 996-6950 for a fast estimate.",
         hazard: "We don't handle chemicals or biohazards, but we can point you to the right disposal site. What else can we help you clear?",
-        generic: "Space reclaimed is peace of mind. We bring both. Text us a photo at (661) 996-6950 for the fastest quote.",
-        cta: "Fastest way to lock your slot: call or text <b>(661) 996-6950</b>. We can usually get someone out same-day — just depends on the load size."
+        generic: "We’re Bakersfield’s local father–son crew — fast quotes, full-service load-out, and we sweep when we’re done. Call or text <b>(661) 996-6950</b> with a photo for the quickest answer.",
+        cta: "Best way to book: call <b>(661) 996-6950</b> or use the contact form for email sign-up. Same-day depends on the route — tell us your neighborhood and we’ll be straight with you."
     },
-    intro: "👋 T&M here. We're Bakersfield's local father-son junk hauling team. What are we clearing for you today?"
+    intro: "Hi — T&M Hauling here. Father–son junk removal in Bakersfield & Kern County. What do you need hauled away?"
 };
 
 // Conversation history for Claude context
@@ -29,7 +29,7 @@ function addMessage(text, isBot = true) {
     const msg = document.createElement('div');
     msg.className = `message ${isBot ? 'bot' : 'user'}`;
     msg.innerHTML = `
-        ${isBot ? `<span style="font-size: 0.65rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 4px; letter-spacing: 1.5px;">T&M LOGISTICS</span>` : ''}
+        ${isBot ? `<span style="font-size: 0.65rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 4px; letter-spacing: 1.5px;">T&amp;M HAULING</span>` : ''}
         <div>${text}</div>
     `;
     UI.messages.appendChild(msg);
@@ -41,7 +41,7 @@ function showTypingIndicator() {
     indicator.className = 'message bot';
     indicator.id = 'typing-indicator';
     indicator.innerHTML = `
-        <span style="font-size: 0.65rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 4px; letter-spacing: 1.5px;">T&M LOGISTICS</span>
+        <span style="font-size: 0.65rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 4px; letter-spacing: 1.5px;">T&amp;M HAULING</span>
         <div style="display:flex; gap:4px; align-items:center; padding: 4px 0;">
             <span style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:typingDot 1s infinite 0s"></span>
             <span style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:typingDot 1s infinite 0.2s"></span>
