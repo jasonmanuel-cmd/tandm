@@ -526,12 +526,43 @@ header {
 }
 
 .hero-section-photo .hero-overlay-photo {
-    background: linear-gradient(105deg, rgba(7, 15, 26, 0.88) 0%, rgba(7, 15, 26, 0.5) 42%, rgba(7, 15, 26, 0.2) 100%);
+    /* Lighter on the right so faces / team photo stay readable above the headline block */
+    background: linear-gradient(105deg, rgba(7, 15, 26, 0.92) 0%, rgba(7, 15, 26, 0.55) 38%, rgba(7, 15, 26, 0.15) 72%, rgba(7, 15, 26, 0.35) 100%);
     z-index: -2;
 }
 
 .hero-slider-single .hero-slide {
-    background-position: center 25%;
+    /* Anchor photo higher so faces sit above the text column */
+    background-position: center 12%;
+}
+
+/* Photo hero: sit copy lower so it does not cover faces */
+.hero-section.hero-section-photo {
+    align-items: flex-end;
+    padding: 11rem 0 clamp(4rem, 11vh, 9rem);
+    min-height: min(100vh, 920px);
+}
+
+.hero-section.hero-section-photo .hero-container {
+    width: 100%;
+}
+
+.hero-cta-note {
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 520px;
+    line-height: 1.5;
+}
+
+.hero-cta-note a {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.hero-cta-note a:hover {
+    text-decoration: underline;
 }
 
 .hero-text-content {
@@ -626,9 +657,20 @@ header {
 
 /* Booking Form Refined */
 .booking-form {
+    position: relative;
     background: var(--bg-card);
     padding: clamp(2rem, 5vw, 5rem);
     border: 1px solid var(--glass-border);
+}
+
+.form-honeypot {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 .form-row {
@@ -717,11 +759,27 @@ header {
     .hero-section {
         padding: 12rem 0 6rem;
     }
+
+    .hero-section.hero-section-photo {
+        padding: 9rem 0 clamp(3.5rem, 10vh, 6rem);
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .hero-slider-single .hero-slide {
+        background-position: center 8%;
+    }
     .hero-subtext {
         font-size: 1.1rem;
     }
 
     .hero-kicker {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .hero-cta-note {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
