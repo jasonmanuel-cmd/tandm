@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Before & After Gallery | T&M Hauling Bakersfield</title>
-    <meta name="description" content="Real before-and-after junk removal jobs in Bakersfield and Kern County. Drag sliders to compare.">
+    <title>Before &amp; After Gallery | T&amp;M Hauling Bakersfield</title>
+    <meta name="description" content="Real before-and-after junk removal jobs in Bakersfield and Kern County. Drag sliders on each project page.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tandmbak.com/gallery/index.html">
     <link rel="icon" type="image/png" href="../TM-L-Round-150x150.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tandmbak.com/gallery/index.html">
-    <meta property="og:title" content="T&M Hauling — Before & After Gallery">
-    <meta property="og:description" content="Real before-and-after junk removal jobs in Bakersfield and Kern County. Drag sliders to compare.">
+    <meta property="og:title" content="T&amp;M Hauling — Before &amp; After Gallery">
+    <meta property="og:description" content="Real before-and-after junk removal jobs in Bakersfield and Kern County.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -22,115 +22,169 @@
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "T&M Hauling — Before & After Gallery",
-      "description": "Real before-and-after junk removal jobs in Bakersfield and Kern County. Drag sliders to compare.",
+      "description": "Real before-and-after junk removal jobs in Bakersfield and Kern County.",
       "url": "https://tandmbak.com/gallery/index.html",
       "isPartOf": { "@type": "WebSite", "name": "T&M Hauling", "url": "https://tandmbak.com" }
     }
     </script>
 </head>
-<body class="subpage-body" style="padding-top: 0;">
+<body class="site-body page-sub">
     <div class="haul-bg-layer" aria-hidden="true"></div>
-    <header id="main-header" class="gallery-sub-header">
+
+    <header id="main-header" class="site-header-sticky">
         <div class="top-bar">
             <div class="container top-bar-inner">
-                <div class="contact-info">
-                    <a href="tel:+16619966950" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> (661) 996-6950</a>
-                    <a href="mailto:tandmhaulingbak@gmail.com" style="color:white;"><i class="fa-solid fa-envelope" style="color:var(--primary);"></i> Email</a>
+                <div class="contact-info contact-info-compact">
+                    <a href="tel:+16619966950" class="top-bar-hit" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> <span class="top-bar-phone-main">(661) 996-6950</span></a>
+                    <a href="sms:+16619966950" class="top-bar-hit top-bar-sms-link" style="color:white;"><i class="fa-solid fa-message" style="color:var(--primary);"></i> <span class="top-bar-sms-text">Text photos</span></a>
+                    <a href="tel:+16619966951" class="top-bar-hit top-bar-secondary-phone" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> (661) 996-6951</a>
+                    <a href="mailto:tandmhaulingbak@gmail.com" class="top-bar-hit" style="color:white;" title="tandmhaulingbak@gmail.com"><i class="fa-solid fa-envelope" style="color:var(--primary);"></i> <span class="top-bar-email-text">Email</span></a>
                 </div>
                 <div class="social-links" style="display:flex; gap:1.5rem; color:white;">
-                    <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://share.google/05y5uX2DmmRPEeol2" target="_blank" rel="noopener noreferrer" aria-label="Google Business"><i class="fa-brands fa-google"></i></a>
+                    <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" style="color:inherit;" aria-label="T&amp;M Hauling on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://share.google/05y5uX2DmmRPEeol2" target="_blank" rel="noopener noreferrer" style="color:inherit;" aria-label="T&amp;M Hauling on Google Business"><i class="fa-brands fa-google"></i></a>
                 </div>
             </div>
         </div>
         <div class="main-nav">
             <div class="container nav-content">
-                <a href="../index.html" class="logo" aria-label="T&amp;M Hauling Home">
-                    <img src="../TM-L-2-scaled.png" alt="T&amp;M Hauling" width="120" height="40" style="height: 40px; width: auto;">
+                <a href="../index.html" class="logo logo-enhanced" aria-label="T&amp;M Hauling Home">
+                    <img src="../TM-L-2-scaled.png" alt="T&amp;M Hauling Logo" width="120" height="40">
                 </a>
                 <nav class="desktop-nav">
-                    <a href="../index.html">HOME</a>
+                    <a href="../index.html#hero">HOME</a>
+                    <a href="../about.html">ABOUT</a>
                     <a href="../services.html">SERVICES</a>
+                    <a href="../service-areas.html">AREAS</a>
                     <a href="index.html">GALLERY</a>
-                    <a href="../book.html#book-job">BOOK</a>
+                    <a href="../reviews.html">REVIEWS</a>
+                    <a href="../contact.html">BOOK</a>
+                    <a href="../faq.html">FAQ</a>
                     <a href="../contact.html">CONTACT</a>
                 </nav>
-                <button type="button" class="mobile-toggle" aria-label="Open menu" onclick="document.getElementById('mobile-nav-g').classList.toggle('active')">
+                <button type="button" class="mobile-toggle" aria-label="Open Mobile Menu" onclick="toggleMobileMenu()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
-        <div class="mobile-nav-overlay" id="mobile-nav-g">
-            <button type="button" class="mobile-close" aria-label="Close" onclick="document.getElementById('mobile-nav-g').classList.remove('active')">
+        <div class="mobile-nav-overlay" id="mobile-nav">
+            <button type="button" class="mobile-close" aria-label="Close Mobile Menu" onclick="toggleMobileMenu()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="mobile-nav-links">
-                <a href="../index.html" onclick="document.getElementById('mobile-nav-g').classList.remove('active')">HOME</a>
-                <a href="index.html" onclick="document.getElementById('mobile-nav-g').classList.remove('active')">GALLERY</a>
-                <a href="../book.html#book-job" onclick="document.getElementById('mobile-nav-g').classList.remove('active')">BOOK</a>
-                <a href="../contact.html" onclick="document.getElementById('mobile-nav-g').classList.remove('active')">CONTACT</a>
+                <a href="../index.html#hero" onclick="toggleMobileMenu()">HOME</a>
+                <a href="../about.html" onclick="toggleMobileMenu()">ABOUT</a>
+                <a href="../services.html" onclick="toggleMobileMenu()">SERVICES</a>
+                <a href="../service-areas.html" onclick="toggleMobileMenu()">AREAS</a>
+                <a href="index.html" onclick="toggleMobileMenu()">GALLERY</a>
+                <a href="../reviews.html" onclick="toggleMobileMenu()">REVIEWS</a>
+                <a href="../contact.html" onclick="toggleMobileMenu()">BOOK</a>
+                <a href="../faq.html" onclick="toggleMobileMenu()">FAQ</a>
+                <a href="../contact.html" onclick="toggleMobileMenu()">CONTACT</a>
+                <a href="tel:+16619966950" class="btn btn-red" style="margin-top: 2rem;">CALL TEAM</a>
             </div>
         </div>
     </header>
-    <main class="gallery-sub-main">
 
-        <section class="gallery-page-hero reveal" style="padding: clamp(6rem, 12vw, 9rem) 0 3rem;">
-            <div class="container text-center">
+    <main>
+        <section class="gallery-v2-hero reveal">
+            <div class="container text-center" style="position: relative; z-index: 1;">
                 <p class="label-eyebrow" style="justify-content:center;">BEFORE &amp; AFTER</p>
                 <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">Real jobs · Bakersfield &amp; Kern County</h1>
                 <p style="color: var(--text-muted); max-width: 640px; margin: 1rem auto 0; font-size: 1.05rem; line-height: 1.6;">
-                    Every slider is a real haul. Categories are grouped for easier browsing — <span class="text-accent-red">no file names on the page</span>; just drag to compare.
+                    Every project page uses draggable sliders — no filenames on the page, just the work. Pick a job series to open the full set.
+                </p>
+                <p style="margin-top: 1.5rem;">
+                    <a href="../contact.html#estimate" class="btn btn-red">FREE ESTIMATE</a>
+                    <a href="../contact.html#book-job" class="btn btn-white" style="margin-left: 0.75rem;">BOOK THE JOB ($30)</a>
                 </p>
             </div>
         </section>
-        <section style="padding-bottom: var(--section-padding);">
-            <div class="container gallery-hub-grid">
-            <a href="chris.html" class="gallery-hub-card reveal">
-                <div class="gallery-hub-card-inner">
-                    <h3 class="gallery-hub-card-title">Chris</h3>
-                    <p class="gallery-hub-card-desc">Residential and mixed cleanouts — drag each slider to compare before and after.</p>
-                    <span class="gallery-hub-card-meta">17 comparisons</span>
-                </div>
-            </a>
-            <a href="house1.html" class="gallery-hub-card reveal">
-                <div class="gallery-hub-card-inner">
-                    <h3 class="gallery-hub-card-title">House 1</h3>
-                    <p class="gallery-hub-card-desc">Full property and yard haul-offs — real results from one job series.</p>
-                    <span class="gallery-hub-card-meta">14 comparisons</span>
-                </div>
-            </a>
-            <a href="marcus.html" class="gallery-hub-card reveal">
-                <div class="gallery-hub-card-inner">
-                    <h3 class="gallery-hub-card-title">Marcus</h3>
-                    <p class="gallery-hub-card-desc">Garage, pile, and load-out projects — see the space come back.</p>
-                    <span class="gallery-hub-card-meta">6 comparisons</span>
-                </div>
-            </a>
-            <a href="thenest.html" class="gallery-hub-card reveal">
-                <div class="gallery-hub-card-inner">
-                    <h3 class="gallery-hub-card-title">The Nest</h3>
-                    <p class="gallery-hub-card-desc">Heavy volume clears — before and after in one place.</p>
-                    <span class="gallery-hub-card-meta">11 comparisons</span>
-                </div>
-            </a>
+
+        <section>
+            <div class="container gallery-v2-grid">
+                <a href="chris.html" class="gallery-v2-card reveal">
+                    <img class="gallery-v2-card-img" src="../before-after/chrisafter%20%281%29.jpg" alt="After photo — Chris job" loading="lazy" decoding="async" width="800" height="600">
+                    <div class="gallery-v2-card-body">
+                        <h2 class="gallery-v2-card-title">Chris</h2>
+                        <p class="gallery-v2-card-meta">17 comparisons</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.5rem 0 0;">Residential and mixed cleanouts — open for sliders.</p>
+                    </div>
+                </a>
+                <a href="house1.html" class="gallery-v2-card reveal">
+                    <img class="gallery-v2-card-img" src="../before-after/house1after%20%282%29.jpg" alt="After photo — House 1 job" loading="lazy" decoding="async" width="800" height="600">
+                    <div class="gallery-v2-card-body">
+                        <h2 class="gallery-v2-card-title">House 1</h2>
+                        <p class="gallery-v2-card-meta">14 comparisons</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.5rem 0 0;">Full property and yard haul-offs from one job series.</p>
+                    </div>
+                </a>
+                <a href="marcus.html" class="gallery-v2-card reveal">
+                    <img class="gallery-v2-card-img" src="../before-after/marcusafter%20%281%29.jpg" alt="After photo — Marcus job" loading="lazy" decoding="async" width="800" height="600">
+                    <div class="gallery-v2-card-body">
+                        <h2 class="gallery-v2-card-title">Marcus</h2>
+                        <p class="gallery-v2-card-meta">6 comparisons</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.5rem 0 0;">Garage, pile, and load-out projects.</p>
+                    </div>
+                </a>
+                <a href="thenest.html" class="gallery-v2-card reveal">
+                    <img class="gallery-v2-card-img" src="../before-after/thenestafter%20%281%29.JPG" alt="After photo — The Nest job" loading="lazy" decoding="async" width="800" height="600">
+                    <div class="gallery-v2-card-body">
+                        <h2 class="gallery-v2-card-title">The Nest</h2>
+                        <p class="gallery-v2-card-meta">11 comparisons</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0.5rem 0 0;">Heavy volume clears — before and after in one place.</p>
+                    </div>
+                </a>
             </div>
         </section>
-
     </main>
+
     <footer class="footer-main">
-        <div class="container" style="text-align: center;">
-            <p style="color: var(--text-muted); font-size: 0.85rem;"><a href="../index.html" style="color: var(--primary);">← Back to home</a> · <a href="index.html" style="color: var(--primary);">Gallery hub</a></p>
+        <div class="container site-footer-inner">
+            <div class="site-footer-brand">
+                <img src="../TM-L-2-scaled.png" alt="T&amp;M Hauling" style="height: 48px; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: center; gap: 1.25rem;">
+                    <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://share.google/05y5uX2DmmRPEeol2" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="Google Business Profile"><i class="fa-brands fa-google"></i></a>
+                </div>
+            </div>
+            <div>
+                <h5 style="color: white; margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px;">OPERATIONS</h5>
+                <p style="color: var(--text-muted); font-size: 0.75rem;">MON - SUN: 9:00AM - 5:00PM</p>
+                <p style="color: var(--text-muted); font-size: 0.75rem;">BAKERSFIELD, CA &amp; SURROUNDING</p>
+            </div>
+            <nav class="site-footer-links" aria-label="Footer links">
+                <h5 style="color: white; margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px;">QUICK LINKS</h5>
+                <a href="../about.html">ABOUT US</a>
+                <a href="../services.html">SERVICES</a>
+                <a href="../contact.html">BOOK / ESTIMATE</a>
+                <a href="../service-areas.html">SERVICE AREAS</a>
+                <a href="index.html">PROJECT GALLERY</a>
+                <a href="../reviews.html">REVIEWS</a>
+                <a href="../faq.html">FAQ</a>
+                <a href="../contact.html">CONTACT</a>
+            </nav>
+        </div>
+        <div class="container" style="text-align: center; margin-top: 2rem;">
+            <div style="font-size: 0.75rem; color: #444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;">
+                &copy; 2026 T&amp;M HAULING | PROUDLY SERVING BAKERSFIELD, CA | <a href="../privacy.html" style="color: #666; text-decoration: none;">PRIVACY POLICY</a> | <a href="../terms.html" style="color: #666; text-decoration: none;">TERMS OF SERVICE</a>
+            </div>
         </div>
     </footer>
+
+    <a href="sms:+16619966950" class="mobile-text-fab" aria-label="Text photos for a junk removal quote"><i class="fa-solid fa-camera" aria-hidden="true"></i><span>Text photos for quote</span></a>
+
     <div id="thumb-bar">
         <a href="tel:+16619966950"><i class="fa-solid fa-phone"></i> CALL</a>
+        <a href="sms:+16619966950" class="thumb-bar-sms"><i class="fa-solid fa-message"></i> TEXT</a>
         <a href="../contact.html" class="thumb-bar-email"><i class="fa-solid fa-envelope"></i> EMAIL</a>
-        <div onclick="toggleBot()" role="button" tabindex="0"><i class="fa-solid fa-robot"></i> CHAT AI</div>
+        <div onclick="toggleBot()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleBot()"><i class="fa-solid fa-robot"></i> CHAT</div>
     </div>
+
     <div id="bot-container">
         <div class="bot-header">
             <span>T&amp;M AI ASSISTANT</span>
-            <button type="button" id="bot-toggle" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+            <button id="bot-toggle" type="button" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div id="bot-messages"></div>
         <form id="bot-form" class="bot-input-area">
@@ -138,62 +192,30 @@
             <button type="submit" style="background:var(--primary); color:white; border:none; border-radius:50%; width:35px; height:35px;"><i class="fa-solid fa-paper-plane"></i></button>
         </form>
     </div>
+
     <script src="../bot.js"></script>
     <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const isOpen = nav.classList.toggle('active');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                const nav = document.getElementById('mobile-nav');
+                if (nav) nav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
         function toggleBot() {
             const bot = document.getElementById('bot-container');
             if (bot) bot.classList.toggle('active');
         }
         document.getElementById('bot-toggle').onclick = toggleBot;
-        window.toggleBot = function() { document.getElementById('bot-container')?.classList.toggle('active'); };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.05, rootMargin: '0px 0px 12% 0px' });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        (function () {
-            let activeMove = null;
-            function endDrag() {
-                if (!activeMove) return;
-                document.removeEventListener('mousemove', activeMove.mouse);
-                document.removeEventListener('touchmove', activeMove.touch);
-                activeMove = null;
-            }
-            document.querySelectorAll('.ba-container').forEach((container) => {
-                const beforeLayer = container.querySelector('.ba-before');
-                const handle = container.querySelector('.ba-handle');
-                if (!beforeLayer || !handle) return;
-                const moveSlider = (clientX) => {
-                    const rect = container.getBoundingClientRect();
-                    if (rect.width <= 0) return;
-                    let p = ((clientX - rect.left) / rect.width) * 100;
-                    p = Math.max(0, Math.min(100, p));
-                    beforeLayer.style.width = p + '%';
-                    handle.style.left = p + '%';
-                };
-                const onMouseMove = (e) => moveSlider(e.clientX);
-                const onTouchMove = (e) => {
-                    if (e.touches[0]) { e.preventDefault(); moveSlider(e.touches[0].clientX); }
-                };
-                const startDrag = (e) => {
-                    endDrag();
-                    if (e.type === 'mousedown') e.preventDefault();
-                    document.addEventListener('mousemove', onMouseMove);
-                    document.addEventListener('touchmove', onTouchMove, { passive: false });
-                    const end = () => endDrag();
-                    document.addEventListener('mouseup', end, { once: true });
-                    document.addEventListener('touchend', end, { once: true });
-                    document.addEventListener('touchcancel', end, { once: true });
-                    activeMove = { mouse: onMouseMove, touch: onTouchMove };
-                };
-                handle.addEventListener('mousedown', startDrag);
-                handle.addEventListener('touchstart', startDrag, { passive: true });
-                handle.addEventListener('click', (e) => e.stopPropagation());
-                container.addEventListener('click', (e) => {
-                    if (e.target === handle || handle.contains(e.target)) return;
-                    moveSlider(e.clientX);
-                });
-            });
-        })();
     </script>
 </body>
 </html>

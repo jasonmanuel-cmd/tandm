@@ -61,7 +61,7 @@ export default async function handler(req, res) {
                 }
             ],
             success_url: `${site}/thank-you-deposit.html?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${site}/book.html#book-job`,
+            cancel_url: `${site}/contact.html#book-job`,
             metadata: {
                 funnel: 'job_booking_deposit',
                 customer_name: name,

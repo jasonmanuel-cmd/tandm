@@ -49,6 +49,7 @@
 
 html { 
     scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
     font-size: 16px;
 }
 
@@ -327,6 +328,33 @@ footer,
     transition: opacity 0.6s ease;
 }
 
+body.site-splash-active {
+    overflow: hidden;
+}
+
+.entrance-skip-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 10;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-main);
+    background: rgba(7, 15, 26, 0.75);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.entrance-skip-btn:hover {
+    background: rgba(30, 90, 154, 0.45);
+    border-color: rgba(61, 143, 212, 0.5);
+}
+
 body.site-body.site-home {
     padding-top: 0;
 }
@@ -427,7 +455,8 @@ a.booking-funnel-card:hover {
     box-shadow: var(--shadow-premium);
 }
 
-.booking-funnel-card h2 {
+.booking-funnel-card h2,
+.booking-funnel-card h3 {
     font-family: var(--font-header);
     font-size: 1.35rem;
     letter-spacing: 0.06em;
@@ -465,6 +494,126 @@ a.booking-funnel-card:hover {
 
 .booking-section-title {
     scroll-margin-top: 6.5rem;
+}
+
+/* Site footer — balanced columns */
+.site-footer-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .site-footer-inner {
+        grid-template-columns: 1fr 1fr 1fr;
+        text-align: left;
+        align-items: start;
+    }
+    .site-footer-inner .site-footer-brand {
+        text-align: center;
+    }
+}
+
+.site-footer-links a {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+}
+
+.site-footer-links a:hover {
+    color: var(--primary-light);
+}
+
+/* About page accent band */
+.about-accent-band {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(12, 24, 42, 0.97) 0%, rgba(7, 15, 26, 0.92) 50%, rgba(30, 90, 154, 0.15) 100%),
+        url("assets/hero-team.webp") center / cover no-repeat;
+    background-blend-mode: normal;
+}
+
+.about-accent-band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 20%, rgba(30, 90, 154, 0.25), transparent 55%);
+    pointer-events: none;
+}
+
+.about-accent-band .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Gallery hub v2 */
+.gallery-v2-hero {
+    position: relative;
+    padding: clamp(6rem, 14vw, 10rem) 0 4rem;
+    background:
+        linear-gradient(180deg, rgba(7, 15, 26, 0.92) 0%, rgba(7, 15, 26, 0.75) 45%, #070f1a 100%),
+        url("before-after/chrisafter%20%281%29.jpg") center 30% / cover no-repeat;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.gallery-v2-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-v2-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1.5rem;
+    padding-bottom: var(--section-padding);
+}
+
+.gallery-v2-card {
+    position: relative;
+    display: block;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    background: var(--bg-card);
+}
+
+.gallery-v2-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(61, 143, 212, 0.45);
+    box-shadow: var(--shadow-premium);
+}
+
+.gallery-v2-card-img {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-v2-card-body {
+    padding: 1.25rem 1.35rem 1.5rem;
+}
+
+.gallery-v2-card-title {
+    font-family: var(--font-header);
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.35rem;
+}
+
+.gallery-v2-card-meta {
+    font-size: 0.8rem;
+    color: var(--primary-light);
+    font-weight: 600;
+    letter-spacing: 0.06em;
 }
 
 @keyframes pulse {
@@ -526,14 +675,18 @@ h1, h2, h3, h4, .val-title, .hero-title, .section-title, .faq-subtitle {
     transition: var(--transition);
 }
 
-/* Headers & Nav */
-header {
+/* Headers & Nav — full bar stays on screen while scrolling */
+header#main-header,
+header.site-header-sticky {
     width: 100%;
     position: fixed;
     top: 0;
-    z-index: 1000;
-    background: linear-gradient(to bottom, rgba(7, 15, 26, 0.92), rgba(7, 15, 26, 0.4), transparent);
-    backdrop-filter: blur(12px);
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: linear-gradient(to bottom, rgba(7, 15, 26, 0.97), rgba(7, 15, 26, 0.94));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 
 .nav-promo-banner {
@@ -1127,6 +1280,19 @@ header {
 
 #thumb-bar .thumb-bar-sms:hover {
     background: rgba(230, 57, 70, 0.4);
+}
+
+/* Photo hero: gap under sticky header so top bar (phones, text, email) stays visible; image starts lower */
+.hero-section.hero-section-photo .hero-slider,
+.hero-section.hero-section-photo .hero-overlay-photo {
+    top: 5.75rem;
+}
+
+@media (max-width: 992px) {
+    .hero-section.hero-section-photo .hero-slider,
+    .hero-section.hero-section-photo .hero-overlay-photo {
+        top: 5.25rem;
+    }
 }
 
 /* Photo hero: sit copy lower so it does not cover faces */
