@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Received | T&M Hauling</title>
     <link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
     <style>
         body { 
@@ -13,17 +14,29 @@
             justify-content: center; 
             min-height: 100vh;
             background: #000;
+            padding: 2rem 1rem;
         }
     </style>
 </head>
 <body>
     <div class="container" style="max-width: 600px;">
         <div class="glass" style="text-align: center; padding: 5rem 3rem;">
-            <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: var(--primary); margin-bottom: 2rem;"></i>
+            <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: var(--primary); margin-bottom: 2rem;" aria-hidden="true"></i>
             <h1 class="hero-title" style="font-size: 3rem; margin-bottom: 2rem;">RECOVERY <span style="color:var(--primary)">INITIALIZED.</span></h1>
+            <p id="thank-you-extra" style="display: none; font-size: 1rem; color: var(--primary-light); margin-bottom: 1.5rem; line-height: 1.5;"></p>
             <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 3rem; line-height: 1.6;">Our logistics team has received your inquiry. We are reviewing your project details now. Expect a text estimate or call within the next <b>15 minutes</b>.</p>
-            <a href="/" class="btn btn-red" style="width: 100%;">BACK TO SITE</a>
+            <a href="index.html" class="btn btn-red" style="width: 100%;">BACK TO SITE</a>
         </div>
     </div>
+    <script>
+        (function () {
+            var p = new URLSearchParams(location.search);
+            if (p.get('deposit') === 'pending') {
+                var el = document.getElementById('thank-you-extra');
+                el.style.display = 'block';
+                el.textContent = 'Your job details were emailed. Stripe checkout was not available — we will contact you about the $30 deposit or you can call (661) 996-6950.';
+            }
+        })();
+    </script>
 </body>
 </html>
