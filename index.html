@@ -163,7 +163,8 @@
             <video id="entrance-intro-video" class="entrance-intro-video" autoplay muted playsinline preload="auto">
                 <source src="t&amp;mintro.mp4" type="video/mp4">
             </video>
-            <p class="entrance-caption">T&amp;M Hauling</p>
+            <button type="button" id="entrance-sound-toggle" class="entrance-sound-btn" aria-label="Play intro with sound">Play with sound</button>
+            <p class="entrance-caption">Just driving away — we are on the way.</p>
         </div>
     </div>
 
@@ -515,22 +516,17 @@
             }
         }
 
-        // Splash intro video: play once per session
+        // Splash intro video: play on each page load
         (function () {
             const gate = document.getElementById('entrance-gate');
             if (!gate) return;
             const introVideo = document.getElementById('entrance-intro-video');
-            const splashSessionKey = 'tmSplashSeen';
-            if (sessionStorage.getItem(splashSessionKey) === '1') {
-                gate.remove();
-                return;
-            }
+            const soundToggle = document.getElementById('entrance-sound-toggle');
             document.body.classList.add('site-splash-active');
             let finished = false;
             function dismiss() {
                 if (finished || !gate.parentNode) return;
                 finished = true;
-                sessionStorage.setItem(splashSessionKey, '1');
                 document.body.classList.remove('site-splash-active');
                 window.scrollTo(0, 0);
                 gate.style.transform = 'translateY(-100%)';
@@ -543,6 +539,15 @@
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 dismiss();
                 return;
+            }
+            if (introVideo && soundToggle) {
+                soundToggle.addEventListener('click', function () {
+                    introVideo.muted = false;
+                    introVideo.volume = 1;
+                    introVideo.play().catch(function () {});
+                    soundToggle.textContent = 'Sound on';
+                    soundToggle.disabled = true;
+                });
             }
             if (introVideo) {
                 introVideo.addEventListener('ended', dismiss, { once: true });

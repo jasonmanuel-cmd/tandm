@@ -281,12 +281,33 @@ footer,
 .entrance-intro-video {
     position: relative;
     z-index: 2;
-    width: min(94vw, 1040px);
-    max-height: 72vh;
+    width: min(88vw, 760px);
+    max-height: 58vh;
     border-radius: 14px;
     border: 1px solid var(--glass-border);
     object-fit: cover;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.entrance-sound-btn {
+    position: relative;
+    z-index: 3;
+    margin-top: 0.9rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(6, 13, 24, 0.72);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.entrance-sound-btn:disabled {
+    opacity: 0.8;
+    cursor: default;
 }
 
 body.site-splash-active {
