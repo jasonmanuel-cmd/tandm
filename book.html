@@ -3,18 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting… | T&amp;M Hauling</title>
-    <meta name="robots" content="noindex, follow">
-    <link rel="canonical" href="https://tandmbak.com/contact.html">
-    <meta http-equiv="refresh" content="0; url=contact.html">
-    <script>
-        (function () {
-            var h = typeof location !== 'undefined' && location.hash ? location.hash : '';
-            location.replace('contact.html' + h);
-        })();
-    </script>
+    <title>Book a Job | T&amp;M Hauling Bakersfield</title>
+    <meta name="description" content="Choose between a free photo estimate and booking a job with a $30 deposit.">
+    <link rel="canonical" href="https://tandmbak.com/book.html">
+    <link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
-<body style="background:#070f1a;color:#ccc;font-family:system-ui,sans-serif;padding:2rem;text-align:center;">
-    <p>Booking and estimates live on the <a href="contact.html" style="color:#5ba3e8;">contact page</a> now.</p>
+<body class="site-body page-sub page-booking">
+    <div class="haul-bg-layer" aria-hidden="true"></div>
+
+    <header id="main-header" class="site-header-sticky">
+        <div class="main-nav">
+            <div class="container nav-content">
+                <a href="index.html" class="logo logo-enhanced" aria-label="T&amp;M Hauling Home">
+                    <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling Logo" width="120" height="40">
+                </a>
+                <nav class="desktop-nav">
+                    <a href="index.html#hero">HOME</a>
+                    <a href="book.html">BOOK</a>
+                    <a href="contact.html">CONTACT</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section style="padding: clamp(4rem, 10vw, 7rem) 0;">
+            <div class="container text-center">
+                <p style="color:var(--primary); font-weight:700; letter-spacing:5px; margin-bottom:0.75rem;">BOOKING</p>
+                <h1 class="section-title" style="font-size: clamp(2rem, 6vw, 3.5rem);">CHOOSE ONE</h1>
+                <p style="color: var(--text-muted); max-width: 620px; margin: 0 auto 2rem;">
+                    Free estimate first, or lock in a crew date with the $30 booking deposit.
+                </p>
+                <div class="booking-funnel-grid" style="max-width: 900px; margin: 0 auto;">
+                    <a href="contact.html#estimate" class="booking-funnel-card">
+                        <span class="booking-funnel-badge booking-funnel-badge--estimate">Free estimate</span>
+                        <h2><i class="fa-solid fa-camera" style="color: var(--primary-light); margin-right: 0.35rem;"></i> Photo estimate</h2>
+                        <p>Get pricing with no deposit required. Send photos and details.</p>
+                    </a>
+                    <a href="contact.html#book-job" class="booking-funnel-card">
+                        <span class="booking-funnel-badge booking-funnel-badge--job">Book + $30 deposit</span>
+                        <h2><i class="fa-solid fa-calendar-check" style="color:#ff8a93; margin-right:0.35rem;"></i> Book a job</h2>
+                        <p>Submit details and photos, then complete the $30 Stripe deposit (credited to final invoice).</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
