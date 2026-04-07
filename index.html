@@ -227,7 +227,7 @@
             <div class="hero-slider hero-slider-single">
                 <picture class="hero-slide active hero-slide-picture">
                     <source type="image/webp" srcset="assets/hero-team.webp">
-                    <img src="assets/hero-team.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" class="hero-picture-img">
+                    <img src="assets/hero-team.png" alt="T&amp;M Hauling father-son team providing professional junk removal services in Kern County." width="1920" height="1080" fetchpriority="high" decoding="async" class="hero-picture-img">
                 </picture>
                 <!-- Drop assets/hero-loop.mp4 in the repo and uncomment for a looping hero video (keeps poster for LCP) -->
                 <!-- <video class="hero-video-bg" autoplay muted loop playsinline poster="assets/hero-team.png" aria-hidden="true"><source src="assets/hero-loop.mp4" type="video/mp4"></video> -->
@@ -295,8 +295,8 @@
                 </div>
                 <div class="reveal spotlight-ba-grid">
                     <div class="ba-slider-card">
-                        <p class="spotlight-job-label">Chris</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="Chris job — before and after">
+                        <p class="spotlight-job-label">Garage Cleanout</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="Professional junk removal in Bakersfield: Before and after of a full garage cleanout by T&amp;M Hauling.">
                             <div class="ba-after" style="background-image: url('before-after/chrisafter%20%281%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%281%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
@@ -305,8 +305,8 @@
                         </div>
                     </div>
                     <div class="ba-slider-card">
-                        <p class="spotlight-job-label">House 1</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="House 1 job — before and after">
+                        <p class="spotlight-job-label">Backyard Furniture Removal</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="Residential property clearing: Removing old furniture and debris from a Bakersfield backyard.">
                             <div class="ba-after" style="background-image: url('before-after/house1after%20%282%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/house1before%20%282%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
@@ -315,8 +315,8 @@
                         </div>
                     </div>
                     <div class="ba-slider-card">
-                        <p class="spotlight-job-label">Marcus</p>
-                        <div class="ba-container featured-ba" role="img" aria-label="Marcus job — before and after">
+                        <p class="spotlight-job-label">Construction Debris Cleanup</p>
+                        <div class="ba-container featured-ba" role="img" aria-label="Construction debris removal: Father-son team clearing wood and scrap metal from a local job site.">
                             <div class="ba-after" style="background-image: url('before-after/marcusafter%20%281%29.jpg');"></div>
                             <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%281%29.jpg'); width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
@@ -417,8 +417,8 @@
         </div>
         <div class="container" style="text-align: center; margin-top: 2rem;">
             <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; max-width: 600px; margin: 0 auto 1.5rem;">T&amp;M Hauling is Bakersfield's premier property clearing and junk recovery service. Father-son operated. Results-driven. Always professional.</p>
-            <div style="font-size: 0.75rem; color: #444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;">
-                &copy; 2026 T&amp;M HAULING | PROUDLY SERVING BAKERSFIELD, CA | <a href="privacy.html" style="color: #666; text-decoration: none;">PRIVACY POLICY</a> | <a href="terms.html" style="color: #666; text-decoration: none;">TERMS OF SERVICE</a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;">
+                &copy; 2026 T&amp;M HAULING | PROUDLY SERVING BAKERSFIELD, CA | <a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">PRIVACY POLICY</a> | <a href="terms.html" style="color: var(--text-muted); text-decoration: none;">TERMS OF SERVICE</a>
             </div>
         </div>
     </footer>
@@ -511,11 +511,17 @@
         (function () {
             const gate = document.getElementById('entrance-gate');
             if (!gate) return;
+            const splashSessionKey = 'tmSplashSeen';
+            if (sessionStorage.getItem(splashSessionKey) === '1') {
+                gate.remove();
+                return;
+            }
             document.body.classList.add('site-splash-active');
             let finished = false;
             function dismiss() {
                 if (finished || !gate.parentNode) return;
                 finished = true;
+                sessionStorage.setItem(splashSessionKey, '1');
                 document.body.classList.remove('site-splash-active');
                 window.scrollTo(0, 0);
                 gate.style.transform = 'translateY(-100%)';
