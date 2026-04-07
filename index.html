@@ -156,13 +156,14 @@
     </script>
     <div class="haul-bg-layer" aria-hidden="true"></div>
 
-    <!-- Splash: real T&amp;M truck — drives “down the road” and fades (~10s) -->
+    <!-- Splash intro video -->
     <div id="entrance-gate" aria-hidden="true">
         <button type="button" id="entrance-skip" class="entrance-skip-btn" aria-label="Skip intro animation">Skip</button>
         <div class="entrance-gate-inner entrance-splash-scene">
-            <div class="entrance-splash-road" aria-hidden="true"></div>
-            <img class="entrance-truck-photo" src="assets/splash-truck.png" alt="T&amp;M Property Cleanup truck and trailer, Bakersfield CA" width="960" height="640" loading="eager" fetchpriority="high">
-            <p class="entrance-caption">Hitting the road…</p>
+            <video id="entrance-intro-video" class="entrance-intro-video" autoplay muted playsinline preload="auto">
+                <source src="t&amp;mintro.mp4" type="video/mp4">
+            </video>
+            <p class="entrance-caption">T&amp;M Hauling</p>
         </div>
     </div>
 
@@ -367,6 +368,13 @@
                     <h2 class="section-title section-title-on-light">SIMPLE. EFFICIENT. DONE.</h2>
                     <p class="process-lead">Call or text a photo — we quote fast, show up on time, load everything, and leave your space clean.</p>
                 </div>
+                <div class="reveal process-video-strip" aria-label="Leave the floor swept cleanup video">
+                    <video autoplay muted loop playsinline preload="metadata">
+                        <source src="Leave_the_Floor_Swept.mp4" type="video/mp4">
+                    </video>
+                    <div class="process-video-strip-overlay"></div>
+                    <p class="process-video-strip-caption">Leave the floor swept. Every time.</p>
+                </div>
                 <div class="reveal process-cards-grid">
                     <div class="val-card val-card-bright">
                         <div class="process-step-num">01</div>
@@ -507,10 +515,11 @@
             }
         }
 
-        // Splash: truck drives “down the road” and fades; total ~10s
+        // Splash intro video: play once per session
         (function () {
             const gate = document.getElementById('entrance-gate');
             if (!gate) return;
+            const introVideo = document.getElementById('entrance-intro-video');
             const splashSessionKey = 'tmSplashSeen';
             if (sessionStorage.getItem(splashSessionKey) === '1') {
                 gate.remove();
@@ -535,11 +544,12 @@
                 dismiss();
                 return;
             }
-            setTimeout(function () {
-                gate.classList.add('entrance-drive-away');
-            }, 5200);
-            setTimeout(dismiss, 10000);
-            setTimeout(dismiss, 14000);
+            if (introVideo) {
+                introVideo.addEventListener('ended', dismiss, { once: true });
+                setTimeout(dismiss, 15000);
+            } else {
+                setTimeout(dismiss, 6000);
+            }
         })();
 
         // Scroll Observer

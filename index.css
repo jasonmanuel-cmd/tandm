@@ -272,60 +272,21 @@ footer,
 .entrance-gate-inner.entrance-splash-scene {
     max-width: min(960px, 100vw);
     width: 100%;
-    min-height: 52vh;
+    min-height: 56vh;
     position: relative;
-    justify-content: flex-end;
-    padding-bottom: clamp(1.5rem, 5vh, 3rem);
+    justify-content: center;
+    padding-bottom: clamp(1rem, 3vh, 2rem);
 }
 
-.entrance-splash-road {
-    position: absolute;
-    left: -15%;
-    right: -15%;
-    bottom: 0;
-    height: 42%;
-    background:
-        linear-gradient(180deg, transparent 0%, rgba(7, 15, 26, 0.5) 45%, #050a12 100%),
-        repeating-linear-gradient(
-            -8deg,
-            transparent,
-            transparent 28px,
-            rgba(255, 255, 255, 0.05) 28px,
-            rgba(255, 255, 255, 0.05) 30px
-        );
-    transform: perspective(320px) rotateX(58deg);
-    transform-origin: 50% 100%;
-    opacity: 0.85;
-    pointer-events: none;
-}
-
-.entrance-truck-photo {
+.entrance-intro-video {
     position: relative;
     z-index: 2;
-    width: min(92vw, 720px);
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 14px 36px rgba(0, 0, 0, 0.55));
-    transition:
-        transform 3.2s cubic-bezier(0.42, 0, 0.2, 1),
-        opacity 2.4s ease 0.65s,
-        filter 2.8s ease 0.5s;
-}
-
-#entrance-gate.entrance-drive-away .entrance-truck-photo {
-    transform: translateY(42vh) scale(0.68);
-    opacity: 0;
-    filter: drop-shadow(0 0 0 transparent) blur(10px);
-}
-
-#entrance-gate.entrance-drive-away .entrance-splash-road {
-    opacity: 0.35;
-    transition: opacity 2s ease;
-}
-
-#entrance-gate.entrance-drive-away .entrance-caption {
-    opacity: 0;
-    transition: opacity 0.6s ease;
+    width: min(94vw, 1040px);
+    max-height: 72vh;
+    border-radius: 14px;
+    border: 1px solid var(--glass-border);
+    object-fit: cover;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
 body.site-splash-active {
@@ -2417,6 +2378,63 @@ button.ba-handle {
     color: var(--text-dark);
     border-top: 1px solid rgba(30, 90, 154, 0.12);
     border-bottom: 1px solid rgba(30, 90, 154, 0.12);
+}
+
+.process-video-wrap {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(30, 90, 154, 0.2);
+    box-shadow: 0 16px 40px rgba(15, 36, 56, 0.14);
+    background: #0b1728;
+}
+
+.process-video-wrap video {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+}
+
+.process-video-strip {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 2.75rem;
+    height: clamp(240px, 44vw, 440px);
+    overflow: hidden;
+    border-top: 1px solid rgba(30, 90, 154, 0.35);
+    border-bottom: 1px solid rgba(30, 90, 154, 0.35);
+}
+
+.process-video-strip video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.process-video-strip-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 15, 26, 0.15) 0%, rgba(7, 15, 26, 0.55) 100%);
+}
+
+.process-video-strip-caption {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    margin: 0;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: clamp(0.72rem, 2.2vw, 0.95rem);
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
 }
 
 .label-eyebrow-dark {
