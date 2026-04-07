@@ -6,6 +6,8 @@ const UI = {
     toggle: document.getElementById('bot-toggle')
 };
 
+let externalChatToggle = null;
+
 const PERSONA = {
     name: "T&M Hauling",
     // Fallback keyword responses if API is unavailable
@@ -126,7 +128,13 @@ if (UI.form) {
 }
 
 if (UI.toggle) UI.toggle.onclick = () => UI.container.classList.toggle('active');
-window.toggleBot = () => UI.container.classList.add('active');
+window.toggleBot = () => {
+    if (typeof externalChatToggle === 'function') {
+        externalChatToggle();
+        return;
+    }
+    if (UI.container) UI.container.classList.add('active');
+};
 
 // Auto-start greeting (no timeout needed — user opens chat manually via button)
 // The greeting appears when the bot container becomes visible
@@ -135,3 +143,29 @@ document.addEventListener('DOMContentLoaded', () => {
         addMessage(PERSONA.intro);
     }
 });
+
+function initExternalLiveChat() {
+    const cfg = window.TM_LIVE_CHAT || {};
+    if (!cfg || !cfg.enabled) return;
+
+    // Tawk.to integration (recommended for this site: no rebuild needed, lightweight embed)
+    if (cfg.provider === 'tawk' && cfg.propertyId) {
+        const s1 = document.createElement('script');
+        s1.async = true;
+        s1.src = `https://embed.tawk.to/${cfg.propertyId}/${cfg.widgetId || '1'}`;
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        document.head.appendChild(s1);
+
+        // Keep local assistant as fallback until widget is available.
+        externalChatToggle = function () {
+            if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
+                window.Tawk_API.maximize();
+                return;
+            }
+            if (UI.container) UI.container.classList.add('active');
+        };
+    }
+}
+
+initExternalLiveChat();

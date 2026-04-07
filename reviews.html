@@ -12,6 +12,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
+    <script>
+        // Integration config:
+        // - Set appId to your Elfsight Google Reviews widget ID to render live Google reviews.
+        // - Set TM_LIVE_CHAT to enable Tawk.to site-wide via bot.js.
+        window.TM_GOOGLE_REVIEWS_WIDGET = {
+            provider: 'elfsight',
+            appId: '',
+            enabled: false
+        };
+        window.TM_LIVE_CHAT = {
+            provider: 'tawk',
+            propertyId: '',
+            widgetId: '',
+            enabled: false
+        };
+    </script>
 </head>
 <body class="site-body page-sub">
     <div class="haul-bg-layer" aria-hidden="true"></div>
@@ -96,7 +112,18 @@
             </div>
         </section>
 
-        <section style="padding: 0 0 var(--section-padding);">
+        <section style="padding: 0 0 2rem;">
+            <div class="container" style="max-width: 1080px;">
+                <div id="reviews-widget-shell" class="glass" style="padding: 1.5rem;">
+                    <div id="google-reviews-widget-slot"></div>
+                    <p id="reviews-widget-note" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem; text-align: center;">
+                        Live Google review feed will appear here when widget ID is connected.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews-fallback-section" style="padding: 0 0 var(--section-padding);">
             <div class="container">
                 <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                     <div class="glass" style="padding: 2rem;">
@@ -176,6 +203,29 @@
 
     <script src="bot.js"></script>
     <script>
+        (function initGoogleReviewsWidget() {
+            const cfg = window.TM_GOOGLE_REVIEWS_WIDGET || {};
+            const slot = document.getElementById('google-reviews-widget-slot');
+            const note = document.getElementById('reviews-widget-note');
+            const fallback = document.getElementById('reviews-fallback-section');
+            if (!slot) return;
+
+            if (cfg.enabled && cfg.provider === 'elfsight' && cfg.appId) {
+                const widget = document.createElement('div');
+                widget.className = `elfsight-app-${cfg.appId}`;
+                widget.setAttribute('data-elfsight-app-lazy', '');
+                slot.appendChild(widget);
+
+                const script = document.createElement('script');
+                script.src = 'https://static.elfsight.com/platform/platform.js';
+                script.async = true;
+                document.head.appendChild(script);
+
+                if (note) note.textContent = 'Live Google reviews loaded from your Google Business profile.';
+                if (fallback) fallback.style.display = 'none';
+            }
+        })();
+
         function toggleMobileMenu() {
             const nav = document.getElementById('mobile-nav');
             const isOpen = nav.classList.toggle('active');
