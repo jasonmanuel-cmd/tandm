@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Junk Hauling in Bakersfield | Trash Removal & Demolition | T&M Hauling</title>
+    <title>Bakersfield's Most Reliable Junk Removal | T&amp;M Hauling | Father–Son Team</title>
     
     <link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
     
@@ -12,11 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- PERFORMANCE: HERO IMAGE PRELOAD -->
-    <link rel="preload" as="image" href="assets/hero-team.png">
+    <!-- PERFORMANCE: hero LCP — WebP first, PNG fallback in markup -->
+    <link rel="preload" as="image" href="assets/hero-team.webp" type="image/webp">
     
     <!-- Fundamental SEO -->
-    <meta name="description" content="T&M Hauling provides top-rated, same-day junk hauling, trash removal, and debris clean-up in Bakersfield, CA. Father-son operated. Get a free estimate today.">
+    <meta name="description" content="Bakersfield's most reliable junk removal — father–son crew, 5.0 Google rating. Text photos for an instant quote. Same-day when we can. Licensed &amp; insured. Free estimate.">
     <meta name="keywords" content="junk hauling Bakersfield, trash removal Bakersfield, bulky item pickup, construction debris removal, garage clean out Bakersfield, estate clean up Kern County, same day junk removal Bakersfield CA">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -32,7 +32,7 @@
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tandmbak.com/">
-    <meta property="og:title" content="Bakersfield's #1 Junk Hauling & Trash Removal - T&M Hauling">
+    <meta property="og:title" content="Bakersfield's Most Reliable Junk Removal | T&amp;M Hauling">
     <meta property="og:description" content="Need to remove heavy junk, appliances, or construction debris in Bakersfield? T&M Hauling is the top-rated local choice. Call (661) 996-6950.">
     <meta property="og:image" content="https://tandmbak.com/assets/hero-team.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -83,12 +83,20 @@
           "name": "T&M Hauling",
           "publisher": { "@id": "https://tandmbak.com/#organization" },
           "inLanguage": "en-US",
-          "hasPart": {
-            "@type": "WebPage",
-            "name": "Before and After Gallery",
-            "url": "https://tandmbak.com/gallery/index.html",
-            "description": "Real junk removal before and after photos in Bakersfield and Kern County."
-          }
+          "hasPart": [
+            {
+              "@type": "WebPage",
+              "name": "Before and After Gallery",
+              "url": "https://tandmbak.com/gallery/index.html",
+              "description": "Real junk removal before and after photos in Bakersfield and Kern County."
+            },
+            {
+              "@type": "WebPage",
+              "name": "Bakersfield Service Areas",
+              "url": "https://tandmbak.com/service-areas.html",
+              "description": "Neighborhood junk removal pages for Bakersfield and Kern County."
+            }
+          ]
         },
         {
           "@type": "FAQPage",
@@ -170,7 +178,7 @@
     <div class="haul-bg-layer" aria-hidden="true"></div>
 
     <!-- Trust Badge -->
-    <div id="trust-badge" class="glass" style="position: fixed; bottom: 85px; left: 20px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; z-index: 999; border-radius: 50px; font-size: 0.85rem; border-left: 4px solid var(--primary); color: white; opacity: 0; transition: opacity 0.6s ease 2s;">
+    <div id="trust-badge" class="glass trust-badge-floating" style="position: fixed; bottom: 100px; left: 20px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; z-index: 999; border-radius: 50px; font-size: 0.85rem; border-left: 4px solid var(--primary); color: white; opacity: 0; transition: opacity 0.6s ease 2s;">
         <i class="fa-solid fa-star" style="color: #ffcc00;"></i>
         <div><span style="font-weight:700;">5.0 Rated</span> <span style="opacity:0.6; font-size:0.75rem;">— Father-Son Team, Bakersfield CA</span></div>
     </div>
@@ -198,10 +206,11 @@
     <header id="main-header">
         <div class="top-bar">
             <div class="container top-bar-inner">
-                <div class="contact-info">
-                    <a href="tel:+16619966950" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> (661) 996-6950</a>
-                    <a href="tel:+16619966951" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> (661) 996-6951</a>
-                    <a href="mailto:tandmhaulingbak@gmail.com" style="color:white;"><i class="fa-solid fa-envelope" style="color:var(--primary);"></i> TANDMHAULINGBAK@GMAIL.COM</a>
+                <div class="contact-info contact-info-compact">
+                    <a href="tel:+16619966950" class="top-bar-hit" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> <span class="top-bar-phone-main">(661) 996-6950</span></a>
+                    <a href="sms:+16619966950" class="top-bar-hit top-bar-sms-link" style="color:white;"><i class="fa-solid fa-message" style="color:var(--primary);"></i> <span class="top-bar-sms-text">Text photos</span></a>
+                    <a href="tel:+16619966951" class="top-bar-hit top-bar-secondary-phone" style="color:white;"><i class="fa-solid fa-phone" style="color:var(--primary);"></i> (661) 996-6951</a>
+                    <a href="mailto:tandmhaulingbak@gmail.com" class="top-bar-hit" style="color:white;" title="tandmhaulingbak@gmail.com"><i class="fa-solid fa-envelope" style="color:var(--primary);"></i> <span class="top-bar-email-text">Email</span></a>
                 </div>
                 <div class="social-links" style="display:flex; gap:1.5rem; color:white;">
                     <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" style="color:inherit;" aria-label="T&amp;M Hauling on Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -218,9 +227,10 @@
                     <a href="#hero">HOME</a>
                     <a href="#about">ABOUT</a>
                     <a href="#services">SERVICES</a>
-                    <a href="gallery/index.html">PROJECTS</a>
+                    <a href="service-areas.html">AREAS</a>
+                    <a href="gallery/index.html">GALLERY</a>
                     <a href="#reviews">REVIEWS</a>
-                    <a href="#schedule">SCHEDULE</a>
+                    <a href="#schedule">BOOK</a>
                     <a href="#faq">FAQ</a>
                     <a href="contact.html">CONTACT</a>
                 </nav>
@@ -229,10 +239,10 @@
                 </button>
             </div>
         </div>
-        <div class="nav-promo-banner" role="region" aria-label="Service area updates">
+        <div class="nav-promo-banner nav-promo-minimal" role="region" aria-label="Quick quote">
             <div class="container nav-promo-inner">
-                <p class="nav-promo-text"><i class="fa-solid fa-bell" aria-hidden="true"></i> <strong>Sign up for our daily service log</strong> — know when we’re hauling in your part of Bakersfield &amp; Kern County.</p>
-                <a href="contact.html" class="nav-promo-cta">Get updates</a>
+                <p class="nav-promo-text"><i class="fa-solid fa-camera" aria-hidden="true"></i> <strong>Father–son crew</strong> · <span class="nav-promo-stars">5.0 Google</span> · Text a photo — we quote fast.</p>
+                <a href="sms:+16619966950" class="nav-promo-cta">Text (661) 996-6950</a>
             </div>
         </div>
         <div class="mobile-nav-overlay" id="mobile-nav">
@@ -243,9 +253,10 @@
                 <a href="#hero" onclick="toggleMobileMenu()">HOME</a>
                 <a href="#about" onclick="toggleMobileMenu()">ABOUT</a>
                 <a href="#services" onclick="toggleMobileMenu()">SERVICES</a>
-                <a href="gallery/index.html" onclick="toggleMobileMenu()">PROJECTS</a>
+                <a href="service-areas.html" onclick="toggleMobileMenu()">AREAS</a>
+                <a href="gallery/index.html" onclick="toggleMobileMenu()">GALLERY</a>
                 <a href="#reviews" onclick="toggleMobileMenu()">REVIEWS</a>
-                <a href="#schedule" onclick="toggleMobileMenu()">SCHEDULE</a>
+                <a href="#schedule" onclick="toggleMobileMenu()">BOOK</a>
                 <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
                 <a href="contact.html" onclick="toggleMobileMenu()">CONTACT</a>
                 <a href="tel:+16619966950" class="btn btn-red" style="margin-top: 2rem;">CALL TEAM</a>
@@ -257,27 +268,31 @@
         <!-- 1. HERO SECTION -->
         <section class="hero-section hero-section-photo" id="hero">
             <div class="hero-slider hero-slider-single">
-                <div class="hero-slide active" style="background-image: url('assets/hero-team.png');"></div>
+                <picture class="hero-slide active hero-slide-picture">
+                    <source type="image/webp" srcset="assets/hero-team.webp">
+                    <img src="assets/hero-team.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" class="hero-picture-img">
+                </picture>
+                <!-- Drop assets/hero-loop.mp4 in the repo and uncomment for a looping hero video (keeps poster for LCP) -->
+                <!-- <video class="hero-video-bg" autoplay muted loop playsinline poster="assets/hero-team.png" aria-hidden="true"><source src="assets/hero-loop.mp4" type="video/mp4"></video> -->
             </div>
             
             <div class="hero-overlay hero-overlay-photo"></div>
             
             <div class="container hero-container">
                 <div class="hero-text-content">
-                    <p class="hero-subtitle">Bakersfield's #1 Junk Hauling Team</p>
-                    <h1 class="hero-title">WE HAUL IT ALL.<br><span style="color:var(--primary)">RESIDENTIAL &amp; COMMERCIAL.</span></h1>
-                    <p class="hero-kicker text-accent-red">Same-day when we can — Bakersfield &amp; Kern County.</p>
-                    <div style="display:flex; gap:1.5rem; color:var(--primary); font-weight:800; font-size:0.8rem; margin-bottom:2rem; letter-spacing:1px; flex-wrap:wrap;">
-                        <span><i class="fa-solid fa-map-pin"></i> BAKERSFIELD</span>
-                        <span><i class="fa-solid fa-truck-pickup"></i> JUNK HAULING</span>
-                        <span><i class="fa-solid fa-shield-halved"></i> FULLY INSURED</span>
-                    </div>
-                    <p class="hero-subtext">Professional junk removal and property clearing in Bakersfield. Father-son operated. We handle everything from household junk to construction debris — <span class="text-accent-red">straight talk, fair pricing</span>, and we show up when we say we will.</p>
+                    <p class="hero-subtitle hero-subtitle-trust"><span class="hero-trust-pill"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Father–son</span> <span class="hero-trust-pill"><i class="fa-brands fa-google" aria-hidden="true"></i> 5.0 rated</span></p>
+                    <h1 class="hero-title hero-title-primary">Bakersfield's Most Reliable Junk Removal.</h1>
+                    <ul class="hero-big-three" aria-label="Why T&amp;M">
+                        <li><span class="hero-big-three-icon" aria-hidden="true"><i class="fa-solid fa-camera"></i></span><span class="hero-big-three-text"><strong>Instant photo quote</strong><span>Text pictures — fast answer</span></span></li>
+                        <li><span class="hero-big-three-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></span><span class="hero-big-three-text"><strong>Same-day service</strong><span>When the route allows</span></span></li>
+                        <li><span class="hero-big-three-icon" aria-hidden="true"><i class="fa-solid fa-id-card"></i></span><span class="hero-big-three-text"><strong>Licensed &amp; insured</strong><span>Real crew, real coverage</span></span></li>
+                    </ul>
+                    <p class="hero-subtext hero-subtext-tight">Residential and commercial · Kern County. Straight talk, fair pricing — we show up when we say we will.</p>
                     <div class="hero-ctas" style="display:flex; gap:1.5rem; flex-wrap:wrap;">
                         <a href="#schedule" class="btn btn-red">FREE ESTIMATE</a>
-                        <a href="tel:+16619966950" class="btn btn-white">CALL OR TEXT PHOTOS</a>
+                        <a href="sms:+16619966950" class="btn btn-white">TEXT PHOTOS FOR QUOTE</a>
                     </div>
-                    <p class="hero-cta-note">Online booking and the contact form both deliver to <a href="mailto:tandmhaulingbak@gmail.com">tandmhaulingbak@gmail.com</a> — add photos for the fastest quote.</p>
+                    <p class="hero-cta-note">Or call <a href="tel:+16619966950">(661) 996-6950</a> · Online form → <a href="mailto:tandmhaulingbak@gmail.com">tandmhaulingbak@gmail.com</a></p>
                 </div>
             </div>
         </section>
@@ -310,6 +325,34 @@
                             <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">100%</div>
                             <div style="font-size: 0.75rem; opacity: 0.5; letter-spacing: 1px;">LOCAL OWNED</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The T&M Way — disposal / trust -->
+        <section id="tm-way" class="tm-way-section reveal" style="padding: var(--section-padding) 0; background: rgba(8, 16, 28, 0.85); border-top: 1px solid var(--glass-border);">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 3rem;">
+                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">THE T&amp;M WAY</p>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.25rem);">WHAT HAPPENS TO YOUR JUNK</h2>
+                    <p style="color: var(--text-muted); max-width: 560px; margin: 0 auto; font-size: 1.05rem;">We sort, we donate what still has life, we recycle where Kern County channels allow — then we dispose of the rest responsibly. Less landfill, more clarity for you.</p>
+                </div>
+                <div class="tm-way-grid">
+                    <div class="glass tm-way-card">
+                        <i class="fa-solid fa-boxes-stacked" style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true"></i>
+                        <h3 class="tm-way-card-title">Sort &amp; separate</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Metals, wood, general debris — organized so nothing gets “dumped blind.”</p>
+                    </div>
+                    <div class="glass tm-way-card">
+                        <i class="fa-solid fa-hand-holding-heart" style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true"></i>
+                        <h3 class="tm-way-card-title">Donate when it’s usable</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Good-condition items can get a second home instead of the scrap pile.</p>
+                    </div>
+                    <div class="glass tm-way-card">
+                        <i class="fa-solid fa-recycle" style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true"></i>
+                        <h3 class="tm-way-card-title">Recycle &amp; dispose right</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We follow local rules and facility requirements — keeping Bakersfield cleaner.</p>
                     </div>
                 </div>
             </div>
@@ -451,6 +494,21 @@
             </div>
         </section>
 
+        <!-- Video proof — paste YouTube iframe when you have a 15s customer clip -->
+        <section id="video-testimonials" class="video-proof-section reveal" style="padding: var(--section-padding) 0; background: #050505; border-top: 1px solid var(--glass-border);">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 2.5rem;">
+                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">REAL SPACES</p>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.25rem);">VIDEO BEATS A WALL OF TEXT</h2>
+                    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem;">A 15-second clip of a happy customer in a clean garage sells the job. When you have one, drop the YouTube embed into <code style="font-size:0.85em; color:var(--primary-light);">index.html</code> (search <code style="font-size:0.85em;">video-embed-slot</code>).</p>
+                </div>
+                <div class="video-embed-slot glass" style="max-width: 800px; margin: 0 auto; padding: 0; overflow: hidden; border-radius: var(--border-radius); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.35);">
+                    <!-- Example: <iframe title="Customer testimonial" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" style="width:100%;height:100%;border:0;" allowfullscreen loading="lazy"></iframe> -->
+                    <p style="color: var(--text-muted); padding: 2rem; text-align: center; font-size: 0.95rem;">YouTube or Vimeo embed goes here — until then, <a href="gallery/index.html" style="color: var(--primary-light);">see before &amp; after photos</a>.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- HOW IT WORKS -->
         <section class="section-process-bright" style="padding: var(--section-padding) 0;">
             <div class="container">
@@ -479,6 +537,37 @@
             </div>
         </section>
 
+        <!-- Load size visualizer -->
+        <section id="load-estimator" class="load-estimator-section reveal" style="padding: var(--section-padding) 0; background: #060d18; border-top: 1px solid var(--glass-border);">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 3rem;">
+                    <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">PRICING CLARITY</p>
+                    <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.25rem);">HOW MUCH TRUCK SPACE?</h2>
+                    <p style="color: var(--text-muted); max-width: 560px; margin: 0 auto;">We price by how much of our trailer your job fills. Tap a load size — final price is always confirmed on site before we lift anything.</p>
+                </div>
+                <div class="load-estimator-layout">
+                    <div class="glass load-viz-wrap">
+                        <div class="load-viz-trailer" aria-hidden="true">
+                            <div class="load-viz-trailer-bed">
+                                <div class="load-viz-fill" id="load-viz-fill" style="height: 25%;"></div>
+                            </div>
+                            <div class="load-viz-cab"></div>
+                        </div>
+                        <p class="load-viz-caption" id="load-viz-caption">About ¼ load — small pile or single room</p>
+                    </div>
+                    <div class="load-pct-buttons" role="group" aria-label="Trailer load size">
+                        <button type="button" class="load-pct-btn active" data-pct="25" data-caption="About ¼ load — small pile or single room">¼ load</button>
+                        <button type="button" class="load-pct-btn" data-pct="50" data-caption="About ½ load — garage or medium cleanout">½ load</button>
+                        <button type="button" class="load-pct-btn" data-pct="75" data-caption="About ¾ load — big cleanout or small job site">¾ load</button>
+                        <button type="button" class="load-pct-btn" data-pct="100" data-caption="Full trailer — estate, hoarder prep, or major debris">Full load</button>
+                    </div>
+                </div>
+                <p class="text-center" style="margin-top: 2.5rem;">
+                    <a href="sms:+16619966950" class="btn btn-red">Text photos — we’ll match your pile to a load size</a>
+                </p>
+            </div>
+        </section>
+
         <!-- JUNK WE HAUL GRID -->
         <section style="padding: var(--section-padding) 0; background: #000;" id="services">
             <div class="container">
@@ -488,17 +577,17 @@
                 </div>
                 <div class="services-grid reveal">
                     <article class="service-card">
-                        <img src="before-after/house1after%20%281%29.jpg" alt="Storage facility clearing">
+                        <img src="before-after/house1after%20%281%29.jpg" alt="Storage facility clearing" loading="lazy" decoding="async" width="800" height="600">
                         <h3>STORAGE FACILITY CLEARING</h3>
                         <p>We work directly with facility managers to liquidate abandoned or overflow units with surgical precision.</p>
                     </article>
                     <article class="service-card">
-                        <img src="before-after/chrisafter%20%281%29.jpg" alt="Estate cleanout">
+                        <img src="before-after/chrisafter%20%281%29.jpg" alt="Estate cleanout" loading="lazy" decoding="async" width="800" height="600">
                         <h3>ESTATE & PROBATE SERVICES</h3>
                         <p>High-sensitivity property clearing for estates, downsizing, or transitions. Professional, respectful, and thorough.</p>
                     </article>
                     <article class="service-card">
-                        <img src="before-after/marcusafter%20%281%29.jpg" alt="Garage and backyard cleanup">
+                        <img src="before-after/marcusafter%20%281%29.jpg" alt="Garage and backyard cleanup" loading="lazy" decoding="async" width="800" height="600">
                         <h3>GARAGE & BACKYARD RENOVATION</h3>
                         <p>Total debris removal to prep your space for renovation or simply to park your car where it belongs.</p>
                     </article>
@@ -535,6 +624,10 @@
                     </div>
                     <div style="display: flex; justify-content: center; gap: 2rem; color: var(--primary); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">
                         <span><i class="fa-solid fa-clock"></i> OPEN MON-SUN: 9:00AM - 5:00PM</span>
+                    </div>
+                    <div class="scheduling-tools reveal" style="max-width: 560px; margin: 2.5rem auto 0; padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--glass-border); background: rgba(255,255,255,0.04);">
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;"><strong style="color: var(--text-main);">Real-time scheduling</strong> — connect Calendly or Housecall Pro when you’re ready. Set <code style="font-size:0.8em; color:var(--primary-light);">window.TM_CALENDLY_URL</code> in the page script (or replace the button href).</p>
+                        <a id="tm-calendly-cta" href="contact.html" class="btn btn-white" style="width: 100%; justify-content: center; display: inline-flex; align-items: center; gap: 0.5rem;"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> <span id="tm-calendly-label">Request a call-back time</span></a>
                     </div>
                 </div>
                 <!-- FormSubmit.co → tandmhaulingbak@gmail.com (activate inbox on first submit if prompted) -->
@@ -690,6 +783,7 @@
         <div class="container text-center">
             <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 2rem;">SERVICE RANGE</p>
             <h2 class="section-title" style="font-size: 2rem;">KERN COUNTY OPERATIONS</h2>
+            <p style="color: var(--text-muted); max-width: 640px; margin: 1rem auto 0; font-size: 0.95rem;">Each link goes to a <strong style="color: var(--text-main);">dedicated neighborhood page</strong> for local search — or open the full <a href="service-areas.html" style="color: var(--primary-light);">service area hub</a>.</p>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; opacity: 0.5; margin-top: 3rem;">
                 <a href="neighborhoods/seven-oaks.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">SEVEN OAKS</a>
                 <a href="neighborhoods/rosedale.html" style="color:white; text-decoration:none; font-size: 0.85rem; letter-spacing: 1px;">ROSEDALE</a>
@@ -731,6 +825,7 @@
                     <h5 style="color: white; margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px;">QUICK LINKS</h5>
                     <a href="#about" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">ABOUT US</a>
                     <a href="#services" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">SERVICES</a>
+                    <a href="service-areas.html" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">SERVICE AREAS</a>
                     <a href="gallery/index.html" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">PROJECT GALLERY</a>
                     <a href="#reviews" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none; margin-bottom: 0.5rem;">TESTIMONIALS</a>
                     <a href="contact.html" style="display:block; color: var(--text-muted); font-size: 0.75rem; text-decoration:none;">CONTACT</a>
@@ -743,11 +838,14 @@
         </div>
     </footer>
 
+    <a href="sms:+16619966950" class="mobile-text-fab" id="mobile-text-fab" aria-label="Text photos for a junk removal quote"><i class="fa-solid fa-camera" aria-hidden="true"></i><span>Text photos for quote</span></a>
+
     <!-- [GOD MODE] Actions -->
     <div id="thumb-bar">
         <a href="tel:+16619966950"><i class="fa-solid fa-phone"></i> CALL</a>
-        <a href="contact.html" class="thumb-bar-email"><i class="fa-solid fa-envelope"></i> EMAIL SIGN UP</a>
-        <div onclick="toggleBot()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleBot()"><i class="fa-solid fa-robot"></i> CHAT AI</div>
+        <a href="sms:+16619966950" class="thumb-bar-sms"><i class="fa-solid fa-message"></i> TEXT</a>
+        <a href="contact.html" class="thumb-bar-email"><i class="fa-solid fa-envelope"></i> EMAIL</a>
+        <div onclick="toggleBot()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleBot()"><i class="fa-solid fa-robot"></i> CHAT</div>
     </div>
 
     <!-- [GOD MODE] Floating UI Components -->
@@ -765,6 +863,33 @@
 
     <script src="bot.js"></script>
     <script>
+        /* Paste your Calendly (or Housecall Pro) booking URL — button updates automatically */
+        window.TM_CALENDLY_URL = '';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var u = window.TM_CALENDLY_URL;
+            var a = document.getElementById('tm-calendly-cta');
+            var lbl = document.getElementById('tm-calendly-label');
+            if (a && lbl && typeof u === 'string' && u.indexOf('http') === 0) {
+                a.href = u;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                lbl.textContent = 'See open times';
+            }
+            document.querySelectorAll('.load-pct-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var pct = btn.getAttribute('data-pct');
+                    var fill = document.getElementById('load-viz-fill');
+                    var cap = document.getElementById('load-viz-caption');
+                    if (fill) fill.style.height = pct + '%';
+                    if (cap) cap.textContent = btn.getAttribute('data-caption') || '';
+                    document.querySelectorAll('.load-pct-btn').forEach(function (x) {
+                        x.classList.toggle('active', x === btn);
+                    });
+                });
+            });
+        });
+
         // Mobile Nav Toggle
         function toggleMobileMenu() {
             const nav = document.getElementById('mobile-nav');
