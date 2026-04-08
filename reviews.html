@@ -114,10 +114,10 @@
 
         <section style="padding: 0 0 2rem;">
             <div class="container" style="max-width: 1080px;">
-                <div id="reviews-widget-shell" class="glass" style="padding: 1.5rem; background: rgba(12, 24, 42, 0.78); border: 1px solid rgba(255,255,255,0.18);">
+                <div id="reviews-widget-shell" class="glass reviews-widget-shell" style="padding: 1.5rem; background: rgba(12, 24, 42, 0.78); border: 1px solid rgba(255,255,255,0.18);" hidden>
                     <div id="google-reviews-widget-slot"></div>
                     <p id="reviews-widget-note" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem; text-align: center;">
-                        Live Google review feed will appear here when widget ID is connected.
+                        Live Google reviews load here after you enable the Elfsight widget in the page head (app ID + enabled flag).
                     </p>
                 </div>
             </div>
@@ -208,11 +208,15 @@
             const slot = document.getElementById('google-reviews-widget-slot');
             const note = document.getElementById('reviews-widget-note');
             const fallback = document.getElementById('reviews-fallback-section');
+            const shell = document.getElementById('reviews-widget-shell');
             if (!slot) return;
 
-            if (cfg.enabled && cfg.provider === 'elfsight' && cfg.appId) {
+            const live = cfg.enabled && cfg.provider === 'elfsight' && !!cfg.appId;
+
+            if (live) {
+                if (shell) shell.removeAttribute('hidden');
                 const widget = document.createElement('div');
-                widget.className = `elfsight-app-${cfg.appId}`;
+                widget.className = 'elfsight-app-' + cfg.appId;
                 widget.setAttribute('data-elfsight-app-lazy', '');
                 slot.appendChild(widget);
 
@@ -223,6 +227,8 @@
 
                 if (note) note.textContent = 'Live Google reviews loaded from your Google Business profile.';
                 if (fallback) fallback.style.display = 'none';
+            } else if (shell) {
+                shell.setAttribute('hidden', '');
             }
         })();
 

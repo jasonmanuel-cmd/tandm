@@ -114,6 +114,12 @@
             },
             {
               "@type": "WebPage",
+              "name": "Book — estimate or deposit",
+              "url": "https://tandmbak.com/book.html",
+              "description": "Choose a free photo estimate or book a job with a $30 deposit."
+            },
+            {
+              "@type": "WebPage",
               "name": "Google reviews",
               "url": "https://tandmbak.com/reviews.html"
             },
@@ -123,6 +129,71 @@
               "url": "https://tandmbak.com/faq.html"
             }
           ]
+        },
+        {
+          "@type": "Service",
+          "@id": "https://tandmbak.com/#service-junk-removal",
+          "name": "Junk removal and hauling",
+          "serviceType": "Junk removal",
+          "description": "Full-service junk removal for homes and businesses: furniture, general clutter, and mixed loads. Pricing by trailer volume; quotes from photos or on site in Bakersfield and Kern County.",
+          "provider": { "@id": "https://tandmbak.com/#organization" },
+          "areaServed": [
+            { "@type": "City", "name": "Bakersfield" },
+            { "@type": "AdministrativeArea", "name": "Kern County" }
+          ],
+          "url": "https://tandmbak.com/services.html"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://tandmbak.com/#service-cleanouts",
+          "name": "Garage, estate, and storage cleanouts",
+          "serviceType": "Property cleanout",
+          "description": "Garage cleanouts, estate cleanups, storage unit clearing, and full property clean-outs with load-and-haul service.",
+          "provider": { "@id": "https://tandmbak.com/#organization" },
+          "areaServed": [
+            { "@type": "City", "name": "Bakersfield" },
+            { "@type": "AdministrativeArea", "name": "Kern County" }
+          ],
+          "url": "https://tandmbak.com/services.html"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://tandmbak.com/#service-construction-debris",
+          "name": "Construction and renovation debris removal",
+          "serviceType": "Construction debris removal",
+          "description": "Removal of wood, drywall, scrap metal, and job-site debris when scope fits our trailer and disposal plan.",
+          "provider": { "@id": "https://tandmbak.com/#organization" },
+          "areaServed": [
+            { "@type": "City", "name": "Bakersfield" },
+            { "@type": "AdministrativeArea", "name": "Kern County" }
+          ],
+          "url": "https://tandmbak.com/services.html"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://tandmbak.com/#service-appliances",
+          "name": "Appliance and bulky item pickup",
+          "serviceType": "Appliance removal",
+          "description": "Hauling refrigerators, washers, dryers, stoves, and similar bulky items with same booking and photo-quote flow.",
+          "provider": { "@id": "https://tandmbak.com/#organization" },
+          "areaServed": [
+            { "@type": "City", "name": "Bakersfield" },
+            { "@type": "AdministrativeArea", "name": "Kern County" }
+          ],
+          "url": "https://tandmbak.com/services.html"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://tandmbak.com/#service-dumpster-style",
+          "name": "Full-service hauling and dumpster-style options",
+          "serviceType": "Dumpster rental alternative",
+          "description": "Crew-loaded junk removal or dumpster-style solutions for projects where you load at your pace and we haul away when you are done.",
+          "provider": { "@id": "https://tandmbak.com/#organization" },
+          "areaServed": [
+            { "@type": "City", "name": "Bakersfield" },
+            { "@type": "AdministrativeArea", "name": "Kern County" }
+          ],
+          "url": "https://tandmbak.com/faq.html"
         }
       ]
     }
@@ -157,7 +228,7 @@
     <div class="haul-bg-layer" aria-hidden="true"></div>
 
     <!-- Splash intro video -->
-    <div id="entrance-gate" aria-hidden="true">
+    <div id="entrance-gate">
         <button type="button" id="entrance-skip" class="entrance-skip-btn" aria-label="Skip intro animation">Skip</button>
         <div class="entrance-gate-inner entrance-splash-scene">
             <video id="entrance-intro-video" class="entrance-intro-video" autoplay muted playsinline preload="auto">
@@ -536,10 +607,6 @@
             }
             const skip = document.getElementById('entrance-skip');
             if (skip) skip.addEventListener('click', dismiss);
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                dismiss();
-                return;
-            }
             if (introVideo && soundToggle) {
                 soundToggle.addEventListener('click', function () {
                     introVideo.muted = false;
@@ -551,7 +618,6 @@
             }
             if (introVideo) {
                 introVideo.addEventListener('ended', dismiss, { once: true });
-                setTimeout(dismiss, 15000);
             } else {
                 setTimeout(dismiss, 6000);
             }
