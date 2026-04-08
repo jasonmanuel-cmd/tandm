@@ -145,6 +145,18 @@
                 <p class="text-center" style="margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">For the authoritative, timestamped list of reviews, use Google — ratings and text there are posted by real customers.</p>
             </div>
         </section>
+
+        <section class="lead-capture-band page-exit-cta reveal" aria-labelledby="exit-cta-reviews">
+            <div class="container text-center">
+                <h2 id="exit-cta-reviews" class="exit-cta-heading">Want the same result?</h2>
+                <p class="lead-capture-sub">Text a photo — we’ll quote fast. Lock a crew with the $30 hold when you’re ready.</p>
+                <div class="lead-cta-cluster">
+                    <a href="sms:+16619966950" class="btn btn-red"><i class="fa-solid fa-message" style="margin-right:0.45rem;" aria-hidden="true"></i> TEXT PHOTOS</a>
+                    <a href="contact.html#estimate" class="btn btn-white">FREE ESTIMATE</a>
+                    <a href="book.html" class="btn btn-white" style="border:2px solid rgba(255,255,255,0.35);">BOOK NOW</a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer-main">
@@ -249,6 +261,12 @@
             if (bot) bot.classList.toggle('active');
         }
         document.getElementById('bot-toggle').onclick = toggleBot;
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.08 }).observe(el);
+        });
     </script>
 </body>
 </html>

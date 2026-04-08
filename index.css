@@ -625,6 +625,58 @@ a.conversion-path-card:hover {
     text-decoration: underline;
 }
 
+/* Contact — why SMS first (conversion clarity) */
+.why-text-wins {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(61, 143, 212, 0.35);
+    background: rgba(12, 24, 42, 0.85);
+    text-align: left;
+}
+
+.why-text-wins h3 {
+    font-family: var(--font-header);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary-light);
+    margin-bottom: 0.85rem;
+    line-height: 1.2;
+}
+
+.why-text-wins ul {
+    margin: 0 0 1.25rem;
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    font-size: 0.95rem;
+}
+
+.why-text-wins li {
+    margin-bottom: 0.45rem;
+}
+
+.why-text-wins .why-text-cta {
+    margin-top: 0.25rem;
+}
+
+/* Exit CTA — repeat before footer on money pages */
+.page-exit-cta.lead-capture-band {
+    margin-top: 0;
+}
+
+.page-exit-cta .exit-cta-heading {
+    font-family: var(--font-header);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.15;
+}
+
 /* Book page — two funnels (estimate vs. job + deposit) */
 .booking-funnel-grid {
     display: grid;
