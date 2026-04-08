@@ -76,7 +76,7 @@
             <div class="container text-center" style="margin-bottom: 2rem;">
                 <p style="color:var(--primary); font-weight: 700; letter-spacing: 5px; margin-bottom: 0.75rem;">GET IN TOUCH</p>
                 <h1 class="hero-title" style="font-size: clamp(2.25rem, 7vw, 4rem);">CONTACT &amp; <span style="color:var(--primary)">BOOKING</span></h1>
-                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 640px; margin: 0 auto;">Free estimates and job deposits both use this page — same inbox. Text a photo to <a href="sms:+16619966950" style="color: var(--primary-light); font-weight: 700;">(661) 996-6950</a> for the fastest reply.</p>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 640px; margin: 0 auto;">Free estimates and job deposits both use this page — <strong style="color: var(--text-main);">same inbox, fast replies</strong>. Text a photo to <a href="sms:+16619966950" style="color: var(--primary-light); font-weight: 700;">(661) 996-6950</a> for the fastest quote.</p>
             </div>
             <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; padding-bottom: 2rem; max-width: 960px;">
                 <div class="glass" style="padding: 2rem;">
@@ -92,6 +92,29 @@
                     <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Monday – Sunday</p>
                     <p style="color: white; font-weight: 700; font-size: 1.15rem;">9:00 AM – 5:00 PM</p>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Bakersfield &amp; Kern County.</p>
+                </div>
+            </div>
+            <div class="container conversion-path-section">
+                <p style="text-align: center; color: var(--primary-light); font-weight: 800; letter-spacing: 0.2em; font-size: 0.72rem; text-transform: uppercase; margin-bottom: 1rem;">Start here — pick one</p>
+                <div class="conversion-path-grid">
+                    <a href="sms:+16619966950" class="conversion-path-card">
+                        <p class="cp-label cp-fastest">Fastest</p>
+                        <h2>Text photos</h2>
+                        <p>Send pictures of the pile. We reply with next steps and timing — usually the same day when we’re on the route.</p>
+                        <p class="cp-go">Text (661) 996-6950 →</p>
+                    </a>
+                    <a href="#estimate" class="conversion-path-card">
+                        <p class="cp-label">No deposit</p>
+                        <h2>Free estimate form</h2>
+                        <p>Photos + details go straight to our inbox. We follow up with a quote — no payment to ask.</p>
+                        <p class="cp-go">Scroll to estimate form →</p>
+                    </a>
+                    <a href="#book-job" class="conversion-path-card">
+                        <p class="cp-label">Lock the date</p>
+                        <h2>Book + $30 deposit</h2>
+                        <p>Submit the job with photos, then pay a <strong style="color: var(--text-main);">$30 hold</strong> on Stripe. It <strong style="color: var(--text-main);">credits your final bill</strong>.</p>
+                        <p class="cp-go">Scroll to book form →</p>
+                    </a>
                 </div>
             </div>
         </section>
@@ -160,7 +183,11 @@
                         <input type="file" name="attachments" accept="image/*" multiple class="form-input" style="width: 100%; padding: 1rem;">
                     </div>
                     <button type="submit" class="btn btn-red" style="width: 100%; padding: 1.5rem;">SEND ESTIMATE REQUEST</button>
-                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #888;">Delivered to tandmhaulingbak@gmail.com. We’ll reply by phone, text, or email.</p>
+                    <div class="what-next-box">
+                        <strong>What happens next</strong>
+                        Your message hits our inbox immediately. We reply by text or call with a quote or follow-up questions — usually within one business day, often faster during route hours.
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #888;">Delivered to tandmhaulingbak@gmail.com.</p>
                 </form>
             </div>
         </section>
@@ -214,6 +241,10 @@
                         <p style="font-size: 0.8rem; color: #888; margin-top: 0.5rem;">Upload clear shots of the pile or area so we can verify scope before the crew arrives.</p>
                     </div>
                     <button type="submit" class="btn btn-red" style="width: 100%; padding: 1.5rem;">EMAIL DETAILS &amp; PAY $30 DEPOSIT (NON-REFUNDABLE)</button>
+                    <div class="what-next-box">
+                        <strong>What happens next</strong>
+                        We email you to confirm scope and window, then you complete the $30 hold on Stripe. That money applies to your final invoice — we show up, load, and settle on site.
+                    </div>
                     <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #888;">You’ll complete payment on Stripe’s secure page. The <strong style="color: #aaa;">$30 deposit is non-refundable</strong> and is <strong style="color: #aaa;">credited to your final bill</strong>. By submitting, you agree to be contacted about your appointment.</p>
                 </form>
             </div>
@@ -265,7 +296,7 @@
     <div id="thumb-bar">
         <a href="tel:+16619966950"><i class="fa-solid fa-phone"></i> CALL</a>
         <a href="sms:+16619966950" class="thumb-bar-sms"><i class="fa-solid fa-message"></i> TEXT</a>
-        <a href="contact.html" class="thumb-bar-email"><i class="fa-solid fa-envelope"></i> EMAIL</a>
+        <a href="book.html" class="thumb-bar-book"><i class="fa-solid fa-calendar-check"></i> BOOK</a>
         <div onclick="toggleBot()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleBot()"><i class="fa-solid fa-robot"></i> CHAT</div>
     </div>
 

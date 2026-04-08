@@ -18,9 +18,9 @@ const PERSONA = {
         pricing: "We price by load and type — the guys finalize it in person so you only pay for what's actually hauled. Text a photo to (661) 996-6950 for a fast estimate.",
         hazard: "We don't handle chemicals or biohazards, but we can point you to the right disposal site. What else can we help you clear?",
         generic: "We’re Bakersfield’s local father–son crew — fast quotes, full-service load-out, and we sweep when we’re done. Call or text <b>(661) 996-6950</b> with a photo for the quickest answer.",
-        cta: "Best way to book: call <b>(661) 996-6950</b> or use the contact form for email sign-up. Same-day depends on the route — tell us your neighborhood and we’ll be straight with you."
+        cta: "Fastest lead: <b>text a photo</b> to (661) 996-6950. To book a crew date: open <b>book.html</b> on the site (estimate vs $30 hold). Same-day depends on the route — say your neighborhood."
     },
-    intro: "Hi — T&M Hauling here. Father–son junk removal in Bakersfield & Kern County. What do you need hauled away?"
+    intro: "Hi — T&M Hauling. Father–son crew in Bakersfield. Text a photo to <b>(661) 996-6950</b> for a fast quote, or say <b>book</b> if you want to lock a date ($30 hold applies to your total). What are we hauling?"
 };
 
 // Conversation history for Claude context
