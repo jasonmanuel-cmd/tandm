@@ -194,8 +194,6 @@
     </script>
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
@@ -209,7 +207,7 @@
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body class="site-body site-home site-splash-active">
+<body class="site-body site-home">
     <script>try { history.scrollRestoration = 'manual'; } catch (e) {}</script>
     <script>
         document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 0); });
@@ -225,7 +223,7 @@
     <div id="entrance-gate">
         <button type="button" id="entrance-skip" class="entrance-skip-btn" aria-label="Skip intro animation">Skip</button>
         <div class="entrance-gate-inner entrance-splash-scene">
-            <video id="entrance-intro-video" class="entrance-intro-video" autoplay muted playsinline preload="auto">
+            <video id="entrance-intro-video" class="entrance-intro-video" muted playsinline preload="metadata">
                 <source src="t&amp;mintro.mp4" type="video/mp4">
             </video>
             <button type="button" id="entrance-sound-toggle" class="entrance-sound-btn" aria-label="Play intro with sound">Play with sound</button>
@@ -391,8 +389,8 @@
                     <div class="ba-slider-card">
                         <p class="spotlight-job-label">Garage Cleanout</p>
                         <div class="ba-container featured-ba" role="img" aria-label="Professional junk removal in Bakersfield: Before and after of a full garage cleanout by T&amp;M Hauling.">
-                            <div class="ba-after" style="background-image: url('before-after/chrisafter%20%281%29.jpg');"></div>
-                            <div class="ba-before" style="background-image: url('before-after/chrisbefore%20%281%29.jpg'); width: 50%;"></div>
+                            <div class="ba-after ba-lazy-bg" data-bg="before-after/chrisafter%20%281%29.jpg"></div>
+                            <div class="ba-before ba-lazy-bg" data-bg="before-after/chrisbefore%20%281%29.jpg" style="width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
                             <span class="ba-tag ba-tag-before">Before</span>
                             <span class="ba-tag ba-tag-after">After</span>
@@ -401,8 +399,8 @@
                     <div class="ba-slider-card">
                         <p class="spotlight-job-label">Backyard Furniture Removal</p>
                         <div class="ba-container featured-ba" role="img" aria-label="Residential property clearing: Removing old furniture and debris from a Bakersfield backyard.">
-                            <div class="ba-after" style="background-image: url('before-after/house1after%20%282%29.jpg');"></div>
-                            <div class="ba-before" style="background-image: url('before-after/house1before%20%282%29.jpg'); width: 50%;"></div>
+                            <div class="ba-after ba-lazy-bg" data-bg="before-after/house1after%20%282%29.jpg"></div>
+                            <div class="ba-before ba-lazy-bg" data-bg="before-after/house1before%20%282%29.jpg" style="width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
                             <span class="ba-tag ba-tag-before">Before</span>
                             <span class="ba-tag ba-tag-after">After</span>
@@ -411,8 +409,8 @@
                     <div class="ba-slider-card">
                         <p class="spotlight-job-label">Construction Debris Cleanup</p>
                         <div class="ba-container featured-ba" role="img" aria-label="Construction debris removal: Father-son team clearing wood and scrap metal from a local job site.">
-                            <div class="ba-after" style="background-image: url('before-after/marcusafter%20%281%29.jpg');"></div>
-                            <div class="ba-before" style="background-image: url('before-after/marcusbefore%20%281%29.jpg'); width: 50%;"></div>
+                            <div class="ba-after ba-lazy-bg" data-bg="before-after/marcusafter%20%281%29.jpg"></div>
+                            <div class="ba-before ba-lazy-bg" data-bg="before-after/marcusbefore%20%281%29.jpg" style="width: 50%;"></div>
                             <button type="button" class="ba-handle" aria-label="Drag to compare before and after"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i></button>
                             <span class="ba-tag ba-tag-before">Before</span>
                             <span class="ba-tag ba-tag-after">After</span>
@@ -611,10 +609,27 @@
             }
         }
 
-        // Splash intro video: play on each page load (body already has site-splash-active in HTML for first paint)
+        // Splash intro video: show only for first desktop session.
         (function () {
             const gate = document.getElementById('entrance-gate');
             if (!gate) return;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const desktopViewport = window.matchMedia('(min-width: 993px)').matches;
+            const saveDataEnabled = !!(navigator.connection && navigator.connection.saveData);
+            const seenKey = 'tm_intro_seen_session';
+            const shouldShowSplash =
+                desktopViewport &&
+                !prefersReducedMotion &&
+                !saveDataEnabled &&
+                !sessionStorage.getItem(seenKey);
+
+            if (!shouldShowSplash) {
+                document.body.classList.remove('site-splash-active');
+                gate.remove();
+                return;
+            }
+
+            document.body.classList.add('site-splash-active');
             const introVideo = document.getElementById('entrance-intro-video');
             const soundToggle = document.getElementById('entrance-sound-toggle');
             const TRIM_END_SEC = 0.15;
@@ -622,6 +637,7 @@
             function dismiss() {
                 if (finished || !gate.parentNode) return;
                 finished = true;
+                sessionStorage.setItem(seenKey, '1');
                 document.body.classList.remove('site-splash-active');
                 window.scrollTo(0, 0);
                 gate.style.transform = 'translateY(-100%)';
@@ -641,6 +657,7 @@
                 });
             }
             if (introVideo) {
+                introVideo.play().catch(function () {});
                 var revealT = setTimeout(function () {
                     introVideo.classList.add('entrance-video-ready');
                 }, 1200);
@@ -675,6 +692,35 @@
             });
         }, { threshold: 0.05, rootMargin: '0px 0px 12% 0px' });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Lazy-load heavy before/after background images only when section approaches viewport.
+        (function () {
+            const lazyNodes = document.querySelectorAll('.ba-lazy-bg[data-bg]');
+            if (!lazyNodes.length) return;
+
+            const loadBg = (el) => {
+                if (el.dataset.bgLoaded === '1') return;
+                const src = el.getAttribute('data-bg');
+                if (!src) return;
+                el.style.backgroundImage = "url('" + src + "')";
+                el.dataset.bgLoaded = '1';
+            };
+
+            if (!('IntersectionObserver' in window)) {
+                lazyNodes.forEach(loadBg);
+                return;
+            }
+
+            const bgObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    loadBg(entry.target);
+                    obs.unobserve(entry.target);
+                });
+            }, { rootMargin: '200px 0px' });
+
+            lazyNodes.forEach((el) => bgObserver.observe(el));
+        })();
 
         // Hero Slider (only when multiple slides)
         (function () {
