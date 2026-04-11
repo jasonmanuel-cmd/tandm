@@ -4,20 +4,33 @@
  *
  * Required environment variable in Vercel dashboard:
  *   ANTHROPIC_API_KEY = your Anthropic API key
+ * Optional:
+ *   ALLOWED_ORIGINS   = comma-separated allowlist for CORS
  */
 
+import {
+    applyCors,
+    applySecurityHeaders,
+    enforceRateLimit,
+    ensureOrigin
+} from './_lib/security.js';
+
 export default async function handler(req, res) {
-    // CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    applySecurityHeaders(res);
+    applyCors(req, res, ['POST', 'OPTIONS']);
 
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
+    if (!ensureOrigin(req, res)) return;
+
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    if (!enforceRateLimit(req, res, { prefix: 'chat', limit: 12, windowMs: 60_000 })) {
+        return;
     }
 
     const { message, history } = req.body;
@@ -31,11 +44,16 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Service unavailable' });
     }
 
-    // Build conversation history for Claude
+    // Build limited conversation history for Claude.
     const messages = [];
     if (Array.isArray(history)) {
         for (const msg of history.slice(-6)) { // last 6 turns max
-            if (msg.role && msg.content) {
+            if (
+                msg &&
+                (msg.role === 'user' || msg.role === 'assistant') &&
+                typeof msg.content === 'string' &&
+                msg.content.trim()
+            ) {
                 messages.push({ role: msg.role, content: msg.content });
             }
         }

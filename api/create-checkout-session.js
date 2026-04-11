@@ -8,18 +8,29 @@
  */
 
 import Stripe from 'stripe';
+import {
+    applyCors,
+    applySecurityHeaders,
+    enforceRateLimit,
+    ensureOrigin
+} from './_lib/security.js';
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    applySecurityHeaders(res);
+    applyCors(req, res, ['POST', 'OPTIONS']);
 
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
+    if (!ensureOrigin(req, res)) return;
+
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    if (!enforceRateLimit(req, res, { prefix: 'checkout', limit: 8, windowMs: 60_000 })) {
+        return;
     }
 
     const secret = process.env.STRIPE_SECRET_KEY;
@@ -31,7 +42,12 @@ export default async function handler(req, res) {
     }
 
     const site = (process.env.SITE_URL || 'https://tandmbak.com').replace(/\/$/, '');
-    const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body || {};
+    let body = {};
+    try {
+        body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+    } catch {
+        return res.status(400).json({ error: 'Invalid request body' });
+    }
     const email = (body.email || '').trim();
     const name = (body.name || '').trim().slice(0, 200);
     const phone = (body.phone || '').trim().slice(0, 40);

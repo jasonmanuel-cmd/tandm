@@ -2,6 +2,9 @@
   "name": "tandm-hauling-site",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "stripe": "^17.7.0"
   }

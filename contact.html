@@ -169,10 +169,12 @@
                 </div>
                 <form id="form-estimate" class="booking-form reveal" action="https://formsubmit.co/tandmhaulingbak@gmail.com" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_subject" value="T&amp;M Hauling — FREE ESTIMATE (photos · no deposit)">
-                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_captcha" value="true">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="https://tandmbak.com/thank-you.html">
                     <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <input type="text" name="website" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <input type="hidden" name="form_started_at" value="">
                     <input type="hidden" name="form_funnel" value="FREE_ESTIMATE">
                     <div class="form-row">
                         <input type="text" name="first_name" placeholder="First Name" required class="form-input" autocomplete="given-name">
@@ -212,9 +214,11 @@
                 </div>
                 <form id="form-book-job" class="booking-form reveal" novalidate>
                     <input type="hidden" name="_subject" value="T&amp;M Hauling — JOB BOOKING ($30 non-refundable deposit · photos attached)">
-                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_captcha" value="true">
                     <input type="hidden" name="_template" value="table">
                     <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <input type="text" name="website" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <input type="hidden" name="form_started_at" value="">
                     <input type="hidden" name="form_funnel" value="JOB_BOOKING_DEPOSIT">
                     <div class="glass" style="padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border-radius: var(--border-radius);">
                         <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.55;"><i class="fa-solid fa-lock" style="color: var(--primary-light);" aria-hidden="true"></i> <strong style="color: var(--text-main);">$30 deposit is non-refundable</strong> — it holds your slot and <strong style="color: var(--text-main);">applies to your final total</strong>. Processed by Stripe; we never see your full card number. If checkout is unavailable, we still email your details and contact you to collect the deposit.</p>
@@ -381,6 +385,8 @@
         (function () {
             const form = document.getElementById('form-estimate');
             if (!form) return;
+            const startedField = form.querySelector('[name="form_started_at"]');
+            if (startedField) startedField.value = String(Date.now());
             const showError = (input, msg) => {
                 let err = input.parentElement.querySelector('.form-error-msg');
                 if (!err) {
@@ -400,6 +406,9 @@
             form.addEventListener('submit', (e) => {
                 const phone = form.querySelector('[name="phone"]');
                 const email = form.querySelector('[name="email"]');
+                const website = form.querySelector('[name="website"]');
+                const gotcha = form.querySelector('[name="_gotcha"]');
+                const photos = form.querySelector('[name="attachments"]');
                 [phone, email].forEach(clearError);
                 let valid = true;
                 if (phone && !/^\+?[\d\s\-().]{7,}$/.test(phone.value.trim())) {
@@ -408,6 +417,17 @@
                 }
                 if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
                     showError(email, 'Please enter a valid email address.');
+                    valid = false;
+                }
+                if ((website && website.value.trim()) || (gotcha && gotcha.value.trim())) {
+                    valid = false;
+                }
+                const startedAt = Number(startedField && startedField.value);
+                if (!startedAt || (Date.now() - startedAt) < 2500) {
+                    valid = false;
+                }
+                if (photos && photos.files && photos.files.length > 8) {
+                    showError(photos, 'Use up to 8 photos for faster delivery.');
                     valid = false;
                 }
                 if (!valid) e.preventDefault();
@@ -428,6 +448,8 @@
         (function () {
             const form = document.getElementById('form-book-job');
             if (!form) return;
+            const startedField = form.querySelector('[name="form_started_at"]');
+            if (startedField) startedField.value = String(Date.now());
 
             const showError = (input, msg) => {
                 let err = input.parentElement.querySelector('.form-error-msg');
@@ -453,6 +475,8 @@
                 const service = form.querySelector('[name="service_type"]');
                 const date = form.querySelector('[name="preferred_date"]');
                 const files = document.getElementById('job-attachments');
+                const website = form.querySelector('[name="website"]');
+                const gotcha = form.querySelector('[name="_gotcha"]');
                 [phone, email, service, date].forEach(clearError);
                 if (files) clearError(files);
 
@@ -480,6 +504,17 @@
                 }
                 if (!files || !files.files || files.files.length === 0) {
                     showError(files, 'Add at least one photo of the job.');
+                    valid = false;
+                }
+                if (files && files.files && files.files.length > 8) {
+                    showError(files, 'Use up to 8 photos for faster delivery.');
+                    valid = false;
+                }
+                if ((website && website.value.trim()) || (gotcha && gotcha.value.trim())) {
+                    valid = false;
+                }
+                const startedAt = Number(startedField && startedField.value);
+                if (!startedAt || (Date.now() - startedAt) < 2500) {
                     valid = false;
                 }
                 if (!valid) return;
