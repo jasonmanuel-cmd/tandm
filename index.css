@@ -2,12 +2,10 @@
     /* Logo-forward blue & white (T on brand polos — primary actions use this blue) */
     --bg-main: #070f1a;
     --bg-card: rgba(12, 24, 42, 0.92);
-    --primary: #d62839;
-    --primary-light: #ff6b7a;
-    --primary-dark: #8f1220;
+    --primary: #1e5a9a;
+    --primary-light: #3d8fd4;
+    --primary-dark: #0f3d66;
     --accent: #1e5a9a;
-    --accent-blue: #1e5a9a;
-    --accent-blue-light: #3d8fd4;
     --accent-red: #e63946;
     --text-main: #ffffff;
     --text-muted: #8fa0b9;
@@ -1002,15 +1000,11 @@ h1, h2, h3, h4, .val-title, .hero-title, .section-title, .faq-subtitle {
     margin-bottom: 0.75rem;
 }
 
-.rwb-words {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
+/* Red reserved for emphasis only — use .text-highlight-red sparingly */
+.text-highlight-red {
+    color: var(--accent-red);
+    font-weight: 700;
 }
-
-.rwb-red { color: #ff4f60; }
-.rwb-white { color: #ffffff; }
-.rwb-blue { color: #7bb8f1; }
 
 .hero-title::after,
 .section-title::after {
@@ -1020,7 +1014,7 @@ h1, h2, h3, h4, .val-title, .hero-title, .section-title, .faq-subtitle {
     height: 4px;
     margin-top: 0.55rem;
     border-radius: 999px;
-    background: linear-gradient(90deg, #d62839 0 34%, #ffffff 34% 67%, #1e5a9a 67% 100%);
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-light), rgba(255, 255, 255, 0.92));
     opacity: 0.95;
 }
 
@@ -1050,7 +1044,7 @@ h1, h2, h3, h4, .val-title, .hero-title, .section-title, .faq-subtitle {
     line-height: 0.9;
     margin-bottom: 1.5rem;
     color: white;
-    text-shadow: 0 0 22px rgba(61, 143, 212, 0.2), 0 0 34px rgba(230, 57, 70, 0.14);
+    text-shadow: 0 0 22px rgba(61, 143, 212, 0.22), 0 0 34px rgba(30, 90, 154, 0.12);
 }
 
 /* Glassmorphism Refined */
@@ -1192,7 +1186,7 @@ header.site-header-sticky {
 
 .desktop-nav a:hover { 
     opacity: 1;
-    color: #ff8a93;
+    color: var(--primary-light);
 }
 
 /* Buttons */
@@ -1213,14 +1207,14 @@ header.site-header-sticky {
 }
 
 .btn-red { 
-    background: linear-gradient(135deg, #e63946, #9d1423);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
-    box-shadow: 0 10px 30px rgba(214, 40, 57, 0.35);
+    box-shadow: 0 10px 30px rgba(30, 90, 154, 0.35);
 }
 
 .btn-red:hover { 
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(214, 40, 57, 0.45);
+    box-shadow: 0 20px 40px rgba(30, 90, 154, 0.45);
 }
 
 .btn-white { 
@@ -2699,7 +2693,7 @@ button.ba-handle {
 .text-white { color: white; }
 
 .label-eyebrow {
-    color: #ff8a93;
+    color: var(--primary-light);
     font-weight: 700;
     letter-spacing: 5px;
     margin-bottom: 1rem;
