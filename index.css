@@ -407,18 +407,19 @@ body.site-body.page-sub {
 }
 
 .hero-follow-inner a {
-    color: var(--primary-light);
+    color: var(--accent-red) !important;
     text-decoration: none;
     font-weight: 700;
 }
 
 .hero-follow-inner a:hover {
     text-decoration: underline;
+    color: #ff8a93 !important;
 }
 
 .hero-follow-inner i {
     margin-right: 0.35rem;
-    color: var(--primary-light);
+    color: var(--accent-red);
 }
 
 /* Lead capture — homepage + landing emphasis */
@@ -655,7 +656,7 @@ a.conversion-path-card:hover {
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--primary-light);
+    color: var(--accent-red);
 }
 
 .what-next-box {
@@ -725,13 +726,14 @@ a.conversion-path-card:hover {
 }
 
 .book-urgency-strip a {
-    color: var(--primary-light);
+    color: var(--accent-red);
     font-weight: 700;
     text-decoration: none;
 }
 
 .book-urgency-strip a:hover {
     text-decoration: underline;
+    color: #ff8a93;
 }
 
 /* Contact — why SMS first (conversion clarity) */
@@ -874,7 +876,7 @@ a.booking-funnel-card:hover {
 
 .site-footer-links a {
     display: block;
-    color: var(--text-muted);
+    color: var(--accent-red) !important;
     font-size: 0.875rem;
     text-decoration: none;
     margin-bottom: 0.65rem;
@@ -883,7 +885,7 @@ a.booking-funnel-card:hover {
 }
 
 .site-footer-links a:hover {
-    color: var(--primary-light);
+    color: #ff8a93 !important;
 }
 
 /* About page accent band */
@@ -1699,13 +1701,54 @@ header.site-header-sticky {
 }
 
 .hero-cta-note a {
-    color: var(--primary-light);
     text-decoration: none;
-    font-weight: 600;
 }
 
-.hero-cta-note a:hover {
+.hero-cta-note .hero-cta-contact-link {
+    color: var(--accent-red) !important;
+    font-weight: 700;
+}
+
+.hero-cta-note .hero-cta-contact-link:hover {
     text-decoration: underline;
+}
+
+.hero-cta-note .hero-cta-mid {
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 400;
+}
+
+/* Top bar: red icons for phone / text / email */
+#main-header .top-bar .contact-info a i {
+    color: var(--accent-red) !important;
+}
+
+/* Main nav: not red (body copy links use accent red below) */
+#main-header .desktop-nav a,
+#main-header .mobile-nav-links a:not(.btn) {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+#main-header .desktop-nav a:hover,
+#main-header .mobile-nav-links a:not(.btn):hover {
+    color: var(--primary-light) !important;
+}
+
+#main-header .social-links a {
+    color: rgba(255, 255, 255, 0.92) !important;
+}
+
+#main-header .social-links a:hover {
+    color: #fff !important;
+}
+
+/* Content links: red except buttons and primary nav (nav rules above) */
+main a:not(.btn):not(.btn-white):not(.btn-red) {
+    color: var(--accent-red) !important;
+}
+
+main a:not(.btn):not(.btn-white):not(.btn-red):hover {
+    color: #ff8a93 !important;
 }
 
 .hero-text-content {
@@ -1878,7 +1921,11 @@ header.site-header-sticky {
 }
 
 .footer-main a {
-    color: var(--text-muted) !important;
+    color: var(--accent-red) !important;
+}
+
+.footer-main a:hover {
+    color: #ff8a93 !important;
 }
 
 .footer-main h5 {
@@ -2976,13 +3023,14 @@ button.ba-handle {
 }
 
 .process-card-text a {
-    color: var(--primary);
+    color: var(--accent-red);
     font-weight: 700;
     text-decoration: none;
 }
 
 .process-card-text a:hover {
     text-decoration: underline;
+    color: #c1121f;
 }
 
 #faq .faq-item {
