@@ -15,12 +15,12 @@ const PERSONA = {
         garage: "That clutter's been sitting too long — let's open that space back up. T&M's father-son team can be there tomorrow, possibly today. We handle everything, no sorting needed.",
         construction: "That material pile slows everything down. We move fast — load, sweep, clear. T&M handles construction haul-offs all over Bakersfield. Want to see if we can add you to tomorrow's route?",
         estate: "These clean-outs take coordination — we keep it tight and respectful. The father-son crew handles full clearances so families don't have to. Morning or afternoon work better for you?",
-        pricing: "We price by load and type — the guys finalize it in person so you only pay for what's actually hauled. Text a photo to (661) 996-6950 for a fast estimate.",
+        pricing: "We price by load and type — the guys finalize it in person so you only pay for what's actually hauled. Text a photo to (661) 996-6951 for a fast estimate.",
         hazard: "We don't handle chemicals or biohazards, but we can point you to the right disposal site. What else can we help you clear?",
-        generic: "We’re Bakersfield’s local father–son crew — fast quotes, full-service load-out, and we sweep when we’re done. Call or text <b>(661) 996-6950</b> with a photo for the quickest answer.",
-        cta: "Fastest lead: <b>text a photo</b> to (661) 996-6950. To book a crew date: open <b>contact.html</b> (estimate vs $30 hold). Same-day depends on the route — say your neighborhood."
+        generic: "We’re Bakersfield’s local father–son crew — fast quotes, full-service load-out, and we sweep when we’re done. Call or text <b>(661) 996-6951</b> with a photo for the quickest answer.",
+        cta: "Fastest lead: <b>text a photo</b> to (661) 996-6951. To book a crew date: open <b>contact.html</b> (estimate vs $30 hold). Same-day depends on the route — say your neighborhood."
     },
-    intro: "Hi — T&M Hauling. Father–son crew in Bakersfield. Text a photo to <b>(661) 996-6950</b> for a fast quote, or say <b>book</b> if you want to lock a date ($30 hold applies to your total). What are we hauling?"
+    intro: "Hi — T&M Hauling. Father–son crew in Bakersfield. Text a photo to <b>(661) 996-6951</b> for a fast quote, or say <b>book</b> if you want to lock a date ($30 hold applies to your total). What are we hauling?"
 };
 
 // Conversation history for Claude context

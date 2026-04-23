@@ -76,7 +76,7 @@ You help customers get quotes and schedule pickups.
 
 Key facts:
 - Father-son operated, fully insured
-- Phone: (661) 996-6950
+- Phone: (661) 996-6951
 - Email: tandmhaulingbak@gmail.com
 - Services: garage clean ups, estate clean ups, junk removal, appliance hauling, construction debris, yard waste, storage unit cleanouts, hot tub removal, mattress disposal, scrap metal removal, hoarder house cleanouts, apartment cleanouts
 - Service area: Bakersfield and all of Kern County, CA. Major areas: Seven Oaks, Rosedale, Stockdale, Oildale, East Bakersfield, Southwest, Northwest.
@@ -84,7 +84,7 @@ Key facts:
 - Pricing: based on truck space and material type — always confirm price before starting
 - Same-day service often available
 - Do NOT handle hazardous materials (paint, chemicals, asbestos, biohazards)
-- Best way to get a quote: text a photo to (661) 996-6950
+- Best way to get a quote: text a photo to (661) 996-6951
 
 Keep responses short (2-3 sentences max), helpful, and always include a clear next step (call, text photo, or book online). Be friendly and direct — avoid corporate jargon.`,
                 messages
@@ -98,7 +98,7 @@ Keep responses short (2-3 sentences max), helpful, and always include a clear ne
         }
 
         const data = await response.json();
-        const reply = data.content?.[0]?.text || "Give us a call at (661) 996-6950 and we'll help you right away.";
+        const reply = data.content?.[0]?.text || "Give us a call at (661) 996-6951 and we'll help you right away.";
 
         return res.status(200).json({ reply });
 
