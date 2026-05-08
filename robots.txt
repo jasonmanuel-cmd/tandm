@@ -6,3 +6,4 @@ Disallow: /thank-you.html
 Disallow: /thank-you-deposit.html
 
 Sitemap: https://tandmbak.com/sitemap.xml
+Disallow: /gallery-generated.html
