@@ -6,3 +6,6 @@ Thumbs.db
 
 .vercel
 node_modules/
+
+# Local Claude Code settings (machine-specific, not for repo)
+.claude/settings.local.json

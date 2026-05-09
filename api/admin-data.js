@@ -4,7 +4,7 @@
  * Env vars: SUPABASE_URL, SUPABASE_SERVICE_KEY, STRIPE_SECRET_KEY, ADMIN_SECRET/ADMIN_PASSWORD
  */
 import crypto from 'crypto';
-import { applySecurityHeaders } from './_lib/security.js';
+import { applySecurityHeaders, applyCors, ensureOrigin } from './_lib/security.js';
 
 function verifyToken(token) {
     if (!token || typeof token !== 'string') return false;
@@ -23,9 +23,10 @@ function verifyToken(token) {
 }
 
 async function sbFetch(path) {
-    const url = `${process.env.SUPABASE_URL}/rest/v1/${path}`;
-    const key = process.env.SUPABASE_SERVICE_KEY;
-    const r = await fetch(url, {
+    const sbUrl = process.env.SUPABASE_URL;
+    const key   = process.env.SUPABASE_SERVICE_KEY;
+    if (!sbUrl || !key) throw new Error('SUPABASE_UNCONFIGURED');
+    const r = await fetch(`${sbUrl}/rest/v1/${path}`, {
         headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }
     });
     if (!r.ok) throw new Error(await r.text());
@@ -34,11 +35,10 @@ async function sbFetch(path) {
 
 export default async function handler(req, res) {
     applySecurityHeaders(res);
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    applyCors(req, res, ['GET', 'OPTIONS']);
 
     if (req.method === 'OPTIONS') return res.status(200).end();
+    if (!ensureOrigin(req, res)) return;
     if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
     const auth = req.headers.authorization || '';
@@ -76,6 +76,9 @@ export default async function handler(req, res) {
         }
         return res.status(400).json({ error: 'Invalid type' });
     } catch (err) {
+        if (err.message === 'SUPABASE_UNCONFIGURED') {
+            return res.status(503).json({ error: 'Database not configured' });
+        }
         console.error('admin-data error:', err.message);
         return res.status(500).json({ error: 'Failed to fetch data' });
     }

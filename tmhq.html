@@ -239,7 +239,7 @@ function fmtDate(iso) {
   if (!iso) return '&mdash;';
   return new Date(iso).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
 }
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
 function filterTable(tbodyId, q) {
   const query = q.toLowerCase();
@@ -295,7 +295,7 @@ async function loadSignatures() {
       <td style="white-space:nowrap">${fmtDate(r.signed_at)}</td>
       <td>${esc(r.full_name)}</td>
       <td style="font-size:.8rem;color:var(--muted)">${esc(r.ip_address)||'&mdash;'}</td>
-      <td><button class="dl-btn" onclick='downloadTosPdf(${JSON.stringify(esc(r.full_name))},${JSON.stringify(r.signed_at)})'>Download PDF</button></td>
+      <td><button class="dl-btn" onclick='downloadTosPdf(${JSON.stringify(r.full_name)},${JSON.stringify(r.signed_at)})'>Download PDF</button></td>
     </tr>`).join('');
   } catch(e) { tbody.innerHTML = `<tr><td colspan="4" class="empty" style="color:#f87171">${esc(e.message)}</td></tr>`; }
 }
