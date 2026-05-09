@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Agreement | T&M Hauling Bakersfield</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070f1a;--bg2:#0c1a2a;--bg3:#0f2035;
+  --blue:#1e5a9a;--blue-l:#3d8fd4;--red:#e63946;
+  --text:#fff;--muted:#8fa0b9;--border:rgba(255,255,255,0.1);
+}
+body{background:var(--bg);color:var(--text);font-family:'Roboto',sans-serif;min-height:100vh;padding:2.5rem 1rem 4rem}
+.wrap{max-width:660px;margin:0 auto}
+
+.logo-row{text-align:center;margin-bottom:2rem}
+.logo-row img{height:60px;margin-bottom:.85rem;display:block;margin-left:auto;margin-right:auto}
+.logo-row h1{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:.06em}
+.logo-row p{color:var(--muted);font-size:.9rem;margin-top:.35rem}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.75rem;margin-bottom:1.25rem}
+.card h2{font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-l);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+
+.term{margin-bottom:1rem}
+.term strong{color:var(--text);font-weight:700}
+.term p{color:var(--muted);font-size:.925rem;line-height:1.65;margin-top:.2rem}
+
+label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:.4rem;font-weight:500}
+input[type=text]{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;color:var(--text);font-size:1.15rem;font-family:'Georgia',serif;font-style:italic;letter-spacing:.02em;outline:none;transition:.2s;margin-bottom:.35rem}
+input[type=text]:focus{border-color:var(--blue)}
+.date-display{font-size:.9rem;color:var(--muted);margin-bottom:1.25rem}
+.date-display span{color:var(--text);font-weight:500}
+
+.consent{display:flex;gap:.75rem;align-items:flex-start;margin:1.1rem 0 1.5rem}
+.consent input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
+.consent span{font-size:.88rem;color:var(--muted);line-height:1.55}
+
+.sign-btn{width:100%;background:var(--blue);border:none;border-radius:8px;padding:.95rem;color:#fff;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Roboto',sans-serif;transition:.2s;letter-spacing:.03em}
+.sign-btn:hover:not(:disabled){background:var(--blue-l)}
+.sign-btn:disabled{opacity:.45;cursor:not-allowed}
+.form-err{color:#f87171;font-size:.875rem;margin-top:.75rem;text-align:center;min-height:1.2em}
+
+/* SUCCESS */
+#success-view{display:none;text-align:center;padding:2rem 0}
+.success-circle{width:72px;height:72px;background:rgba(30,90,154,.2);border:2px solid var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:2rem;color:var(--blue-l)}
+#success-view h2{font-family:'Anton',sans-serif;font-size:1.75rem;margin-bottom:.75rem}
+#success-view p{color:var(--muted);line-height:1.65;margin-bottom:1.5rem}
+.dl-btn{background:var(--blue);border:none;border-radius:8px;padding:.85rem 2rem;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'Roboto',sans-serif;transition:.2s}
+.dl-btn:hover{background:var(--blue-l)}
+.back-link{display:block;margin-top:1.25rem;color:var(--muted);font-size:.875rem}
+.back-link:hover{color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo-row">
+    <img src="TM-L-2-scaled.png" alt="T&M Hauling">
+    <h1>SERVICE AGREEMENT</h1>
+    <p>Please read carefully before signing</p>
+  </div>
+
+  <!-- ToS Text -->
+  <div class="card">
+    <h2>Terms of Service</h2>
+    <div class="term">
+      <strong>Payment</strong>
+      <p>Payment is required in full immediately upon project completion. Any deviations from this policy must be documented and approved prior to the commencement of work.</p>
+    </div>
+    <div class="term">
+      <strong>Waste Restrictions</strong>
+      <p>Customer warrants that all materials provided for disposal are free of hazardous substances (e.g., paint, oil, asbestos, batteries, etc.).</p>
+    </div>
+    <div class="term">
+      <strong>Fees</strong>
+      <p>Customer is liable for all fees associated with undisclosed hazardous waste and any unforeseen disposal/dumping costs.</p>
+    </div>
+    <div class="term">
+      <strong>Electronic Payment</strong>
+      <p>Customer consents to the use of electronic payment processing if deemed necessary by T&amp;M.</p>
+    </div>
+    <div class="term">
+      <strong>Liability Waiver</strong>
+      <p>T&amp;M shall not be held liable for any items removed from the premises in error.</p>
+    </div>
+  </div>
+
+  <!-- Sign Form -->
+  <div class="card" id="sign-form-wrap">
+    <h2>Your Signature</h2>
+    <label for="full-name">Type your full legal name</label>
+    <input type="text" id="full-name" placeholder="Full Name" autocomplete="name" spellcheck="false" oninput="checkReady()">
+    <div class="date-display">Date: <span id="today-display"></span></div>
+    <div class="consent">
+      <input type="checkbox" id="agree-check" onchange="checkReady()">
+      <span>I have read and agree to all Terms of Service above. I understand that typing my full name constitutes a legally binding electronic signature.</span>
+    </div>
+    <button class="sign-btn" id="sign-btn" onclick="doSign()" disabled>Sign Agreement</button>
+    <div class="form-err" id="sign-err"></div>
+  </div>
+
+  <!-- Success -->
+  <div id="success-view">
+    <div class="card">
+      <div class="success-circle">&#10003;</div>
+      <h2>Agreement Signed</h2>
+      <p>Thank you, <strong id="signed-name-display"></strong>.<br>Your signature has been recorded by T&amp;M Hauling.<br>Download a PDF copy for your records.</p>
+      <button class="dl-btn" onclick="downloadPdf()">Download PDF Copy</button>
+      <a class="back-link" href="index.html">Back to tandmbak.com</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+const today = new Date();
+const pad = n => String(n).padStart(2,'0');
+const todayStr = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+const todayDisplay = today.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+document.getElementById('today-display').textContent = todayDisplay;
+
+let signedRecord = null;
+
+function checkReady() {
+  const name = document.getElementById('full-name').value.trim();
+  const agreed = document.getElementById('agree-check').checked;
+  document.getElementById('sign-btn').disabled = !(name.length >= 2 && agreed);
+}
+
+async function doSign() {
+  const fullName = document.getElementById('full-name').value.trim();
+  const errEl = document.getElementById('sign-err');
+  const btn = document.getElementById('sign-btn');
+  errEl.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  try {
+    const r = await fetch('/api/tos-sign', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ fullName })
+    });
+    const data = await r.json();
+    if (!r.ok) {
+      errEl.textContent = data.error || 'Could not save. Please try again.';
+      btn.disabled = false; btn.textContent = 'Sign Agreement'; return;
+    }
+    signedRecord = { fullName, signed_at: data.signed_at || new Date().toISOString() };
+    document.getElementById('signed-name-display').textContent = fullName;
+    document.getElementById('sign-form-wrap').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch {
+    errEl.textContent = 'Network error. Please try again.';
+    btn.disabled = false; btn.textContent = 'Sign Agreement';
+  }
+}
+
+function downloadPdf() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'pt',format:'letter'});
+  const L=60, W=doc.internal.pageSize.getWidth()-120, lh=16;
+  let y=70;
+  function txt(s,opts={}){ const lines=doc.splitTextToSize(s,W); doc.text(lines,L,y,opts); y+=lines.length*lh+(opts.gap||0); }
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(30,90,154);
+  txt('T&M Hauling — Service Agreement',{gap:4});
+  doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(100);
+  txt('tandmbak.com  |  (661) 996-6951  |  tandmhaulingbak@gmail.com',{gap:20});
+  doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(30);
+  txt('TERMS OF SERVICE',{gap:8});
+
+  const terms=[
+    ['Payment:','Payment is required in full immediately upon project completion. Any deviations from this policy must be documented and approved prior to the commencement of work.'],
+    ['Waste Restrictions:','Customer warrants that all materials provided for disposal are free of hazardous substances (e.g., paint, oil, asbestos, batteries, etc.).'],
+    ['Fees:','Customer is liable for all fees associated with undisclosed hazardous waste and any unforeseen disposal/dumping costs.'],
+    ['Electronic Payment:','Customer consents to the use of electronic payment processing if deemed necessary by T&M.'],
+    ['Liability Waiver:','T&M shall not be held liable for any items removed from the premises in error.'],
+  ];
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(40);
+  terms.forEach(([title,body])=>{
+    doc.setFont('helvetica','bold');
+    const tW=doc.getTextWidth(title+' ');
+    doc.text(title,L,y);
+    doc.setFont('helvetica','normal');
+    const rest=doc.splitTextToSize(body,W-tW);
+    doc.text(rest[0],L+tW,y);
+    if(rest.length>1){y+=lh;const more=doc.splitTextToSize(rest.slice(1).join(' '),W);doc.text(more,L,y);y+=more.length*lh;}else{y+=lh;}
+    y+=6;
+  });
+
+  y+=14; doc.setDrawColor(200); doc.line(L,y,L+W,y); y+=20;
+  const rec = signedRecord || {};
+  const dateStr = rec.signed_at ? new Date(rec.signed_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : todayDisplay;
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(30);
+  doc.text('ACCEPTED BY:',L,y); y+=22;
+  doc.setFont('helvetica','italic'); doc.setFontSize(14); doc.setTextColor(30,90,154);
+  doc.text(rec.fullName||'',L,y); y+=20;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(80);
+  doc.text('Date: '+dateStr,L,y);
+  doc.save('TM-Hauling-Agreement-'+(rec.fullName||'Signed').replace(/\s+/g,'-')+'.pdf');
+}
+</script>
+</body>
+</html>
