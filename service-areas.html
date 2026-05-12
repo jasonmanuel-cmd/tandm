@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -122,7 +123,7 @@
                     Each neighborhood page is built for people searching <em>junk removal near me</em> in their part of town — Rosedale, Seven Oaks, Oildale, and beyond. Same father–son crew, same truck, honest pricing.
                 </p>
                 <div class="reveal glass" style="padding: 0.75rem; margin-bottom: 2rem; overflow: hidden;">
-                    <iframe title="Bakersfield service area map" src="https://www.google.com/maps?q=Bakersfield%20California&output=embed" style="width:100%;height:340px;border:0;border-radius:10px;" loading="lazy"></iframe>
+                    <div id="service-map" style="width:100%;height:340px;border-radius:10px;"></div>
                 </div>
 
                 <div class="reveal service-areas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
@@ -179,7 +180,7 @@
             </div>
             <div>
                 <h5 style="color: white; margin-bottom: 1rem; font-size: 0.8rem; letter-spacing: 2px;">OPERATIONS</h5>
-                <p style="color: var(--text-muted); font-size: 0.75rem;">MON–FRI: 9:00 AM – 5:00 PM · SAT: CLOSED · SUN: BY APPOINTMENT ONLY</p>
+                <p style="color: var(--text-muted); font-size: 0.75rem;">Call for availability 247</p>
                 <p style="color: var(--text-muted); font-size: 0.75rem;">BAKERSFIELD, CA &amp; SURROUNDING</p>
             </div>
             <nav class="site-footer-links" aria-label="Footer links">
@@ -243,6 +244,40 @@
                 entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('active'); });
             }, { threshold: 0.08 }).observe(el);
         });
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        (function initServiceMap() {
+            const center = [35.3733, -119.0187]; // Bakersfield center
+            const map = L.map('service-map', { scrollWheelZoom: false }).setView(center, 9);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            // 30 miles in meters
+            const radiusMeters = 30 * 1609.344;
+
+            // Draw service radius
+            L.circle(center, { radius: radiusMeters, color: '#ff4d4d', weight: 2, fillOpacity: 0.05 }).addTo(map);
+
+            // Town markers
+            const towns = [
+                { name: 'Lamont', coords: [35.2594, -118.9754] },
+                { name: 'Arvin', coords: [35.2019, -118.8586] },
+                { name: 'Oildale', coords: [35.3750, -119.0170] },
+                { name: 'Wasco', coords: [35.5947, -119.3271] },
+                { name: 'Shafter', coords: [35.4880, -119.2729] },
+                { name: 'Taft', coords: [35.1353, -119.4560] },
+                { name: 'Buttonwillow', coords: [35.3536, -119.4241] }
+            ];
+
+            towns.forEach(t => {
+                L.marker(t.coords).addTo(map).bindPopup('<strong>' + t.name + '</strong>');
+            });
+
+        })();
     </script>
 </body>
 </html>
