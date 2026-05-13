@@ -654,7 +654,6 @@
             document.body.classList.add('site-splash-active');
             const introVideo = document.getElementById('entrance-intro-video');
             const soundToggle = document.getElementById('entrance-sound-toggle');
-            const TRIM_END_SEC = 0.15;
             let finished = false;
             function dismiss() {
                 if (finished || !gate.parentNode) return;
@@ -688,18 +687,7 @@
                     introVideo.classList.add('entrance-video-ready');
                     introVideo.removeEventListener('playing', onPlaying);
                 }, { once: true });
-                function tryDismissBeforeCone() {
-                    var d = introVideo.duration;
-                    if (!d || !isFinite(d)) return;
-                    if (introVideo.currentTime >= d - TRIM_END_SEC) {
-                        introVideo.pause();
-                        introVideo.removeEventListener('timeupdate', tryDismissBeforeCone);
-                        dismiss();
-                    }
-                }
-                introVideo.addEventListener('timeupdate', tryDismissBeforeCone);
                 introVideo.addEventListener('ended', function () {
-                    introVideo.removeEventListener('timeupdate', tryDismissBeforeCone);
                     dismiss();
                 }, { once: true });
             } else {
