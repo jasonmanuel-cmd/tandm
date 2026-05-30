@@ -28,4 +28,24 @@ Crawl-delay: 2
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Applebot-Extended
+Allow: /
+Crawl-delay: 2
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+Crawl-delay: 3
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
 Sitemap: https://tandmbak.com/sitemap.xml
