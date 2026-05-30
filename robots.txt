@@ -5,5 +5,27 @@ Disallow: /api/
 Disallow: /thank-you.html
 Disallow: /thank-you-deposit.html
 
+# AI crawler rules — allow indexing with crawl-delay
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: CCBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: anthropic-ai
+Allow: /
+
 Sitemap: https://tandmbak.com/sitemap.xml
-Disallow: /gallery-generated.html
