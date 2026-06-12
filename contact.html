@@ -421,8 +421,23 @@
         </form>
     </div>
 
+    <div id="toast-container" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none;"></div>
+
     <script src="bot.js"></script>
     <script>
+        function showToast(message, type) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.style.cssText = 'padding:1rem 1.5rem;border-radius:8px;font-size:.9rem;font-weight:600;max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:slideIn .3s ease;background:' + (type === 'success' ? '#1e7a3a' : '#c0392b') + ';color:#fff;';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'slideOut .3s ease forwards'; setTimeout(() => toast.remove(), 300); }, 3500);
+        }
+        const style = document.createElement('style');
+        style.textContent = '@keyframes slideIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}@keyframes slideOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(100px)}}';
+        document.head.appendChild(style);
+
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.load-pct-btn').forEach(function (btn) {
                 btn.addEventListener('click', function () {
@@ -527,7 +542,10 @@
                         message: msg.value.trim(),
                         service: 'Free Estimate'
                     });
-                    navigator.sendBeacon('/api/leads', new Blob([leadData], { type: 'application/json' }));
+                    try {
+                        await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: leadData, keepalive: true });
+                        showToast('Estimate saved — sending…', 'success');
+                    } catch {}
                 }
             });
             form.querySelectorAll('.form-input').forEach(el => {
@@ -649,17 +667,20 @@
                     }
 
                     const msgEl = form.querySelector('[name="message"]');
-                    fetch('/api/leads', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            name: (first + ' ' + last).trim(),
-                            email: emailVal,
-                            phone: phoneVal,
-                            message: (msgEl ? msgEl.value : '').trim(),
-                            service: 'Job Booking'
-                        })
-                    }).catch(function(){});
+                    try {
+                        await fetch('/api/leads', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: (first + ' ' + last).trim(),
+                                email: emailVal,
+                                phone: phoneVal,
+                                message: (msgEl ? msgEl.value : '').trim(),
+                                service: 'Job Booking'
+                            })
+                        });
+                        showToast('Booking saved — opening payment…', 'success');
+                    } catch {}
 
                     btn.textContent = 'Opening secure payment…';
 
