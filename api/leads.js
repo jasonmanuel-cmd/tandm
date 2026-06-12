@@ -1,9 +1,36 @@
 /**
  * POST /api/leads
- * Saves a contact form lead to Supabase.
+ * Saves a contact form lead to Supabase and sends auto-reply to customer.
  * Env vars: SUPABASE_URL, SUPABASE_SERVICE_KEY
+ * For auto-reply: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS (optional — skips if unset)
  */
+import { createTransport } from 'nodemailer';
 import { applySecurityHeaders, applyCors, enforceRateLimit, ensureOrigin } from './_lib/security.js';
+
+function getTransporter() {
+    const host = process.env.SMTP_HOST;
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+    if (!host || !user || !pass) return null;
+    return createTransport({
+        host,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: false,
+        auth: { user, pass }
+    });
+}
+
+function sendAutoReply(email, name) {
+    const tx = getTransporter();
+    if (!tx) return;
+    const text = `Hi ${name},\n\nThank you for contacting T&M Hauling! We have received your inquiry and will get back to you shortly.\n\nIf this is urgent, please call or text us at (661) 996-6951.\n\n— The T&M Hauling Team`;
+    tx.sendMail({
+        from: process.env.SMTP_USER,
+        to: email,
+        subject: 'T&M Hauling — We received your inquiry',
+        text
+    }).catch(e => console.error('auto-reply error:', e.message));
+}
 
 export default async function handler(req, res) {
     applySecurityHeaders(res);
@@ -37,6 +64,9 @@ export default async function handler(req, res) {
             body: JSON.stringify({ name, email, phone, message, service, source: 'contact_form' })
         });
         if (!r.ok) throw new Error(await r.text());
+
+        if (email) sendAutoReply(email, name);
+
         return res.status(200).json({ ok: true });
     } catch (err) {
         console.error('leads save error:', err.message);

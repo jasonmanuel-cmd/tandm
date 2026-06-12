@@ -517,6 +517,17 @@
                         btn.textContent = 'SENDING…';
                         btn.style.opacity = '0.85';
                     }
+                    const fName = form.querySelector('[name="first_name"]');
+                    const lName = form.querySelector('[name="last_name"]');
+                    const msg = form.querySelector('[name="message"]');
+                    const leadData = JSON.stringify({
+                        name: (fName.value.trim() + ' ' + lName.value.trim()).trim(),
+                        email: email.value.trim(),
+                        phone: phone.value.trim(),
+                        message: msg.value.trim(),
+                        service: 'Free Estimate'
+                    });
+                    navigator.sendBeacon('/api/leads', new Blob([leadData], { type: 'application/json' }));
                 }
             });
             form.querySelectorAll('.form-input').forEach(el => {
@@ -636,6 +647,19 @@
                     if (!r1.ok) {
                         throw new Error(j1.message || 'Could not send email. Try again or call (661) 996-6951.');
                     }
+
+                    const msgEl = form.querySelector('[name="message"]');
+                    fetch('/api/leads', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: (first + ' ' + last).trim(),
+                            email: emailVal,
+                            phone: phoneVal,
+                            message: (msgEl ? msgEl.value : '').trim(),
+                            service: 'Job Booking'
+                        })
+                    }).catch(function(){});
 
                     btn.textContent = 'Opening secure payment…';
 

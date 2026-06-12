@@ -175,9 +175,9 @@ tbody td{padding:.75rem 1rem;color:var(--text);vertical-align:middle}
         </div>
         <div class="table-wrap">
           <table><thead><tr>
-            <th>Date Signed</th><th>Full Name</th><th>IP Address</th><th>PDF</th>
+            <th>Date Signed</th><th>Full Name</th><th>Email</th><th>IP Address</th><th>PDF</th>
           </tr></thead>
-          <tbody id="signatures-body"><tr><td colspan="4" class="loading">Loading&hellip;</td></tr></tbody></table>
+          <tbody id="signatures-body"><tr><td colspan="5" class="loading">Loading&hellip;</td></tr></tbody></table>
         </div>
       </div>
 
@@ -286,18 +286,19 @@ async function loadBookings() {
 
 async function loadSignatures() {
   const tbody = document.getElementById('signatures-body');
-  tbody.innerHTML = '<tr><td colspan="4" class="loading">Loading&hellip;</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="5" class="loading">Loading&hellip;</td></tr>';
   try {
     const data = await apiFetch('signatures');
     document.getElementById('signatures-count').textContent = data.length;
-    if (!data.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty">No signatures yet. Share the signing link with customers.</td></tr>'; return; }
+    if (!data.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty">No signatures yet. Share the signing link with customers.</td></tr>'; return; }
     tbody.innerHTML = data.map(r => `<tr>
       <td style="white-space:nowrap">${fmtDate(r.signed_at)}</td>
       <td>${esc(r.full_name)}</td>
+      <td style="font-size:.85rem">${esc(r.email)||'&mdash;'}</td>
       <td style="font-size:.8rem;color:var(--muted)">${esc(r.ip_address)||'&mdash;'}</td>
       <td><button class="dl-btn" onclick='downloadTosPdf(${JSON.stringify(r.full_name)},${JSON.stringify(r.signed_at)})'>Download PDF</button></td>
     </tr>`).join('');
-  } catch(e) { tbody.innerHTML = `<tr><td colspan="4" class="empty" style="color:#f87171">${esc(e.message)}</td></tr>`; }
+  } catch(e) { tbody.innerHTML = `<tr><td colspan="5" class="empty" style="color:#f87171">${esc(e.message)}</td></tr>`; }
 }
 
 function downloadTosPdf(name, signedAt) {
