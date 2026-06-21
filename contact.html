@@ -535,12 +535,18 @@
                     const fName = form.querySelector('[name="first_name"]');
                     const lName = form.querySelector('[name="last_name"]');
                     const msg = form.querySelector('[name="message"]');
+                    const sig = form.querySelector('[name="signature"]');
+                    const sigDate = form.querySelector('[name="signature_date"]');
+                    const acceptTerms = form.querySelector('[name="accept_terms"]');
                     const leadData = JSON.stringify({
                         name: (fName.value.trim() + ' ' + lName.value.trim()).trim(),
                         email: email.value.trim(),
                         phone: phone.value.trim(),
                         message: msg.value.trim(),
-                        service: 'Free Estimate'
+                        service: 'Free Estimate',
+                        signature: sig ? sig.value.trim() : '',
+                        signature_date: sigDate ? sigDate.value : '',
+                        accept_terms: acceptTerms ? acceptTerms.checked : false
                     });
                     try {
                         await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: leadData, keepalive: true });
@@ -667,6 +673,9 @@
                     }
 
                     const msgEl = form.querySelector('[name="message"]');
+                    const sig = form.querySelector('[name="signature"]');
+                    const sigDate = form.querySelector('[name="signature_date"]');
+                    const acceptTerms = form.querySelector('[name="accept_terms"]');
                     try {
                         await fetch('/api/leads', {
                             method: 'POST',
@@ -676,7 +685,10 @@
                                 email: emailVal,
                                 phone: phoneVal,
                                 message: (msgEl ? msgEl.value : '').trim(),
-                                service: 'Job Booking'
+                                service: 'Job Booking',
+                                signature: sig ? sig.value.trim() : '',
+                                signature_date: sigDate ? sigDate.value : '',
+                                accept_terms: acceptTerms ? acceptTerms.checked : false
                             })
                         });
                         showToast('Booking saved — opening payment…', 'success');

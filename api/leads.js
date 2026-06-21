@@ -50,6 +50,9 @@ export default async function handler(req, res) {
     const phone   = (body.phone   || '').trim().slice(0, 40);
     const message = (body.message || '').trim().slice(0, 2000);
     const service = (body.service || '').trim().slice(0, 100);
+    const signature = (body.signature || '').trim().slice(0, 200);
+    const signature_date = (body.signature_date || '').trim().slice(0, 20);
+    const accept_terms = !!body.accept_terms;
 
     if (!name) return res.status(400).json({ error: 'Name is required' });
 
@@ -57,15 +60,32 @@ export default async function handler(req, res) {
     const key   = process.env.SUPABASE_SERVICE_KEY;
     if (!sbUrl || !key) return res.status(503).json({ error: 'Storage not configured' });
 
-    try {
-        const r = await fetch(`${sbUrl}/rest/v1/leads`, {
-            method: 'POST',
-            headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-            body: JSON.stringify({ name, email, phone, message, service, source: 'contact_form' })
-        });
-        if (!r.ok) throw new Error(await r.text());
+    const basePayload = { name, email, phone, message, service, source: 'contact_form' };
+    const fullPayload = { ...basePayload, signature, signature_date, accept_terms };
 
-        if (email) sendAutoReply(email, name);
+    try {
+        let saved = false;
+        try {
+            const r = await fetch(`${sbUrl}/rest/v1/leads`, {
+                method: 'POST',
+                headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                body: JSON.stringify(fullPayload)
+            });
+            if (!r.ok) throw new Error(await r.text());
+            saved = true;
+        } catch (innerErr) {
+            if (innerErr.message && innerErr.message.includes('column')) {
+                const r2 = await fetch(`${sbUrl}/rest/v1/leads`, {
+                    method: 'POST',
+                    headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+                    body: JSON.stringify(basePayload)
+                });
+                if (!r2.ok) throw new Error(await r2.text());
+                saved = true;
+            } else throw innerErr;
+        }
+
+        if (saved && email) sendAutoReply(email, name);
 
         return res.status(200).json({ ok: true });
     } catch (err) {
