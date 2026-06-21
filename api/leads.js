@@ -32,6 +32,19 @@ function sendAutoReply(email, name) {
     }).catch(e => console.error('auto-reply error:', e.message));
 }
 
+function sendAdminLeadNotification(name, email, phone, service, signature, signature_date) {
+    const tx = getTransporter();
+    if (!tx) return;
+    const hasSig = signature && signature.trim().length > 0;
+    const text = `New Lead — ${service}\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n${hasSig ? `Signature: ${signature}\nDate: ${signature_date}\n` : ''}View in admin panel: https://tandmbak.com/tmhq.html`;
+    tx.sendMail({
+        from: process.env.SMTP_USER,
+        to: 'tandmhaulingbak@gmail.com',
+        subject: `T&M Hauling — New ${service} Lead${hasSig ? ' (Signed)' : ''}`,
+        text
+    }).catch(e => console.error('admin lead notification error:', e.message));
+}
+
 export default async function handler(req, res) {
     applySecurityHeaders(res);
     applyCors(req, res, ['POST', 'OPTIONS']);
@@ -86,6 +99,7 @@ export default async function handler(req, res) {
         }
 
         if (saved && email) sendAutoReply(email, name);
+        if (saved && signature) sendAdminLeadNotification(name, email, phone, service, signature, signature_date);
 
         return res.status(200).json({ ok: true });
     } catch (err) {

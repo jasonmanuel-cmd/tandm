@@ -33,6 +33,19 @@ function sendConfirmation(email, fullName, signedAt) {
     }).catch(e => console.error('confirmation email error:', e.message));
 }
 
+function sendAdminNotification(fullName, email, signedAt) {
+    const tx = getTransporter();
+    if (!tx) return;
+    const dateStr = new Date(signedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const text = `New ToS Signature\n\nCustomer: ${fullName}\nEmail: ${email}\nSigned: ${dateStr}\n\nView in admin panel: https://tandmbak.com/tmhq.html`;
+    tx.sendMail({
+        from: process.env.SMTP_USER,
+        to: 'tandmhaulingbak@gmail.com',
+        subject: 'T&M Hauling — New Service Agreement Signed',
+        text
+    }).catch(e => console.error('admin notification error:', e.message));
+}
+
 export default async function handler(req, res) {
     applySecurityHeaders(res);
     applyCors(req, res, ['POST', 'OPTIONS']);
@@ -79,7 +92,10 @@ export default async function handler(req, res) {
             } else throw innerErr;
         }
 
-        if (email) sendConfirmation(email, fullName, record.signed_at);
+        if (email) {
+            sendConfirmation(email, fullName, record.signed_at);
+            sendAdminNotification(fullName, email, record.signed_at);
+        }
 
         return res.status(200).json({ ok: true, id: record.id, signed_at: record.signed_at });
     } catch (err) {
