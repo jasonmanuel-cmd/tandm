@@ -497,7 +497,7 @@
                 if (err) err.remove();
                 input.style.borderColor = '';
             };
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 const phone = form.querySelector('[name="phone"]');
                 const email = form.querySelector('[name="email"]');
                 const website = form.querySelector('[name="website"]');
