@@ -241,18 +241,6 @@
     </script>
     <div class="haul-bg-layer" aria-hidden="true"></div>
 
-    <!-- Splash intro video -->
-    <div id="entrance-gate">
-        <button type="button" id="entrance-skip" class="entrance-skip-btn" aria-label="Skip intro animation">Skip</button>
-        <div class="entrance-gate-inner entrance-splash-scene">
-            <video id="entrance-intro-video" class="entrance-intro-video" muted playsinline preload="metadata">
-                <source src="t&amp;mintro.mp4" type="video/mp4">
-            </video>
-            <button type="button" id="entrance-sound-toggle" class="entrance-sound-btn" aria-label="Play intro with sound">Play with sound</button>
-            <p class="entrance-caption">Just driving away — we are on the way.</p>
-        </div>
-    </div>
-
     <header id="main-header" class="site-header-sticky">
         <div class="top-bar">
             <div class="container top-bar-inner">
@@ -631,62 +619,7 @@
             }
         }
 
-        // Splash intro video: show only for first desktop session.
-        (function () {
-            const gate = document.getElementById('entrance-gate');
-            if (!gate) return;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const desktopViewport = window.matchMedia('(min-width: 993px)').matches;
-            const saveDataEnabled = !!(navigator.connection && navigator.connection.saveData);
-            const seenKey = 'tm_intro_seen_session';
-            const shouldShowSplash =
-                desktopViewport &&
-                !prefersReducedMotion &&
-                !saveDataEnabled &&
-                !sessionStorage.getItem(seenKey);
 
-            if (!shouldShowSplash) {
-                document.body.classList.remove('site-splash-active');
-                gate.remove();
-                return;
-            }
-
-            document.body.classList.add('site-splash-active');
-            const introVideo = document.getElementById('entrance-intro-video');
-            const soundToggle = document.getElementById('entrance-sound-toggle');
-            let finished = false;
-            function dismiss() {
-                if (finished || !gate.parentNode) return;
-                finished = true;
-                sessionStorage.setItem(seenKey, '1');
-                document.body.classList.remove('site-splash-active');
-                window.scrollTo(0, 0);
-                gate.style.transform = 'translateY(-100%)';
-                setTimeout(function () {
-                    if (gate.parentNode) gate.remove();
-                }, 900);
-            }
-            const skip = document.getElementById('entrance-skip');
-            if (skip) skip.addEventListener('click', dismiss);
-            if (introVideo && soundToggle) {
-                soundToggle.addEventListener('click', function () {
-                    introVideo.muted = false;
-                    introVideo.volume = 1;
-                    introVideo.play().catch(function () {});
-                    soundToggle.textContent = 'Sound on';
-                    soundToggle.disabled = true;
-                });
-            }
-            if (introVideo) {
-                introVideo.play().catch(function () {});
-                var revealT = setTimeout(function () {
-                    introVideo.classList.add('entrance-video-ready');
-                }, 1200);
-                introVideo.addEventListener('playing', function onPlaying() {
-                    clearTimeout(revealT);
-                    introVideo.classList.add('entrance-video-ready');
-                    introVideo.removeEventListener('playing', onPlaying);
-                }, { once: true });
                 introVideo.addEventListener('ended', function () {
                     dismiss();
                 }, { once: true });
