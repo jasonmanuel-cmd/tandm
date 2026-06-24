@@ -500,10 +500,11 @@
             form.addEventListener('submit', async (e) => {
                 const phone = form.querySelector('[name="phone"]');
                 const email = form.querySelector('[name="email"]');
+                const prefDate = form.querySelector('[name="preferred_date_if_any"]');
                 const website = form.querySelector('[name="website"]');
                 const gotcha = form.querySelector('[name="_gotcha"]');
                 const photos = form.querySelector('[name="attachments"]');
-                [phone, email].forEach(clearError);
+                [phone, email, prefDate].forEach(clearError);
                 let valid = true;
                 if (phone && !/^\+?[\d\s\-().]{7,}$/.test(phone.value.trim())) {
                     showError(phone, 'Please enter a valid phone number.');
@@ -512,6 +513,15 @@
                 if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
                     showError(email, 'Please enter a valid email address.');
                     valid = false;
+                }
+                if (prefDate && prefDate.value) {
+                    const selected = new Date(prefDate.value);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (selected < today) {
+                        showError(prefDate, 'Please select today or a future date.');
+                        valid = false;
+                    }
                 }
                 if ((website && website.value.trim()) || (gotcha && gotcha.value.trim())) {
                     valid = false;

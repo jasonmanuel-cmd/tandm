@@ -1,6 +1,9 @@
 const DEFAULT_ALLOWED_ORIGINS = [
     'https://tandmbak.com',
-    'https://www.tandmbak.com'
+    'https://www.tandmbak.com',
+    'https://tandmbak.com',
+    /^https:\/\/tandm[-a-z0-9]*\.vercel\.app$/,
+    /^https:\/\/tandm[-a-z0-9]*\.vercel\.app\.vercel\.app$/
 ];
 
 const rateBucket = new Map();
@@ -31,7 +34,10 @@ export function resolveRequestOrigin(req) {
 export function isOriginAllowed(req, allowedOrigins = getAllowedOrigins()) {
     const origin = resolveRequestOrigin(req);
     if (!origin) return true;
-    return allowedOrigins.includes(origin);
+    return allowedOrigins.some(allowed => {
+        if (allowed instanceof RegExp) return allowed.test(origin);
+        return allowed === origin;
+    });
 }
 
 export function getClientIp(req) {
@@ -53,7 +59,11 @@ export function applySecurityHeaders(res) {
 export function applyCors(req, res, methods = ['POST', 'OPTIONS']) {
     const allowedOrigins = getAllowedOrigins();
     const origin = resolveRequestOrigin(req);
-    if (origin && allowedOrigins.includes(origin)) {
+    const isAllowed = allowedOrigins.some(allowed => {
+        if (allowed instanceof RegExp) return allowed.test(origin);
+        return allowed === origin;
+    });
+    if (origin && isAllowed) {
         res.setHeader('Access-Control-Allow-Origin', origin);
         res.setHeader('Vary', 'Origin');
     }

@@ -58,6 +58,8 @@ export default async function handler(req, res) {
     try { body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {}); }
     catch { return res.status(400).json({ error: 'Invalid body' }); }
 
+    console.log('leads API received:', { origin: req.headers.origin, bodyKeys: Object.keys(body) });
+
     const name    = (body.name    || '').trim().slice(0, 200);
     const email   = (body.email   || '').trim().slice(0, 200);
     const phone   = (body.phone   || '').trim().slice(0, 40);

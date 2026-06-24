@@ -41,6 +41,8 @@ export default async function handler(req, res) {
     if (!ensureOrigin(req, res)) return;
     if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
+    console.log('admin-data API:', { origin: req.headers.origin, type: req.query.type, hasAuth: !!req.headers.authorization });
+
     const auth = req.headers.authorization || '';
     const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
     if (!verifyToken(token)) return res.status(401).json({ error: 'Unauthorized' });
