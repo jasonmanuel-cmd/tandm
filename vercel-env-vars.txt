@@ -1,0 +1,26 @@
+# Vercel Environment Variables (Project → Settings → Environment Variables)
+# Add ALL of these for Production, Preview, and Development
+
+# Supabase (REQUIRED for forms + admin panel)
+SUPABASE_URL=https://<your-project-ref>.supabase.co
+SUPABASE_SERVICE_KEY=<service_role_key_from_Supabase_Settings_API>
+
+# Admin Auth (REQUIRED for /tmhq.html login)
+ADMIN_SECRET=<generate-a-random-32-char-string>
+# OR use ADMIN_PASSWORD=<your-admin-password>
+
+# Email via Gmail SMTP (REQUIRED for auto-reply + ToS confirmations)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tandmhaulingbak@gmail.com
+SMTP_PASS=<16-char-Gmail-App-Password-no-spaces>
+# Get App Password: Google Account → Security → 2-Step Verification → App Passwords
+
+# CORS (auto-handled but can override)
+ALLOWED_ORIGINS=https://tandmbak.com,https://www.tandmbak.com
+
+# Stripe (REQUIRED for $30 deposit booking)
+STRIPE_SECRET_KEY=sk_live_...  # or sk_test_... for testing
+
+# Optional: if using different email for FormSubmit
+# FORMSUBMIT_EMAIL=tandmhaulingbak@gmail.com
