@@ -619,15 +619,6 @@
             }
         }
 
-
-                introVideo.addEventListener('ended', function () {
-                    dismiss();
-                }, { once: true });
-            } else {
-                setTimeout(dismiss, 6000);
-            }
-        })();
-
         // Scroll Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
