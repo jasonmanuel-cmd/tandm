@@ -1,51 +1,7 @@
 User-agent: *
 Allow: /
-
-Disallow: /api/
+Disallow: /book.html
 Disallow: /thank-you.html
 Disallow: /thank-you-deposit.html
-
-# AI crawler rules — allow indexing with crawl-delay
-User-agent: GPTBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-Crawl-delay: 1
-
-User-agent: PerplexityBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: CCBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-Crawl-delay: 2
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-Crawl-delay: 3
-
-User-agent: FacebookBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
 
 Sitemap: https://tandmbak.com/sitemap.xml

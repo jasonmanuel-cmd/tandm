@@ -1,0 +1,123 @@
+/* Print / Poster Styles — T&M Hauling Bakersfield */
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: #fff !important;
+        color: #000 !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0.5in;
+    }
+
+    a,
+    a:visited {
+        color: #1e5a9a !important;
+        text-decoration: underline;
+    }
+
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #555 !important;
+    }
+
+    a[href^="#"]::after,
+    a[href^="javascript"]::after,
+    a[href^="tel"]::after,
+    a[href^="sms"]::after,
+    .btn::after {
+        content: "" !important;
+    }
+
+    nav,
+    .site-header-sticky,
+    .top-bar,
+    .hamburger,
+    .nav-links,
+    .mobile-nav-overlay,
+    .lead-capture-band,
+    .page-exit-cta,
+    .footer-main,
+    .mobile-cta-bar,
+    .back-to-top,
+    button,
+    .btn,
+    iframe,
+    .haul-bg-layer,
+    .hero-overlay {
+        display: none !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3, h4 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    p, li, blockquote {
+        orphans: 3;
+        widows: 3;
+    }
+
+    .site-body .hero-section,
+    .site-body .page-hero {
+        padding: 0.25in 0 !important;
+        min-height: 0 !important;
+    }
+
+    .site-body .hero-section h1 {
+        font-size: 24pt;
+        margin-bottom: 0.1in;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .site-footer-inner {
+        display: block !important;
+        padding-top: 0.25in;
+    }
+
+    .site-footer-brand img {
+        max-width: 180px;
+    }
+
+    .service-card,
+    .pricing-card,
+    .glass-card,
+    .review-card {
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        padding: 12pt !important;
+        margin-bottom: 12pt !important;
+        break-inside: avoid;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #999;
+        padding: 6pt;
+    }
+
+    @page {
+        margin: 0.5in;
+    }
+}

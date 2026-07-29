@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="print.css" media="print">
     <style>
         @media (max-width: 520px) {
             .lead-cta-cluster a { flex: 1 1 100%; display: inline-block; }
@@ -106,7 +107,7 @@
                     <a href="faq.html">FAQ</a>
                     <a href="contact.html">CONTACT / BOOKING</a>
                 </nav>
-                <button class="mobile-toggle" aria-label="Open Mobile Menu" onclick="toggleMobileMenu()">
+                <button class="mobile-toggle" aria-label="Open Mobile Menu" aria-expanded="false" onclick="toggleMobileMenu()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -206,7 +207,7 @@
     <footer class="footer-main">
         <div class="container site-footer-inner">
             <div class="site-footer-brand">
-                <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling" style="height: 48px; margin-bottom: 1rem;">
+                <img src="TM-L-2-scaled.png" alt="T&amp;M Hauling" width="144" height="48" style="margin-bottom: 1rem;">
                 <div style="display: flex; justify-content: center; gap: 1.25rem;">
                     <a href="https://www.instagram.com/tm_hauling/" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     <a href="https://www.youtube.com/@TMHaul" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); font-size: 1.35rem;" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
@@ -266,8 +267,10 @@
     <script>
         function toggleMobileMenu() {
             const nav = document.getElementById('mobile-nav');
+            const btn = document.querySelector('.mobile-toggle');
             const isOpen = nav.classList.toggle('active');
             document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (btn) btn.setAttribute('aria-expanded', isOpen);
         }
         window.addEventListener('resize', () => {
             if (window.innerWidth > 992) {
