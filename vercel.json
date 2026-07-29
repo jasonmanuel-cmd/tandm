@@ -52,6 +52,12 @@
     },
     "api/tos-sign.js": {
       "maxDuration": 10
+    },
+    "api/upload-photo.js": {
+      "maxDuration": 30
+    },
+    "api/photos.js": {
+      "maxDuration": 10
     }
   }
 }

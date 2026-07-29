@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Photos | T&M Hauling</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="TM-L-Round-150x150.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#070f1a;--bg2:#0c1a2a;--bg3:#0f2035;
+  --blue:#1e5a9a;--blue-l:#3d8fd4;--red:#e63946;
+  --green:#22c55e;--green-bg:rgba(34,197,94,.12);
+  --text:#fff;--muted:#8fa0b9;--border:rgba(255,255,255,0.08);
+  --radius:10px;--font:'Segoe UI',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+a{color:var(--blue-l);text-decoration:none}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
+.login-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:380px;text-align:center}
+.login-card img{width:90px;margin-bottom:1.2rem}
+.login-card h1{font-size:1.3rem;margin-bottom:.4rem}
+.login-card p{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+.login-card input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-size:1rem;margin-bottom:1rem;outline:none;transition:.2s;font-family:inherit}
+.login-card input:focus{border-color:var(--blue)}
+.login-card button{width:100%;background:var(--blue);border:none;border-radius:8px;padding:.85rem;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
+.login-card button:hover{background:var(--blue-l)}
+.err{color:var(--red);font-size:.85rem;margin-top:.75rem;min-height:1.2em}
+
+/* MAIN */
+#app{display:none;max-width:800px;margin:0 auto;padding:1.5rem}
+header{display:flex;align-items:center;justify-content:space-between;padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
+header h1{font-size:1.2rem}
+header a{font-size:.85rem;color:var(--muted)}
+header a:hover{color:#fff}
+
+/* FORM */
+.upload-area{background:var(--bg2);border:2px dashed var(--border);border-radius:14px;padding:2.5rem;text-align:center;cursor:pointer;transition:.25s;margin-bottom:1.25rem}
+.upload-area:hover{border-color:var(--blue);background:var(--bg3)}
+.upload-area.has-file{border-color:var(--green);border-style:solid;padding:1.5rem}
+.upload-area svg{width:36px;height:36px;color:var(--muted);margin-bottom:.5rem}
+.upload-area p{color:var(--muted);font-size:.92rem}
+.upload-area .hint{font-size:.8rem;margin-top:.3rem}
+form{display:none;margin-top:0}
+form.show{display:block}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:.4rem}
+.field input,.field textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;color:var(--text);font-size:.95rem;outline:none;transition:.2s;font-family:inherit}
+.field input:focus,.field textarea:focus{border-color:var(--blue)}
+.field textarea{resize:vertical;min-height:70px}
+
+/* PREVIEW */
+.preview-wrap{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:1rem}
+.preview-wrap img{max-width:260px;max-height:180px;border-radius:8px;border:1px solid var(--border);object-fit:cover}
+.preview-info{flex:1;min-width:160px}
+.preview-info .size{font-size:.82rem;color:var(--muted);margin-top:.3rem}
+.file-name{font-size:.9rem;color:var(--text);word-break:break-all}
+
+/* BUTTONS */
+.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+.btn{background:var(--blue);border:none;border-radius:8px;padding:.75rem 1.5rem;color:#fff;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
+.btn:hover{background:var(--blue-l)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-outline:hover{color:#fff;border-color:#fff}
+.btn-del{background:var(--red)}
+.btn-del:hover{opacity:.85}
+
+/* STATUS */
+#status{display:none;margin-top:1rem;padding:.8rem 1rem;border-radius:8px;font-size:.9rem}
+#status.success{display:block;background:var(--green-bg);border:1px solid rgba(34,197,94,.3);color:var(--green)}
+#status.error{display:block;background:rgba(230,57,70,.12);border:1px solid rgba(230,57,70,.3);color:var(--red)}
+#status.loading{display:block;background:rgba(61,143,212,.12);border:1px solid rgba(61,143,212,.25);color:var(--blue-l)}
+
+/* RECENT UPLOADS */
+.recent-section{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.recent-section h2{font-size:1.05rem;margin-bottom:1rem;color:var(--muted)}
+.recent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem}
+.recent-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:.2s}
+.recent-card:hover{border-color:var(--blue)}
+.recent-card img{width:100%;height:100px;object-fit:cover;display:block}
+.recent-card .meta{padding:.5rem .65rem}
+.recent-card .meta .lbl{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-card .meta .ts{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.recent-empty{padding:2rem;text-align:center;color:var(--muted);font-size:.9rem;grid-column:1/-1}
+
+@media(max-width:600px){
+  #app{padding:1rem}
+  .upload-area{padding:1.5rem}
+  .preview-wrap{flex-direction:column}
+  .preview-wrap img{max-width:100%;max-height:200px}
+  .recent-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="TM-L-2-scaled.png" alt="T&M Hauling">
+    <h1>Photo Uploader</h1>
+    <p>Upload gallery images for the website</p>
+    <input type="password" id="pwd-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In</button>
+    <div class="err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <header>
+    <h1>&#128247; Upload Photos</h1>
+    <a href="tmhq.html" target="_blank">&#8594; Admin Panel</a>
+  </header>
+
+  <!-- DROP ZONE -->
+  <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <p>Tap to select a photo, or drag &amp; drop</p>
+    <div class="hint">Max 5MB &bull; JPEG, PNG, WebP, HEIC</div>
+    <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/heic" style="display:none">
+  </div>
+
+  <!-- FORM -->
+  <form id="upload-form">
+    <div class="preview-wrap">
+      <img id="preview" src="" alt="">
+      <div class="preview-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="size" id="file-size"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="photo-label">Label / Job Name <span style="color:var(--red)">*</span></label>
+      <input type="text" id="photo-label" placeholder="e.g. Backyard Cleanup — Smith" maxlength="200">
+    </div>
+    <div class="field">
+      <label for="photo-desc">Description <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+      <textarea id="photo-desc" placeholder="Brief notes about this project (before/after details, job type, etc.)" maxlength="1000"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn" id="upload-btn">Upload Photo</button>
+      <button type="button" class="btn btn-outline" onclick="resetForm()">Cancel</button>
+    </div>
+
+    <div id="status"></div>
+  </form>
+
+  <!-- RECENT UPLOADS -->
+  <div class="recent-section" id="recent-section">
+    <h2 id="recent-heading">Your Uploads</h2>
+    <div class="recent-grid" id="recent-grid">
+      <div class="recent-empty">No uploads yet. Upload a photo above.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const TOKEN_KEY = 'tm_admin_token';
+
+async function doLogin() {
+  const pwd = document.getElementById('pwd-input').value;
+  const errEl = document.getElementById('login-err');
+  errEl.textContent = '';
+  if (!pwd) { errEl.textContent = 'Enter your password.'; return; }
+  try {
+    const r = await fetch('/api/admin-auth', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({password:pwd}) });
+    const d = await r.json();
+    if (!r.ok) { errEl.textContent = d.error || 'Login failed.'; return; }
+    sessionStorage.setItem(TOKEN_KEY, d.token);
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadRecent();
+  } catch { errEl.textContent = 'Network error. Try again.'; }
+}
+
+function getToken() { return sessionStorage.getItem(TOKEN_KEY) || ''; }
+
+window.addEventListener('DOMContentLoaded', () => { if (getToken()) { document.getElementById('login-screen').style.display = 'none'; document.getElementById('app').style.display = 'block'; loadRecent(); } });
+
+// File selection
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const form = document.getElementById('upload-form');
+const preview = document.getElementById('preview');
+const fileName = document.getElementById('file-name');
+const fileSize = document.getElementById('file-size');
+const statusEl = document.getElementById('status');
+const uploadBtn = document.getElementById('upload-btn');
+const photoLabel = document.getElementById('photo-label');
+const photoDesc = document.getElementById('photo-desc');
+
+let selectedFile = null;
+let uploadInProgress = false;
+
+fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFile(fileInput.files[0]); });
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--blue)'; });
+dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.style.borderColor = ''; if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+
+function handleFile(file) {
+  if (!file.type.startsWith('image/')) { showStatus('Please select an image file.', 'error'); return; }
+  if (file.size > 5 * 1024 * 1024) { showStatus('Image is too large. Max 5MB.', 'error'); return; }
+  selectedFile = file;
+  fileName.textContent = file.name;
+  fileSize.textContent = (file.size / 1024).toFixed(1) + ' KB' + (file.size > 1024 * 1024 ? ' (' + (file.size / 1024 / 1024).toFixed(2) + ' MB)' : '');
+  dropZone.classList.add('has-file');
+  const reader = new FileReader();
+  reader.onload = e => { preview.src = e.target.result; form.classList.add('show'); };
+  reader.readAsDataURL(file);
+}
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (uploadInProgress) return;
+  const label = photoLabel.value.trim();
+  if (!label) { showStatus('Please enter a label / job name.', 'error'); document.getElementById('photo-label').focus(); return; }
+  if (!selectedFile) { showStatus('No file selected.', 'error'); return; }
+
+  // Compress if needed
+  let imageData = await toBase64(selectedFile);
+  if (selectedFile.size > 900 * 1024) { // compress if > 900KB
+    try { imageData = await compressImage(selectedFile, 0.75); } catch {}
+  }
+
+  uploadInProgress = true;
+  uploadBtn.disabled = true;
+  uploadBtn.textContent = 'Uploading...';
+  showStatus('Uploading photo to gallery...', 'loading');
+
+  try {
+    const r = await fetch('/api/upload-photo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getToken() },
+      body: JSON.stringify({
+        label,
+        description: photoDesc.value.trim(),
+        image: imageData.split(',')[1] || imageData,
+        mime_type: selectedFile.type || 'image/jpeg'
+      })
+    });
+    const d = await r.json();
+    if (!r.ok) { showStatus(d.error || 'Upload failed', 'error'); return; }
+    showStatus('Done! Photo uploaded successfully.', 'success');
+    resetForm();
+    loadRecent();
+  } catch(err) { showStatus('Network error. Please try again.', 'error'); }
+  finally { uploadInProgress = false; uploadBtn.disabled = false; uploadBtn.textContent = 'Upload Photo'; }
+});
+
+function resetForm() {
+  selectedFile = null;
+  fileInput.value = '';
+  preview.src = '';
+  fileName.textContent = '';
+  fileSize.textContent = '';
+  photoLabel.value = '';
+  photoDesc.value = '';
+  dropZone.classList.remove('has-file');
+  form.classList.remove('show');
+  statusEl.className = '';
+  statusEl.style.display = 'none';
+}
+
+function showStatus(msg, type) {
+  statusEl.textContent = msg;
+  statusEl.className = type;
+  statusEl.style.display = 'block';
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+function compressImage(file, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if (w > 1920) { h *= 1920 / w; w = 1920; }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL(file.type || 'image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+// Recent uploads
+async function loadRecent() {
+  const grid = document.getElementById('recent-grid');
+  const heading = document.getElementById('recent-heading');
+  try {
+    const r = await fetch('/api/photos', { headers: { Authorization: 'Bearer ' + getToken() } });
+    if (r.status === 401) return;
+    const d = await r.json();
+    const data = d.data || [];
+    heading.textContent = data.length ? 'Your Uploads (' + data.length + ')' : 'Your Uploads';
+    if (!data.length) { grid.innerHTML = '<div class="recent-empty">No uploads yet. Upload a photo above.</div>'; return; }
+    grid.innerHTML = data.slice(0, 24).map(p => `
+      <div class="recent-card">
+        <img src="${esc(p.public_url || '')}" alt="${esc(p.label)}" loading="lazy" onclick="window.open('${esc(p.public_url)}','_blank')" style="cursor:pointer">
+        <div class="meta">
+          <div class="lbl" title="${esc(p.label)}">${esc(p.label)}</div>
+          <div class="ts">${fmtDate(p.created_at)}</div>
+          <div style="display:inline-block;margin-top:.3rem;font-size:.7rem;padding:.1rem .45rem;border-radius:10px;background:${p.status==='pending'?'rgba(234,179,8,.15)':'rgba(34,197,94,.15)'};color:${p.status==='pending'?'#fbbf24':'#4ade80'}">${esc(p.status)}</div>
+        </div>
+      </div>
+    `).join('');
+  } catch {}
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+</script>
+</body>
+</html>
