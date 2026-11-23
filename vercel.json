@@ -1,5 +1,4 @@
 {
-  "name": "tandm-hauling-bakersfield",
   "headers": [
     {
       "source": "/(.*)",
@@ -58,6 +57,21 @@
     },
     "api/photos.js": {
       "maxDuration": 10
+    },
+    "api/sms-incoming.js": {
+      "maxDuration": 30
+    },
+    "api/voice-incoming.js": {
+      "maxDuration": 10
+    },
+    "api/voice-status.js": {
+      "maxDuration": 20
+    },
+    "api/inbox.js": {
+      "maxDuration": 15
     }
-  }
+  },
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }

@@ -1,10 +1,11 @@
 /**
  * GET /api/photos
  * Lists uploaded photos from photo_uploads table.
- * Requires admin auth. Env: SUPABASE_URL, SUPABASE_SERVICE_KEY
+ * Requires admin auth. Env: DATABASE_URL
  */
 import crypto from 'crypto';
 import { applySecurityHeaders, applyCors, ensureOrigin } from './_lib/security.js';
+import { listPhotos } from './_lib/db.js';
 
 function verifyToken(token) {
   if (!token || typeof token !== 'string') return false;
@@ -32,18 +33,11 @@ export default async function handler(req, res) {
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
   if (!verifyToken(token)) return res.status(401).json({ error: 'Unauthorized' });
 
-  const sbUrl = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!sbUrl || !key) return res.status(503).json({ error: 'DB not configured' });
-
   try {
-    const r = await fetch(`${sbUrl}/rest/v1/photo_uploads?select=*&order=created_at.desc&limit=200`, {
-      headers: { apikey: key, Authorization: `Bearer ${key}` }
-    });
-    if (!r.ok) throw new Error(await r.text());
-    const data = await r.json();
+    const data = await listPhotos(200);
     return res.status(200).json({ data });
   } catch (err) {
+    if (err.message === 'DB_UNCONFIGURED') return res.status(503).json({ error: 'DB not configured' });
     console.error('photos error:', err.message);
     return res.status(500).json({ error: 'Failed to fetch' });
   }

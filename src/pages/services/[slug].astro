@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import { SITE } from '../../data/site';
+import services from '../../data/services.json';
+import hoods from '../../data/neighborhoods.json';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s: svc } = Astro.props as { s: (typeof services)[number] };
+const path = `/services/${svc.slug}.html`;
+const name = svc.h1.replace(/ in Bakersfield$/, '');
+const schema = [
+  {
+    '@type': 'Service',
+    '@id': `${SITE.url}${path}#service`,
+    name,
+    serviceType: name,
+    description: svc.description,
+    provider: { '@id': `${SITE.url}/#organization` },
+    areaServed: [{ '@type': 'City', name: 'Bakersfield' }, { '@type': 'AdministrativeArea', name: 'Kern County' }],
+    url: `${SITE.url}${path}`,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE.url}/services.html` },
+      { '@type': 'ListItem', position: 3, name, item: `${SITE.url}${path}` },
+    ],
+  },
+  ...(svc.qa.length
+    ? [{ '@type': 'FAQPage', mainEntity: svc.qa.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }]
+    : []),
+];
+const nearby = hoods.slice(0, 8);
+const others = services.filter((x) => x.slug !== svc.slug).slice(0, 6);
+---
+
+<Base title={svc.title} description={svc.description} path={path} schema={schema}>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services.html">Services</a> / {name}</nav>
+      <span class="eyebrow">{svc.eyebrow || 'Specialized service — Bakersfield, CA'}</span>
+      <h1>{svc.h1.replace(svc.accent, '')}<span class="accent">{svc.accent}</span></h1>
+      <p class="lede">{svc.lede}</p>
+      {svc.pills.length > 0 && <div class="pills">{svc.pills.map((p) => <span class="pill">{p}</span>)}</div>}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2 style="font-size:2rem">{name} — Q&amp;A</h2>
+        {svc.qa.map((f) => <div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+
+        <h2 style="font-size:1.6rem;margin-top:3rem">Also available</h2>
+        <div class="link-grid">
+          {others.map((o) => <a href={`/services/${o.slug}.html`}>→ {o.h1.replace(/ in Bakersfield$/, '')}</a>)}
+        </div>
+
+        <h2 style="font-size:1.6rem;margin-top:3rem">Neighborhoods we serve</h2>
+        <div class="link-grid">
+          {nearby.map((n) => <a href={`/neighborhoods/${n.slug}.html`}>{n.accent || n.slug}</a>)}
+          <a href="/service-areas.html">All service areas →</a>
+        </div>
+      </div>
+      <aside>
+        <div class="aside-card">
+          <span class="eyebrow">Fast response</span>
+          <h3>Get your quote</h3>
+          <p class="muted" style="font-size:.95rem">Text a photo of your job for a price range in minutes.</p>
+          <a class="btn btn-red" href={`sms:${SITE.phoneTel}`}>Text photos</a>
+          <a class="btn btn-ghost" href={`tel:${SITE.phoneTel}`}>Call {SITE.phone}</a>
+        </div>
+        <div class="quote-box" style="margin-top:1.25rem">
+          <QuoteForm id="svc-quote" defaultService={name} />
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>

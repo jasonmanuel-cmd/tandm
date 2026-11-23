@@ -4,7 +4,8 @@
  * Env vars: ADMIN_PASSWORD, ADMIN_SECRET (optional, falls back to password)
  */
 import crypto from 'crypto';
-import { applySecurityHeaders, applyCors, ensureOrigin, enforceRateLimit } from './_lib/security.js';
+import { applySecurityHeaders, applyCors, ensureOrigin, enforceRateLimit, getClientIp } from './_lib/security.js';
+import { tooManyAuthFailures, recordAuthFailure } from './_lib/authLimit.js';
 
 export default async function handler(req, res) {
     applySecurityHeaders(res);
@@ -18,6 +19,12 @@ export default async function handler(req, res) {
     const adminPassword = process.env.ADMIN_PASSWORD;
     if (!adminPassword) return res.status(503).json({ error: 'Admin not configured' });
 
+    const clientIp = getClientIp(req);
+    if (await tooManyAuthFailures(clientIp)) {
+        res.setHeader('Retry-After', '900');
+        return res.status(429).json({ error: 'Too many failed attempts. Try again later.' });
+    }
+
     let body = {};
     try { body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {}); }
     catch { return res.status(400).json({ error: 'Invalid body' }); }
@@ -29,7 +36,10 @@ export default async function handler(req, res) {
     const a = Buffer.alloc(256); Buffer.from(password).copy(a);
     const b = Buffer.alloc(256); Buffer.from(adminPassword).copy(b);
     const match = crypto.timingSafeEqual(a, b) && password.length === adminPassword.length;
-    if (!match) return res.status(401).json({ error: 'Invalid password' });
+    if (!match) {
+        await recordAuthFailure(clientIp);
+        return res.status(401).json({ error: 'Invalid password' });
+    }
 
     // Token: timestamp.hmac — valid 8 hours
     const ts = Date.now().toString();

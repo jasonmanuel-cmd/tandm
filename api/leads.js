@@ -1,11 +1,12 @@
 /**
  * POST /api/leads
- * Saves a contact form lead to Supabase and sends auto-reply to customer.
- * Env vars: SUPABASE_URL, SUPABASE_SERVICE_KEY
+ * Saves a contact form lead to the Neon database and sends auto-reply to customer.
+ * Env vars: DATABASE_URL (set by the Vercel Neon integration)
  * For auto-reply: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS (optional — skips if unset)
  */
 import { createTransport } from 'nodemailer';
 import { applySecurityHeaders, applyCors, enforceRateLimit, ensureOrigin } from './_lib/security.js';
+import { insertLead } from './_lib/db.js';
 
 function getTransporter() {
     const host = process.env.SMTP_HOST;
@@ -71,40 +72,18 @@ export default async function handler(req, res) {
 
     if (!name) return res.status(400).json({ error: 'Name is required' });
 
-    const sbUrl = process.env.SUPABASE_URL;
-    const key   = process.env.SUPABASE_SERVICE_KEY;
-    if (!sbUrl || !key) return res.status(503).json({ error: 'Storage not configured' });
-
-    const basePayload = { name, email, phone, message, service, source: 'contact_form' };
-    const fullPayload = { ...basePayload, signature, signature_date, accept_terms };
+    // signature_date must be a real date or empty; anything else is dropped rather than failing the save
+    const sigDate = /^\d{4}-\d{2}-\d{2}$/.test(signature_date) ? signature_date : '';
 
     try {
-        let saved = false;
-        try {
-            const r = await fetch(`${sbUrl}/rest/v1/leads`, {
-                method: 'POST',
-                headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-                body: JSON.stringify(fullPayload)
-            });
-            if (!r.ok) throw new Error(await r.text());
-            saved = true;
-        } catch (innerErr) {
-            if (innerErr.message && innerErr.message.includes('column')) {
-                const r2 = await fetch(`${sbUrl}/rest/v1/leads`, {
-                    method: 'POST',
-                    headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-                    body: JSON.stringify(basePayload)
-                });
-                if (!r2.ok) throw new Error(await r2.text());
-                saved = true;
-            } else throw innerErr;
-        }
+        await insertLead({ name, email, phone, message, service, source: 'contact_form', signature, signature_date: sigDate, accept_terms });
 
-        if (saved && email) sendAutoReply(email, name);
-        if (saved && signature) sendAdminLeadNotification(name, email, phone, service, signature, signature_date);
+        if (email) sendAutoReply(email, name);
+        if (signature) sendAdminLeadNotification(name, email, phone, service, signature, signature_date);
 
         return res.status(200).json({ ok: true });
     } catch (err) {
+        if (err.message === 'DB_UNCONFIGURED') return res.status(503).json({ error: 'Storage not configured' });
         console.error('leads save error:', err.message);
         return res.status(500).json({ error: 'Could not save lead' });
     }

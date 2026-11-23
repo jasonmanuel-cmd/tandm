@@ -1,11 +1,12 @@
 /**
  * POST /api/tos-sign
- * Saves a signed ToS record to Supabase, sends confirmation email.
- * Env vars: SUPABASE_URL, SUPABASE_SERVICE_KEY
+ * Saves a signed ToS record to the Neon database, sends confirmation email.
+ * Env vars: DATABASE_URL (set by the Vercel Neon integration)
  * For confirmation email: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS (optional — skips if unset)
  */
 import { createTransport } from 'nodemailer';
 import { applySecurityHeaders, applyCors, ensureOrigin, enforceRateLimit, getClientIp } from './_lib/security.js';
+import { insertSignature } from './_lib/db.js';
 
 function getTransporter() {
     const host = process.env.SMTP_HOST;
@@ -63,34 +64,11 @@ export default async function handler(req, res) {
     const email    = (body.email    || '').trim().slice(0, 200);
     if (!fullName) return res.status(400).json({ error: 'Full name is required' });
 
-    const sbUrl = process.env.SUPABASE_URL;
-    const key   = process.env.SUPABASE_SERVICE_KEY;
-    if (!sbUrl || !key) return res.status(503).json({ error: 'Storage not configured' });
-
     const ip        = getClientIp(req);
     const userAgent = (req.headers['user-agent'] || '').slice(0, 300);
 
     try {
-        let record;
-        try {
-            const r = await fetch(`${sbUrl}/rest/v1/tos_signatures`, {
-                method: 'POST',
-                headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=representation' },
-                body: JSON.stringify({ full_name: fullName, email, ip_address: ip, user_agent: userAgent })
-            });
-            if (!r.ok) throw new Error(await r.text());
-            [record] = await r.json();
-        } catch (innerErr) {
-            if (email && innerErr.message && innerErr.message.includes('column')) {
-                const r2 = await fetch(`${sbUrl}/rest/v1/tos_signatures`, {
-                    method: 'POST',
-                    headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=representation' },
-                    body: JSON.stringify({ full_name: fullName, ip_address: ip, user_agent: userAgent })
-                });
-                if (!r2.ok) throw new Error(await r2.text());
-                [record] = await r2.json();
-            } else throw innerErr;
-        }
+        const record = await insertSignature({ fullName, email, ip, userAgent });
 
         if (email) {
             sendConfirmation(email, fullName, record.signed_at);
@@ -99,6 +77,7 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ ok: true, id: record.id, signed_at: record.signed_at });
     } catch (err) {
+        if (err.message === 'DB_UNCONFIGURED') return res.status(503).json({ error: 'Storage not configured' });
         console.error('tos-sign error:', err.message);
         return res.status(500).json({ error: 'Could not save signature' });
     }

@@ -1,11 +1,12 @@
-.gemini/
-__pycache__/
-*.pyc
-.DS_Store
-Thumbs.db
+node_modules/
+dist/
+.vercel
+.env*
+.astro/
 
 .vercel
-node_modules/
+.env*
 
-# Local Claude Code settings (machine-specific, not for repo)
-.claude/settings.local.json
+.agents/
+.claude/
+skills-lock.json

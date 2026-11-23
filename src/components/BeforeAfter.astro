@@ -1,0 +1,31 @@
+---
+interface Props { before: string; after: string; caption: string; alt: string }
+const { before, after, caption, alt } = Astro.props;
+const enc = (p: string) => encodeURI(p);
+---
+
+<figure style="margin:0">
+  <div class="ba" data-ba>
+    <img src={enc(before)} alt={`Before: ${alt}`} loading="lazy" decoding="async" width="1200" height="900" />
+    <img class="after" src={enc(after)} alt={`After: ${alt}`} loading="lazy" decoding="async" width="1200" height="900" />
+    <span class="tag b">BEFORE</span><span class="tag a">AFTER</span>
+    <div class="handle"></div>
+    <input type="range" min="0" max="100" value="50" aria-label={`Compare before and after: ${caption}`} />
+  </div>
+  <figcaption class="ba-caption">{caption}</figcaption>
+</figure>
+
+<script is:inline>
+  document.querySelectorAll('[data-ba]').forEach((el) => {
+    if (el.dataset.bound) return;
+    el.dataset.bound = '1';
+    const range = el.querySelector('input');
+    const after = el.querySelector('.after');
+    const handle = el.querySelector('.handle');
+    const set = (v) => {
+      after.style.clipPath = `inset(0 0 0 ${v}%)`;
+      handle.style.left = v + '%';
+    };
+    range.addEventListener('input', () => set(range.value));
+  });
+</script>

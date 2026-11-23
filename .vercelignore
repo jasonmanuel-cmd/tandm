@@ -1,0 +1,9 @@
+node_modules
+dist
+.vercel
+.env*
+.gitignore.old
+supabase-*.sql
+.agents
+.claude
+skills-lock.json

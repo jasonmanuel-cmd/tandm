@@ -1,0 +1,385 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+
+const TOS = [
+  ['Payment', 'Payment is required in full immediately upon project completion. Any deviations from this policy must be documented and approved prior to the commencement of work.'],
+  ['Waste Restrictions', 'Customer warrants that all materials provided for disposal are free of hazardous substances (e.g., paint, oil, asbestos, batteries, etc.).'],
+  ['Fees', 'Customer is liable for all fees associated with undisclosed hazardous waste and any unforeseen disposal/dumping costs.'],
+  ['Electronic Payment', 'Customer consents to the use of electronic payment processing if deemed necessary by T&M.'],
+  ['Liability Waiver', 'T&M shall not be held liable for any items removed from the premises in error.'],
+];
+const loads = [
+  { pct: 25, label: '¼ load', cap: 'About ¼ load — small pile or single room' },
+  { pct: 50, label: '½ load', cap: 'About ½ load — garage or medium cleanout' },
+  { pct: 75, label: '¾ load', cap: 'About ¾ load — big cleanout or small job site' },
+  { pct: 100, label: 'Full load', cap: 'Full trailer — estate, hoarder prep, or major debris' },
+];
+const serviceTypes = [
+  ['Junk Removal', 'General junk removal'], ['Garage Clean Out', 'Garage clean up'], ['Estate Clean Up', 'Estate clean up'],
+  ['Apartment Clean Out', 'Apartment clean out'], ['Storage Unit', 'Storage unit clearing'], ['Construction Debris', 'Construction debris'],
+  ['Appliance Hauling', 'Appliance hauling'], ['Yard Waste', 'Yard waste'], ['Other', 'Other'],
+];
+const schema = [{ '@type': 'ContactPage', name: 'Contact & booking', url: `${SITE.url}/contact.html` }];
+---
+
+<Base
+  title="Contact & Book | Free Estimate · $30 Job Deposit | T&M Hauling Bakersfield"
+  description="Contact T&M Hauling: free photo estimate or book a job with a $30 deposit credited to your final bill. Text photos to (661) 996-6950 for the fastest quote."
+  path="/contact.html"
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Contact</nav>
+      <span class="eyebrow">Get in touch</span>
+      <h1>Contact &amp; <span class="accent">booking</span></h1>
+      <p class="lede">Free estimates and job deposits both use this page — same inbox, fast replies. Text a photo to <a class="accent" href={`sms:${SITE.phoneTel}`}>{SITE.phone}</a> for the fastest quote.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:2rem">
+    <div class="container">
+      <p class="eyebrow">Start here — pick one</p>
+      <div class="grid cols-3">
+        <a class="card" href={`sms:${SITE.phoneTel}`}>
+          <span class="eyebrow" style="margin-bottom:.4rem">Fastest</span>
+          <h3>Text photos</h3>
+          <p>Send pictures of the pile. We reply with next steps and timing — usually the same day when we're on the route.</p>
+          <span class="arrow">Text {SITE.phone} →</span>
+        </a>
+        <a class="card" href="#estimate">
+          <span class="eyebrow" style="margin-bottom:.4rem">No deposit</span>
+          <h3>Free estimate form</h3>
+          <p>Photos + details go straight to our inbox. We follow up with a quote — no payment to ask.</p>
+          <span class="arrow">Go to estimate form →</span>
+        </a>
+        <a class="card" href="#book-job">
+          <span class="eyebrow" style="margin-bottom:.4rem">Lock the date</span>
+          <h3>Book + $30 deposit</h3>
+          <p>Submit the job with photos, then pay a $30 hold on Stripe. It credits your final bill.</p>
+          <span class="arrow">Go to booking form →</span>
+        </a>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:1.5rem">
+        <div class="card">
+          <h3>Direct contact</h3>
+          <p><a href={`tel:${SITE.phoneTel}`}>{SITE.phone}</a><br /><a href={`tel:${SITE.phone2Tel}`}>{SITE.phone2}</a><br /><a href={`sms:${SITE.phoneTel}`}>Text a photo (fastest)</a><br /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+        </div>
+        <div class="card">
+          <h3>Hours</h3>
+          <p>Mon–Fri: 9:00 AM – 5:00 PM<br />Sat: Closed<br />Sun: By appointment only<br />Bakersfield &amp; Kern County</p>
+        </div>
+        <div class="card">
+          <h3>Why text a photo first?</h3>
+          <p>We see volume, access, and hazards before we roll a truck — tighter quotes, no phone tag, one number for everything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="load-estimator">
+    <div class="container" style="max-width:860px">
+      <div class="center" style="margin-bottom:1.8rem">
+        <span class="eyebrow">Pricing clarity</span>
+        <h2>How much truck space?</h2>
+        <p class="lede">We price by how much of our trailer your job fills. Tap a load size — final price is always confirmed on site before we lift anything.</p>
+      </div>
+      <div class="load-wrap">
+        <div class="trailer" aria-hidden="true"><div class="trailer-fill" id="load-fill" style="height:25%"></div></div>
+        <div>
+          <p id="load-cap" class="load-cap">{loads[0].cap}</p>
+          <div class="load-btns" role="group" aria-label="Trailer load size">
+            {loads.map((l, i) => <button type="button" class={`btn btn-ghost${i === 0 ? ' on' : ''}`} data-pct={l.pct} data-cap={l.cap}>{l.label}</button>)}
+          </div>
+          <p class="muted" style="margin-top:1rem"><a class="accent" href={`sms:${SITE.phoneTel}`}>Text photos — we'll match your pile to a load size →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="estimate">
+    <div class="container" style="max-width:860px">
+      <span class="eyebrow">Option A</span>
+      <h2>Free photo estimate</h2>
+      <p class="lede">No payment and no deposit — we review your photos and follow up with a quote. Add as many photos as help tell the story.</p>
+
+      <form id="form-estimate" class="form quote-box" action="https://formsubmit.co/tandmhaulingbak@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
+        <input type="hidden" name="_subject" value="T&M Hauling — FREE ESTIMATE (photos · no deposit)" />
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value="https://tandmbak.com/thank-you.html" />
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap" />
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap" />
+        <input type="hidden" name="form_started_at" value="" />
+        <input type="hidden" name="form_funnel" value="FREE_ESTIMATE" />
+        <div class="row">
+          <label>First name<input type="text" name="first_name" required autocomplete="given-name" /></label>
+          <label>Last name<input type="text" name="last_name" required autocomplete="family-name" /></label>
+        </div>
+        <div class="row">
+          <label>Phone<input type="tel" name="phone" required autocomplete="tel" /></label>
+          <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+        </div>
+        <div class="row">
+          <label>Job address or area<input type="text" name="service_address" placeholder="e.g. SW Bakersfield" autocomplete="street-address" /></label>
+          <label>Preferred date (optional)<input type="date" name="preferred_date_if_any" data-future /></label>
+        </div>
+        <label>What needs to go?<textarea name="message" rows="4" required placeholder="Rough volume, stairs, gate codes, etc."></textarea></label>
+        <label>Photos (strongly recommended, up to 8)<input type="file" name="attachments" accept="image/*" multiple /></label>
+
+        <div class="tos">
+          <h4>Terms of service</h4>
+          <div class="tos-scroll">{TOS.map(([k, v]) => <p><strong>{k}:</strong> {v}</p>)}</div>
+          <div class="row">
+            <label>Accepted by (type full name)<input type="text" name="signature" required placeholder="Type your full name" /></label>
+            <label>Date<input type="date" name="signature_date" required /></label>
+          </div>
+          <label class="check"><input type="checkbox" name="accept_terms" required /> I have read and accept the Terms of Service</label>
+        </div>
+
+        <button class="btn btn-red btn-lg" type="submit">Send estimate request</button>
+        <p class="muted small"><strong>What happens next:</strong> your message hits our inbox immediately. We reply by text or call with a quote or follow-up questions — usually within one business day, often faster during route hours.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section alt" id="book-job">
+    <div class="container" style="max-width:860px">
+      <span class="eyebrow">Option B</span>
+      <h2>Book the job</h2>
+      <p class="lede">1) Submit details + photos below. 2) You'll go to Stripe for a flat <strong>$30 non-refundable deposit</strong> to hold your crew and date. 3) The $30 is credited toward your final invoice.</p>
+
+      <form id="form-book-job" class="form quote-box" novalidate>
+        <input type="hidden" name="_subject" value="T&M Hauling — JOB BOOKING ($30 non-refundable deposit · photos attached)" />
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap" />
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap" />
+        <input type="hidden" name="form_started_at" value="" />
+        <input type="hidden" name="form_funnel" value="JOB_BOOKING_DEPOSIT" />
+        <p class="notice"><strong>$30 deposit is non-refundable</strong> — it holds your slot and applies to your final total. Processed by Stripe; we never see your full card number. If checkout is unavailable, we still receive your details and contact you to collect the deposit.</p>
+        <div class="row">
+          <label>First name<input type="text" name="first_name" required autocomplete="given-name" /></label>
+          <label>Last name<input type="text" name="last_name" required autocomplete="family-name" /></label>
+        </div>
+        <div class="row">
+          <label>Phone<input type="tel" name="phone" required autocomplete="tel" /></label>
+          <label>Email (for Stripe receipt)<input type="email" name="email" required autocomplete="email" /></label>
+        </div>
+        <div class="row">
+          <label>Full service address<input type="text" name="service_address" required autocomplete="street-address" /></label>
+          <label>Service type
+            <select name="service_type" required>
+              <option value="" disabled selected>Select service type</option>
+              {serviceTypes.map(([v, l]) => <option value={v}>{l}</option>)}
+            </select>
+          </label>
+        </div>
+        <label>Preferred date<input type="date" name="preferred_date" required data-future /></label>
+        <label>Details<textarea name="message" rows="4" required placeholder="Access notes, gate codes, what to haul, hazards"></textarea></label>
+        <label>Job photos (required, up to 8)<input type="file" id="job-attachments" name="attachments" accept="image/*" multiple required /></label>
+        <p class="muted small" style="margin-top:-.4rem">Upload clear shots of the pile or area so we can verify scope before the crew arrives.</p>
+
+        <div class="tos">
+          <h4>Terms of service</h4>
+          <div class="tos-scroll">{TOS.map(([k, v]) => <p><strong>{k}:</strong> {v}</p>)}</div>
+          <div class="row">
+            <label>Accepted by (type full name)<input type="text" name="signature" required placeholder="Type your full name" /></label>
+            <label>Date<input type="date" name="signature_date" required /></label>
+          </div>
+          <label class="check"><input type="checkbox" name="accept_terms" required /> I have read and accept the Terms of Service</label>
+        </div>
+
+        <button class="btn btn-red btn-lg" type="submit">Email details &amp; pay $30 deposit</button>
+        <p class="muted small"><strong>What happens next:</strong> we email you to confirm scope and window, then you complete the $30 hold on Stripe. That money applies to your final invoice — we show up, load, and settle on site.</p>
+      </form>
+
+      <p class="muted" style="margin-top:1.5rem">Prefer Google? <a class="accent" href={SITE.googleShare} target="_blank" rel="noopener noreferrer">Message us on Google Business</a>. Or stay here — text beats voicemail for speed.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Want the pile gone?</h2>
+        <p>Text a photo, send a free estimate, or lock a date — same crew, same inbox.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href={`sms:${SITE.phoneTel}`}>Text now</a>
+          <a class="btn btn-ghost btn-lg" href="#estimate">Free estimate</a>
+          <a class="btn btn-ghost btn-lg" href="#book-job">$30 deposit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toasts" aria-live="polite"></div>
+
+  <style>
+    .trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .small { font-size: 0.88rem; }
+    .check { display: flex !important; grid-template-columns: none; align-items: center; gap: 0.6rem; font-weight: 600; color: var(--text) !important; letter-spacing: 0 !important; font-size: 0.92rem !important; }
+    .check input { width: 18px; height: 18px; flex: none; }
+    .form input[type='file'] { padding: 0.7rem; }
+    .field-err { color: #ff8a93; font-size: 0.8rem; font-weight: 600; letter-spacing: 0; }
+    .form .invalid { outline: 2px solid #ff8a93; border-color: transparent; }
+    .tos { border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem; display: grid; gap: 0.9rem; background: rgba(255, 255, 255, 0.02); }
+    .tos h4 { margin: 0; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); }
+    .tos-scroll { max-height: 9rem; overflow: auto; font-size: 0.88rem; color: var(--muted); padding-right: 0.5rem; }
+    .tos-scroll p { margin: 0 0 0.6rem; }
+    .notice { background: rgba(230, 57, 70, 0.1); border: 1px solid rgba(230, 57, 70, 0.4); border-radius: 12px; padding: 0.9rem 1rem; margin: 0; font-size: 0.92rem; }
+    .load-wrap { display: grid; grid-template-columns: 150px 1fr; gap: 2rem; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 1.6rem; }
+    .trailer { height: 170px; border: 3px solid #fff; border-radius: 10px; position: relative; overflow: hidden; background: #0a1a2c; }
+    .trailer-fill { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, var(--blue), var(--blue-deep)); transition: height 0.35s ease; }
+    .load-cap { font-weight: 600; font-size: 1.05rem; min-height: 2.8rem; }
+    .load-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .load-btns .btn { padding: 0.65rem 1.1rem; }
+    .load-btns .btn.on { background: var(--blue-deep); border-color: var(--blue); }
+    @media (max-width: 600px) { .load-wrap { grid-template-columns: 1fr; } .trailer { height: 100px; } }
+    #toasts { position: fixed; top: 5rem; right: 1rem; z-index: 100; display: grid; gap: 0.5rem; }
+    #toasts .toast { padding: 0.9rem 1.3rem; border-radius: 10px; font-weight: 600; color: #fff; background: #1e7a3a; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4); }
+    #toasts .toast.err { background: #c0392b; }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var $ = function (s, r) { return (r || document).querySelector(s); };
+      var toast = function (msg, err) {
+        var t = document.createElement('div');
+        t.className = 'toast' + (err ? ' err' : '');
+        t.textContent = msg;
+        $('#toasts').appendChild(t);
+        setTimeout(function () { t.remove(); }, 3800);
+      };
+      var phoneRe = /^\+?[\d\s\-().]{7,}$/;
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var iso = function (d) { return d.toISOString().slice(0, 10); };
+
+      // Load estimator
+      document.querySelectorAll('[data-pct]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          $('#load-fill').style.height = b.dataset.pct + '%';
+          $('#load-cap').textContent = b.dataset.cap;
+          document.querySelectorAll('[data-pct]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        });
+      });
+
+      // Date defaults
+      document.querySelectorAll('input[data-future]').forEach(function (i) { i.min = iso(today); });
+      document.querySelectorAll('input[name="signature_date"]').forEach(function (i) { i.value = iso(new Date()); });
+
+      function setup(form) {
+        var started = form.querySelector('[name="form_started_at"]');
+        started.value = String(Date.now());
+        var errors = [];
+        form.fail = function (input, msg) {
+          if (!input) return;
+          input.classList.add('invalid');
+          var holder = input.closest('label') || input.parentElement;
+          var s = document.createElement('span');
+          s.className = 'field-err';
+          s.textContent = msg;
+          holder.appendChild(s);
+          errors.push([input, s]);
+        };
+        form.reset_errors = function () {
+          errors.forEach(function (e) { e[0].classList.remove('invalid'); e[1].remove(); });
+          errors = [];
+        };
+        form.botCheck = function () {
+          var w = form.querySelector('[name="website"]').value.trim();
+          var g = form.querySelector('[name="_gotcha"]').value.trim();
+          var t = Number(started.value);
+          return !(w || g || !t || Date.now() - t < 2500);
+        };
+        form.commonValid = function () {
+          var f = function (n) { return form.querySelector('[name="' + n + '"]'); };
+          var ok = true;
+          if (!phoneRe.test(f('phone').value.trim())) { form.fail(f('phone'), 'Please enter a valid phone number.'); ok = false; }
+          if (!emailRe.test(f('email').value.trim())) { form.fail(f('email'), 'Please enter a valid email address.'); ok = false; }
+          var files = f('attachments');
+          if (files.files && files.files.length > 8) { form.fail(files, 'Use up to 8 photos for faster delivery.'); ok = false; }
+          if (!f('signature').value.trim()) { form.fail(f('signature'), 'Please type your full name as signature.'); ok = false; }
+          if (!f('signature_date').value) { form.fail(f('signature_date'), 'Please select the date.'); ok = false; }
+          if (!f('accept_terms').checked) { form.fail(f('accept_terms'), 'You must accept the Terms of Service.'); ok = false; }
+          ['first_name', 'last_name', 'message'].forEach(function (n) { if (!f(n).value.trim()) { form.fail(f(n), 'Required.'); ok = false; } });
+          return ok;
+        };
+        form.leadPayload = function (service) {
+          var f = function (n) { return form.querySelector('[name="' + n + '"]'); };
+          return JSON.stringify({
+            name: (f('first_name').value.trim() + ' ' + f('last_name').value.trim()).trim(),
+            email: f('email').value.trim(),
+            phone: f('phone').value.trim(),
+            message: f('message').value.trim(),
+            service: service,
+            signature: f('signature').value.trim(),
+            signature_date: f('signature_date').value,
+            accept_terms: f('accept_terms').checked
+          });
+        };
+      }
+
+      // Funnel A: free estimate (native multipart POST to FormSubmit after saving the lead)
+      var est = $('#form-estimate');
+      setup(est);
+      est.addEventListener('submit', function (e) {
+        est.reset_errors();
+        var ok = est.commonValid();
+        var d = est.querySelector('[name="preferred_date_if_any"]');
+        if (d.value && new Date(d.value) < today) { est.fail(d, 'Please select today or a future date.'); ok = false; }
+        if (!ok || !est.botCheck()) { e.preventDefault(); return; }
+        var btn = est.querySelector('[type="submit"]');
+        btn.disabled = true; btn.textContent = 'Sending…';
+        try {
+          fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: est.leadPayload('Free Estimate'), keepalive: true });
+          toast('Estimate saved — sending…');
+        } catch (x) {}
+      });
+
+      // Funnel B: booking + Stripe deposit
+      var book = $('#form-book-job');
+      setup(book);
+      book.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        book.reset_errors();
+        var f = function (n) { return book.querySelector('[name="' + n + '"]'); };
+        var ok = book.commonValid();
+        if (!f('service_address').value.trim()) { book.fail(f('service_address'), 'Required.'); ok = false; }
+        if (!f('service_type').value) { book.fail(f('service_type'), 'Please select a service type.'); ok = false; }
+        var d = f('preferred_date');
+        if (!d.value || new Date(d.value) < today) { book.fail(d, 'Please select today or a future date.'); ok = false; }
+        var files = f('attachments');
+        if (!files.files || files.files.length === 0) { book.fail(files, 'Add at least one photo of the job.'); ok = false; }
+        if (!ok || !book.botCheck()) return;
+
+        var btn = book.querySelector('[type="submit"]');
+        var orig = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending your details…';
+        var email = f('email').value.trim();
+        var name = (f('first_name').value.trim() + ' ' + f('last_name').value.trim()).trim();
+        var phone = f('phone').value.trim();
+        try {
+          var r1 = await fetch('https://formsubmit.co/ajax/tandmhaulingbak@gmail.com', { method: 'POST', body: new FormData(book), headers: { Accept: 'application/json' } });
+          var j1 = await r1.json().catch(function () { return {}; });
+          if (!r1.ok) throw new Error(j1.message || 'Could not send email. Try again or call (661) 996-6950.');
+          try {
+            await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: book.leadPayload('Job Booking') });
+            toast('Booking saved — opening payment…');
+          } catch (x) {}
+          btn.textContent = 'Opening secure payment…';
+          var r2 = await fetch('/api/create-checkout-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, name: name, phone: phone }) });
+          var j2 = await r2.json().catch(function () { return {}; });
+          if (r2.status === 503 && j2.code === 'STRIPE_MISSING') { window.location.href = '/thank-you.html?deposit=pending'; return; }
+          if (!r2.ok || !j2.url) throw new Error(j2.error || 'Checkout unavailable');
+          window.location.href = j2.url;
+        } catch (err) {
+          toast(err.message || 'Something went wrong. Please call (661) 996-6950 or text a photo.', true);
+          btn.disabled = false; btn.textContent = orig;
+        }
+      });
+    })();
+  </script>
+</Base>

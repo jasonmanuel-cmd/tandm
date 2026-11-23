@@ -1,0 +1,58 @@
+[
+ {
+  "q": "What areas do you serve?",
+  "a": "We serve Bakersfield and surrounding Kern County communities, working with homeowners, landlords, realtors, and contractors. For neighborhood pages, see https://tandmbak.com/service-areas.html"
+ },
+ {
+  "q": "What kind of junk do you haul?",
+  "a": "We remove household clutter, furniture, appliances, construction debris, yard waste, storage unit clean-outs, garage clean-outs, and full property clean-ups. We do not accept hazardous materials like paint, chemicals, or waste that requires special handling."
+ },
+ {
+  "q": "Do you offer residential and commercial services?",
+  "a": "Yes. We handle everything from single-item pickups at homes to full clean-outs for rentals, flips, offices, and job sites."
+ },
+ {
+  "q": "How do I get a quote?",
+  "a": "The fastest way is to send us photos of the junk pile or area you want cleared. From those pictures, we can usually give you a fast, no-obligation estimate and available time slots."
+ },
+ {
+  "q": "Can you do same-day or next-day service?",
+  "a": "When our schedule allows, we do our best to offer same-day or next-day pickups. Message us with photos and your location, and we'll let you know the soonest we can be there."
+ },
+ {
+  "q": "Do I need to move anything before you arrive?",
+  "a": "No. Our crew does all the heavy lifting. Just point out what needs to go, and we'll load it, haul it, and clean up the area before we leave."
+ },
+ {
+  "q": "How does pricing work?",
+  "a": "Pricing is typically based on how much space your items take up in our truck, the type of material, and how difficult it is to access. See the load-size guide at https://tandmbak.com/contact.html#load-estimator — final price is always confirmed on site."
+ },
+ {
+  "q": "Do you offer dumpster rental as well as full-service hauling?",
+  "a": "Yes. We can provide full-service junk removal where we load everything, or dumpster-style solutions for certain projects so you can load at your own pace and we haul it away when you're done."
+ },
+ {
+  "q": "What happens to the junk after you haul it?",
+  "a": "Whenever possible, we prioritize proper disposal and responsible handling in line with local regulations. Items that can be recycled or diverted from the landfill may be handled through appropriate channels, depending on condition and material type."
+ },
+ {
+  "q": "Do you haul appliances and heavy debris?",
+  "a": "Yes. We haul refrigerators, washers, dryers, stoves, and similar items, and we take construction debris such as drywall, lumber, and roofing when it fits our load and disposal plan. Ask when you text your photos."
+ },
+ {
+  "q": "What is the $30 deposit when I book the job?",
+  "a": "It is a non-refundable hold that secures your crew and date. It is credited toward your final invoice. You submit job details and photos on https://tandmbak.com/contact.html#book-job, then complete checkout on Stripe."
+ },
+ {
+  "q": "Are you licensed and insured?",
+  "a": "Yes. We operate as a licensed, insured hauling business. Ask when you book if you need documentation for a property manager or job site."
+ },
+ {
+  "q": "Where can I read or leave a Google review?",
+  "a": "Use https://tandmbak.com/reviews.html for links, or open our Google Business Profile at https://share.google/05y5uX2DmmRPEeol2"
+ },
+ {
+  "q": "What are your typical price ranges for different load sizes?",
+  "a": "Small loads like single items start around $75 to $175. Medium loads such as garage cleanouts or construction debris run $200 to $400. A full truck load floor-to-ceiling ranges $400 to $800. These are typical ranges only — final price is confirmed on site after the crew sees the job."
+ }
+]

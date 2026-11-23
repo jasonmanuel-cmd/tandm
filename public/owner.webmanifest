@@ -1,0 +1,13 @@
+{
+  "name": "T&M Owner Home",
+  "short_name": "T&M Owner",
+  "start_url": "/owner.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eef2f7",
+  "theme_color": "#0f2438",
+  "icons": [
+    { "src": "/TM-L-Round-150x150.png", "sizes": "150x150", "type": "image/png" },
+    { "src": "/TM-L-Round-300x300.png", "sizes": "300x300", "type": "image/png", "purpose": "any" }
+  ]
+}

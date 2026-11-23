@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+import hoods from '../data/neighborhoods.json';
+const sorted = [...hoods].sort((a, b) => (a.accent || a.slug).localeCompare(b.accent || b.slug));
+---
+
+<Base
+  title="Junk Removal Service Areas | Bakersfield Neighborhoods | T&M Hauling"
+  description="T&M Hauling serves Rosedale, Seven Oaks, Oildale, Stockdale, and every major Bakersfield neighborhood. Same father–son crew, same truck, honest pricing."
+  path="/service-areas.html"
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Service areas</nav>
+      <span class="eyebrow">Local coverage · Kern County</span>
+      <h1>Where we haul in <span class="accent">Bakersfield</span></h1>
+      <p class="lede">Each neighborhood page is built for people searching junk removal near them — Rosedale, Seven Oaks, Oildale, and beyond. Same father–son crew, same truck, honest pricing.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="link-grid">
+        {sorted.map((h) => <a href={`/neighborhoods/${h.slug}.html`}>{h.accent || h.slug}</a>)}
+      </div>
+      <div class="cta-band" style="margin-top:3.5rem">
+        <h2>Junk piling up in your neighborhood?</h2>
+        <p>Same crew, same trucks — get a quote before we roll.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href={`sms:${SITE.phoneTel}`}>Text photos</a>
+          <a class="btn btn-ghost btn-lg" href="/contact.html">Estimate form</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

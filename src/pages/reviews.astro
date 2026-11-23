@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+
+<Base
+  title="Google Reviews | T&M Hauling Bakersfield"
+  description="Read T&M Hauling reviews on Google. 5.0-rated father–son junk removal in Bakersfield and Kern County."
+  path="/reviews.html"
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Reviews</nav>
+      <span class="eyebrow">What neighbors say</span>
+      <h1>Google <span class="accent">reviews</span></h1>
+      <p class="lede">Real feedback from Bakersfield homeowners and businesses.</p>
+      <div class="btn-row" style="margin-top:1.4rem">
+        <a class="btn btn-ghost" href={SITE.googleShare} target="_blank" rel="noopener noreferrer">See us on Google</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="elfsight-app-4f8fd997-c0c7-4384-a8bc-95628ec7f4e7" data-elfsight-app-lazy></div>
+      <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    </div>
+  </section>
+</Base>

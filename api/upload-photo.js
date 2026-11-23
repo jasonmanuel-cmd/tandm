@@ -1,9 +1,11 @@
 /**
  * POST /api/upload-photo
- * Accepts base64 image + label, saves to Supabase Storage + photo_uploads table.
- * Env: SUPABASE_URL, SUPABASE_SERVICE_KEY
+ * Accepts base64 image + label, saves to Vercel Blob storage + photo_uploads table (Neon).
+ * Env: BLOB_READ_WRITE_TOKEN, DATABASE_URL (both set by the Vercel integrations)
  */
 import crypto from 'crypto';
+import { put } from '@vercel/blob';
+import { insertPhoto } from './_lib/db.js';
 import { applySecurityHeaders, applyCors, ensureOrigin } from './_lib/security.js';
 
 function verifyToken(token) {
@@ -21,20 +23,6 @@ function verifyToken(token) {
   catch { return false; }
 }
 
-function ensureStorageBucket(sbUrl, key) {
-  const name = 'gallery-uploads';
-  return fetch(`${sbUrl}/storage/v1/bucket/${name}`, {
-    headers: { apikey: key, Authorization: `Bearer ${key}` }
-  }).then(r => {
-    if (r.ok) return;
-    return fetch(`${sbUrl}/storage/v1/bucket`, {
-      method: 'POST',
-      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, public: true })
-    });
-  });
-}
-
 export default async function handler(req, res) {
   applySecurityHeaders(res);
   applyCors(req, res, ['POST', 'OPTIONS']);
@@ -46,9 +34,7 @@ export default async function handler(req, res) {
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
   if (!verifyToken(token)) return res.status(401).json({ error: 'Unauthorized' });
 
-  const sbUrl = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!sbUrl || !key) return res.status(503).json({ error: 'Storage not configured' });
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return res.status(503).json({ error: 'Storage not configured' });
 
   let body = {};
   try { body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {}); }
@@ -73,40 +59,25 @@ export default async function handler(req, res) {
   const storagePath = filename;
 
   try {
-    await ensureStorageBucket(sbUrl, key);
-
-    const uploadRes = await fetch(`${sbUrl}/storage/v1/object/gallery-uploads/${storagePath}`, {
-      method: 'POST',
-      headers: {
-        apikey: key, Authorization: `Bearer ${key}`,
-        'Content-Type': mimeType
-      },
-      body: buffer
+    const blob = await put(`gallery/${storagePath}`, buffer, {
+      access: 'public',
+      contentType: mimeType,
+      addRandomSuffix: false,
+      token: process.env.BLOB_READ_WRITE_TOKEN
     });
-    if (!uploadRes.ok) throw new Error('Storage upload failed: ' + (await uploadRes.text()));
+    const publicUrl = blob.url;
 
-    const publicUrl = `${sbUrl}/storage/v1/object/public/gallery-uploads/${storagePath}`;
-
-    const metaRes = await fetch(`${sbUrl}/rest/v1/photo_uploads`, {
-      method: 'POST',
-      headers: {
-        apikey: key, Authorization: `Bearer ${key}`,
-        'Content-Type': 'application/json', Prefer: 'return=representation'
-      },
-      body: JSON.stringify({
-        label, description, filename,
-        storage_path: storagePath,
-        public_url: publicUrl,
-        mime_type: mimeType,
-        file_size: buffer.length,
-        status: 'pending'
-      })
+    const meta = await insertPhoto({
+      label, description, filename,
+      storage_path: storagePath,
+      public_url: publicUrl,
+      mime_type: mimeType,
+      file_size: buffer.length
     });
-    let metaPayload = {};
-    try { const rows = await metaRes.json(); metaPayload = rows[0] || {}; } catch {}
 
-    return res.status(200).json({ ok: true, url: publicUrl, id: metaPayload.id, label });
+    return res.status(200).json({ ok: true, url: publicUrl, id: meta && meta.id, label });
   } catch (err) {
+    if (err.message === 'DB_UNCONFIGURED') return res.status(503).json({ error: 'Storage not configured' });
     console.error('upload-photo error:', err.message);
     return res.status(500).json({ error: 'Upload failed' });
   }

@@ -158,10 +158,10 @@ test('admin-data: 400 for invalid type', async () => {
     assert.equal(res.body.error, 'Invalid type');
 });
 
-test('admin-data: 503 when Supabase unconfigured', async () => {
+test('admin-data: 503 when the database is unconfigured', async () => {
     process.env.ADMIN_SECRET = 'test-signing-secret';
-    delete process.env.SUPABASE_URL;
-    delete process.env.SUPABASE_SERVICE_KEY;
+    delete process.env.DATABASE_URL;
+    delete process.env.POSTGRES_URL;
     const req = { method: 'GET', headers: { origin: 'https://tandmbak.com', authorization: `Bearer ${makeAdminToken()}` }, socket: {}, query: { type: 'leads' } };
     const res = makeRes();
     await adminDataHandler(req, res);
@@ -196,9 +196,9 @@ test('leads: 400 when name missing', async () => {
     assert.equal(res.body.error, 'Name is required');
 });
 
-test('leads: 503 when Supabase unconfigured', async () => {
-    delete process.env.SUPABASE_URL;
-    delete process.env.SUPABASE_SERVICE_KEY;
+test('leads: 503 when the database is unconfigured', async () => {
+    delete process.env.DATABASE_URL;
+    delete process.env.POSTGRES_URL;
     const req = { method: 'POST', headers: { origin: 'https://tandmbak.com' }, socket: {}, body: { name: 'Jane Doe' } };
     const res = makeRes();
     await leadsHandler(req, res);
@@ -223,9 +223,9 @@ test('tos-sign: 400 when fullName missing', async () => {
     assert.equal(res.body.error, 'Full name is required');
 });
 
-test('tos-sign: 503 when Supabase unconfigured', async () => {
-    delete process.env.SUPABASE_URL;
-    delete process.env.SUPABASE_SERVICE_KEY;
+test('tos-sign: 503 when the database is unconfigured', async () => {
+    delete process.env.DATABASE_URL;
+    delete process.env.POSTGRES_URL;
     const req = { method: 'POST', headers: { origin: 'https://tandmbak.com' }, socket: {}, body: { fullName: 'Jane Doe' } };
     const res = makeRes();
     await tosSignHandler(req, res);

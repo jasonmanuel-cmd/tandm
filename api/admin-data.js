@@ -1,10 +1,11 @@
 /**
  * GET /api/admin-data?type=leads|bookings|signatures
  * Requires Authorization: Bearer <token> from /api/admin-auth
- * Env vars: SUPABASE_URL, SUPABASE_SERVICE_KEY, STRIPE_SECRET_KEY, ADMIN_SECRET/ADMIN_PASSWORD
+ * Env vars: DATABASE_URL, STRIPE_SECRET_KEY, ADMIN_SECRET/ADMIN_PASSWORD
  */
 import crypto from 'crypto';
 import { applySecurityHeaders, applyCors, ensureOrigin } from './_lib/security.js';
+import { listLeads, listSignatures } from './_lib/db.js';
 
 function verifyToken(token) {
     if (!token || typeof token !== 'string') return false;
@@ -20,17 +21,6 @@ function verifyToken(token) {
     try {
         return crypto.timingSafeEqual(Buffer.from(hmac, 'hex'), Buffer.from(expected, 'hex'));
     } catch { return false; }
-}
-
-async function sbFetch(path) {
-    const sbUrl = process.env.SUPABASE_URL;
-    const key   = process.env.SUPABASE_SERVICE_KEY;
-    if (!sbUrl || !key) throw new Error('SUPABASE_UNCONFIGURED');
-    const r = await fetch(`${sbUrl}/rest/v1/${path}`, {
-        headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }
-    });
-    if (!r.ok) throw new Error(await r.text());
-    return r.json();
 }
 
 export default async function handler(req, res) {
@@ -51,11 +41,11 @@ export default async function handler(req, res) {
 
     try {
         if (type === 'leads') {
-            const data = await sbFetch('leads?select=*&order=created_at.desc&limit=200');
+            const data = await listLeads(200);
             return res.status(200).json({ data });
         }
         if (type === 'signatures') {
-            const data = await sbFetch('tos_signatures?select=*&order=signed_at.desc&limit=200');
+            const data = await listSignatures(200);
             return res.status(200).json({ data });
         }
         if (type === 'bookings') {
@@ -64,7 +54,8 @@ export default async function handler(req, res) {
             const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
             const sessions = await stripe.checkout.sessions.list({ limit: 100 });
             const data = sessions.data
-                .filter(s => s.metadata?.funnel === 'job_booking_deposit')
+                // Only completed deposits count as booked jobs; abandoned/test checkouts stay in Stripe but are not listed
+                .filter(s => s.metadata?.funnel === 'job_booking_deposit' && s.payment_status === 'paid')
                 .map(s => ({
                     id: s.id,
                     created: new Date(s.created * 1000).toISOString(),
@@ -78,7 +69,7 @@ export default async function handler(req, res) {
         }
         return res.status(400).json({ error: 'Invalid type' });
     } catch (err) {
-        if (err.message === 'SUPABASE_UNCONFIGURED') {
+        if (err.message === 'DB_UNCONFIGURED') {
             return res.status(503).json({ error: 'Database not configured' });
         }
         console.error('admin-data error:', err.message);

@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+import services from '../data/services.json';
+const name = (h1: string) => h1.replace(/ in Bakersfield$/, '');
+const schema = [
+  {
+    '@type': 'ItemList',
+    name: 'T&M Hauling services',
+    itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE.url}/services/${s.slug}.html`, name: name(s.h1) })),
+  },
+];
+---
+
+<Base
+  title="Junk Removal Services Bakersfield | T&M Hauling"
+  description="Junk removal services in Bakersfield: storage units, estate cleanouts, garage cleanup, appliances, mattresses, scrap metal, yard waste and more. Free photo estimate."
+  path="/services.html"
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Services</nav>
+      <span class="eyebrow">Core capabilities</span>
+      <h1>Junk removal services in <span class="accent">Bakersfield</span></h1>
+      <p class="lede">One crew, one truck, one honest price — whatever needs to go.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="grid cols-3">
+        {services.map((s) => (
+          <a class="card" href={`/services/${s.slug}.html`}>
+            <h3>{name(s.h1)}</h3>
+            <p>{s.lede.length > 150 ? s.lede.slice(0, 147).replace(/\s+\S*$/, '') + '…' : s.lede}</p>
+            <span class="arrow">Details &amp; pricing →</span>
+          </a>
+        ))}
+      </div>
+      <div class="cta-band" style="margin-top:3.5rem">
+        <h2>Not sure what category your job is?</h2>
+        <p>Text a photo — we'll tell you what it takes and what it costs.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href={`sms:${SITE.phoneTel}`}>Text photos</a>
+          <a class="btn btn-ghost btn-lg" href="/contact.html">Free estimate form</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

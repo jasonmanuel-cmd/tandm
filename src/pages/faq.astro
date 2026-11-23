@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+import faq from '../data/faq.json';
+const schema = [
+  { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+
+<Base
+  title="FAQ | Junk Removal Bakersfield | T&M Hauling"
+  description="Answers about T&M Hauling: service areas, pricing, same-day junk removal, what we haul, and how booking works in Bakersfield."
+  path="/faq.html"
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / FAQ</nav>
+      <span class="eyebrow">Straight answers</span>
+      <h1>Frequently <span class="accent">asked</span></h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" style="max-width:860px">
+      {faq.map((f) => <div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+      <div class="cta-band" style="margin-top:3rem">
+        <h2>Still have a question?</h2>
+        <p>Text us — a real person answers.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href={`sms:${SITE.phoneTel}`}>Text {SITE.phone}</a>
+          <a class="btn btn-ghost btn-lg" href="/contact.html">Contact form</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

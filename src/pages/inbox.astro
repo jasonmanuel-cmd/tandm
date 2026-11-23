@@ -1,0 +1,180 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Inbox | T&M Hauling" description="Private inbox for T&M Hauling." path="/inbox.html" noindex>
+  <section class="section" style="padding-top:2rem">
+    <div class="container">
+      <div id="login" class="quote-box" style="max-width:420px;margin:2rem auto">
+        <h2 style="font-size:1.8rem">Inbox login</h2>
+        <form class="form" id="login-form">
+          <label>Admin password<input type="password" id="pw" autocomplete="current-password" required /></label>
+          <button class="btn btn-red" type="submit">Sign in</button>
+          <p class="form-msg" id="login-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div id="app" hidden>
+        <div class="inbox-head">
+          <h1 style="font-size:2.2rem;margin:0">Inbox</h1>
+          <div class="inbox-tabs" role="tablist">
+            <button class="btn btn-ghost on" data-tab="convos">Conversations <span id="badge" class="badge" hidden></span></button>
+            <button class="btn btn-ghost" data-tab="calls">Calls</button>
+            <button class="btn btn-ghost" id="logout">Sign out</button>
+          </div>
+        </div>
+
+        <div id="tab-convos" class="inbox-grid">
+          <div class="inbox-list" id="list"></div>
+          <div class="inbox-thread">
+            <div id="empty" class="muted center" style="padding:3rem 1rem">Select a conversation</div>
+            <div id="thread" hidden>
+              <div class="thread-head">
+                <div><h3 id="t-phone" style="margin:0"></h3><span class="muted" id="t-meta"></span></div>
+                <div class="thread-tools">
+                  <select id="t-status" aria-label="Status"><option>new</option><option>active</option><option>booked</option><option>closed</option><option>spam</option></select>
+                  <label class="switch"><input type="checkbox" id="t-ai" /> <span>AI replies</span></label>
+                  <a class="btn btn-ghost" id="t-call" href="#">Call</a>
+                </div>
+              </div>
+              <div id="msgs" class="msgs"></div>
+              <form id="send-form" class="send-form">
+                <textarea id="send-body" rows="2" placeholder="Reply as T&M (turns AI off for this thread)…" required></textarea>
+                <button class="btn btn-red" type="submit">Send</button>
+              </form>
+              <p class="form-msg" id="send-msg" role="status"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-calls" hidden>
+          <div class="quote-box" style="overflow:auto"><table class="calls-table"><thead><tr><th>When</th><th>From</th><th>Result</th><th>Texted back</th></tr></thead><tbody id="calls-body"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .inbox-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .inbox-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .inbox-tabs .btn { padding: 0.55rem 1.1rem; }
+    .inbox-tabs .btn.on { background: var(--blue-deep); border-color: var(--blue); }
+    .badge { background: var(--red); border-radius: 999px; padding: 0 0.5rem; font-size: 0.75rem; margin-left: 0.3rem; }
+    .inbox-grid { display: grid; grid-template-columns: 340px 1fr; gap: 1rem; min-height: 60vh; }
+    @media (max-width: 800px) { .inbox-grid { grid-template-columns: 1fr; } }
+    .inbox-list, .inbox-thread { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .inbox-list { max-height: 75vh; overflow-y: auto; }
+    .conv { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); color: inherit; padding: 0.9rem 1rem; cursor: pointer; font: inherit; }
+    .conv:hover, .conv.on { background: var(--surface-2); }
+    .conv b { display: block; }
+    .conv small { color: var(--muted); }
+    .conv .flag { color: #ff8a93; font-weight: 700; font-size: 0.75rem; margin-left: 0.4rem; }
+    .thread-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; padding: 1rem; border-bottom: 1px solid var(--line); }
+    .thread-tools { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+    .thread-tools select { background: #0a1a2c; color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 0.5rem; }
+    .thread-tools .btn { padding: 0.5rem 1rem; }
+    .switch { display: flex; gap: 0.4rem; align-items: center; font-weight: 600; font-size: 0.9rem; }
+    .msgs { padding: 1rem; display: grid; gap: 0.6rem; max-height: 52vh; overflow-y: auto; align-content: start; }
+    .bubble { max-width: 80%; padding: 0.65rem 0.9rem; border-radius: 14px; white-space: pre-wrap; word-break: break-word; }
+    .bubble small { display: block; opacity: 0.6; font-size: 0.7rem; margin-top: 0.25rem; }
+    .bubble.in { background: #1c3a5c; justify-self: start; }
+    .bubble.out { background: var(--blue-deep); justify-self: end; }
+    .bubble.out.ai { background: #26486b; }
+    .bubble a { color: #9fd0ff; }
+    .send-form { display: flex; gap: 0.6rem; padding: 0 1rem 1rem; }
+    .send-form textarea { flex: 1; font: inherit; color: var(--text); background: #0a1a2c; border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem; }
+    .calls-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .calls-table th, .calls-table td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--line); }
+    .calls-table .miss { color: #ff8a93; font-weight: 700; }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var $ = function (s) { return document.querySelector(s); };
+      var token = null, current = null, convos = [], timer = null;
+      try { token = sessionStorage.getItem('tm_inbox'); } catch (e) {}
+
+      function api(path, opts) {
+        opts = opts || {};
+        opts.headers = Object.assign({ 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, opts.headers || {});
+        return fetch(path, opts).then(function (r) {
+          if (r.status === 401) { logout(); throw new Error('expired'); }
+          return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Error'); return j; });
+        });
+      }
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+      function when(t) { var d = new Date(t); return d.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); }
+
+      function show() { $('#login').hidden = !!token; $('#app').hidden = !token; if (token) { load(); clearInterval(timer); timer = setInterval(load, 15000); } }
+      function logout() { token = null; try { sessionStorage.removeItem('tm_inbox'); } catch (e) {} clearInterval(timer); show(); }
+
+      $('#login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        $('#login-msg').textContent = 'Signing in…';
+        fetch('/api/admin-auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: $('#pw').value }) })
+          .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Login failed'); return j; }); })
+          .then(function (j) { token = j.token; try { sessionStorage.setItem('tm_inbox', token); } catch (e) {} $('#pw').value = ''; $('#login-msg').textContent = ''; show(); })
+          .catch(function (err) { $('#login-msg').className = 'form-msg err'; $('#login-msg').textContent = err.message; });
+      });
+      $('#logout').addEventListener('click', logout);
+
+      document.querySelectorAll('[data-tab]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('[data-tab]').forEach(function (x) { x.classList.toggle('on', x === b); });
+          $('#tab-convos').hidden = b.dataset.tab !== 'convos';
+          $('#tab-calls').hidden = b.dataset.tab !== 'calls';
+        });
+      });
+
+      function load() {
+        api('/api/inbox?type=conversations').then(function (j) { convos = j.data; renderList(); if (current) openThread(current, true); }).catch(function () {});
+        api('/api/inbox?type=calls').then(function (j) {
+          $('#calls-body').innerHTML = j.data.map(function (c) {
+            return '<tr><td>' + when(c.created_at) + '</td><td>' + esc(c.from_number) + '</td><td class="' + (c.missed ? 'miss' : '') + '">' + (c.missed ? 'Missed (' + esc(c.status) + ')' : 'Answered' + (c.duration_sec ? ' · ' + c.duration_sec + 's' : '')) + '</td><td>' + (c.conversation_id ? 'Yes' : '—') + '</td></tr>';
+          }).join('') || '<tr><td colspan="4" class="muted">No calls yet</td></tr>';
+        }).catch(function () {});
+      }
+      function renderList() {
+        var need = convos.filter(function (c) { return c.needs_human; }).length;
+        $('#badge').hidden = !need; $('#badge').textContent = need;
+        $('#list').innerHTML = convos.map(function (c) {
+          return '<button class="conv' + (current === c.id ? ' on' : '') + '" data-id="' + c.id + '"><b>' + esc(c.name || c.phone) + (c.needs_human ? '<span class="flag">NEEDS YOU</span>' : '') + '</b><small>' + esc(c.status) + ' · ' + (c.ai_enabled ? 'AI on' : 'AI off') + ' · ' + when(c.last_message_at) + '</small></button>';
+        }).join('') || '<p class="muted" style="padding:1rem">No conversations yet — they appear when someone texts or a call is missed.</p>';
+        document.querySelectorAll('.conv').forEach(function (b) { b.addEventListener('click', function () { openThread(Number(b.dataset.id)); }); });
+      }
+      function openThread(id, quiet) {
+        current = id;
+        var c = convos.filter(function (x) { return x.id === id; })[0];
+        if (!c) return;
+        $('#empty').hidden = true; $('#thread').hidden = false;
+        $('#t-phone').textContent = c.name || c.phone;
+        $('#t-meta').textContent = c.phone + (c.opted_out ? ' · OPTED OUT' : '');
+        $('#t-status').value = c.status;
+        if (!quiet || document.activeElement !== $('#t-ai')) $('#t-ai').checked = c.ai_enabled;
+        $('#t-call').href = 'tel:' + c.phone;
+        if (!quiet) renderList();
+        api('/api/inbox?type=messages&id=' + id).then(function (j) {
+          var box = $('#msgs'), atBottom = box.scrollTop + box.clientHeight >= box.scrollHeight - 40;
+          box.innerHTML = j.data.map(function (m) {
+            var media = (m.media_urls || []).map(function (u) { return '<br><a href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">📷 photo</a>'; }).join('');
+            return '<div class="bubble ' + m.direction + (m.sender === 'ai' ? ' ai' : '') + '">' + esc(m.body) + media + '<small>' + esc(m.sender) + ' · ' + when(m.created_at) + '</small></div>';
+          }).join('');
+          if (!quiet || atBottom) box.scrollTop = box.scrollHeight;
+        }).catch(function () {});
+      }
+
+      $('#t-status').addEventListener('change', function () { api('/api/inbox', { method: 'POST', body: JSON.stringify({ action: 'status', id: current, status: $('#t-status').value }) }).then(load); });
+      $('#t-ai').addEventListener('change', function () { api('/api/inbox', { method: 'POST', body: JSON.stringify({ action: 'ai', id: current, enabled: $('#t-ai').checked }) }).then(function () { return api('/api/inbox', { method: 'POST', body: JSON.stringify({ action: 'resolve', id: current }) }); }).then(load); });
+      $('#send-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var body = $('#send-body').value.trim(); if (!body) return;
+        $('#send-msg').className = 'form-msg'; $('#send-msg').textContent = 'Sending…';
+        api('/api/inbox', { method: 'POST', body: JSON.stringify({ action: 'send', id: current, body: body }) })
+          .then(function () { $('#send-body').value = ''; $('#send-msg').className = 'form-msg ok'; $('#send-msg').textContent = 'Sent. AI is now off for this thread.'; load(); })
+          .catch(function (err) { $('#send-msg').className = 'form-msg err'; $('#send-msg').textContent = err.message; });
+      });
+
+      show();
+    })();
+  </script>
+</Base>

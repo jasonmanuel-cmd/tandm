@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+
+<Base
+  title="About T&M Hauling | Father–Son Junk Removal Bakersfield"
+  description="Meet T&M Hauling — a Bakersfield father–son junk removal crew. Local, licensed & insured, with fast cleanups and fair rates across Kern County."
+  path="/about.html"
+  schema={[{ '@type': 'AboutPage', name: 'About T&M Hauling', url: `${SITE.url}/about.html` }]}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / About</nav>
+      <span class="eyebrow">Our story</span>
+      <h1>Father–son <span class="accent">integrity</span></h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split" style="grid-template-columns:1.2fr .8fr;align-items:center">
+      <div class="prose">
+        <p class="lede">We are Bakersfield's "new kid on the block" hauling company, now in our second year. As a father–son crew, we started T&amp;M to bring a higher standard of reliability to junk removal across Kern County.</p>
+        <p>We're a local start-up with a simple mission: show you what we're made of through hard work, fast cleanups, and fair rates. When you hire T&amp;M, you're hiring neighbors invested in keeping our community clean.</p>
+        <div class="stat-row">
+          <div class="stat"><b>2+</b><span>Years active</span></div>
+          <div class="stat"><b>5.0</b><span>Google rating</span></div>
+          <div class="stat"><b>100%</b><span>Locally owned</span></div>
+        </div>
+        <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn-red btn-lg" href="/contact.html">Book a pickup</a>
+          <a class="btn btn-ghost btn-lg" href="/services.html">Our services</a>
+        </div>
+      </div>
+      <img src="/assets/hero-team.webp" alt="The T&M Hauling father–son crew" width="800" height="1000" loading="lazy" style="border-radius:20px;border:1px solid var(--line)" />
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Work with the crew you just read about</h2>
+        <p>Father–son team, Bakersfield &amp; Kern County — text a photo or lock a date.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href={`sms:${SITE.phoneTel}`}>Text now</a>
+          <a class="btn btn-ghost btn-lg" href="/contact.html">Free estimate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,85 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../data/site';
+import hoods from '../../data/neighborhoods.json';
+import services from '../../data/services.json';
+
+export function getStaticPaths() {
+  return hoods.map((h) => ({ params: { slug: h.slug }, props: { h } }));
+}
+const { h } = Astro.props as { h: (typeof hoods)[number] };
+const path = `/neighborhoods/${h.slug}.html`;
+const area = h.accent || h.slug;
+const related = h.related.length
+  ? h.related.filter((r) => r.type === 'services')
+  : services.slice(0, 6).map((s) => ({ type: 'services', slug: s.slug, label: s.h1.replace(/ in Bakersfield$/, '') }));
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Service areas', item: `${SITE.url}/service-areas.html` },
+      { '@type': 'ListItem', position: 3, name: area, item: `${SITE.url}${path}` },
+    ],
+  },
+  {
+    '@type': 'Service',
+    name: `Junk removal in ${area}, Bakersfield`,
+    serviceType: 'Junk removal',
+    provider: { '@id': `${SITE.url}/#organization` },
+    areaServed: { '@type': 'Place', name: `${area}, Bakersfield, CA` },
+    url: `${SITE.url}${path}`,
+  },
+  ...(h.qa.length
+    ? [{ '@type': 'FAQPage', mainEntity: h.qa.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }]
+    : []),
+];
+---
+
+<Base title={h.title} description={h.description} path={path} schema={schema}>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/service-areas.html">Service areas</a> / {area}</nav>
+      <span class="eyebrow">{h.eyebrow || 'Kern County operations'}</span>
+      <h1>Junk removal in <span class="accent">{area}</span></h1>
+      <p class="lede">{h.lede}</p>
+      {h.pills.length > 0 && <div class="pills">{h.pills.map((p) => <span class="pill">{p}</span>)}</div>}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        {h.cards.length > 0 && (
+          <div class="grid cols-3" style="margin-bottom:3rem">
+            {h.cards.map((c) => <div class="card"><h3>{c.title}</h3><p>{c.text}</p></div>)}
+          </div>
+        )}
+        {h.qa.length > 0 && (
+          <>
+            <h2 style="font-size:2rem">Serving the {area} area</h2>
+            {h.qa.map((f) => <div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+          </>
+        )}
+        <h2 style="font-size:1.6rem;margin-top:3rem">Services in {area}</h2>
+        <div class="link-grid">
+          {related.map((r) => <a href={`/services/${r.slug}.html`}>→ {r.label}</a>)}
+        </div>
+        <h2 style="font-size:1.6rem;margin-top:3rem">Nearby neighborhoods</h2>
+        <div class="link-grid">
+          {hoods.filter((n) => n.slug !== h.slug).slice(0, 8).map((n) => <a href={`/neighborhoods/${n.slug}.html`}>{n.accent || n.slug}</a>)}
+        </div>
+      </div>
+      <aside>
+        <div class="aside-card">
+          <span class="eyebrow">Fast response</span>
+          <h3>Book your {area} pickup</h3>
+          <p class="muted" style="font-size:.95rem">Text a photo for a fast quote. Same-day slots when the route allows.</p>
+          <a class="btn btn-red" href={`sms:${SITE.phoneTel}`}>Text for quote</a>
+          <a class="btn btn-ghost" href={`tel:${SITE.phoneTel}`}>Call {SITE.phone}</a>
+          <a class="btn btn-ghost" href="/contact.html">Free estimate form</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>

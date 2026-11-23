@@ -1,0 +1,550 @@
+---
+// Owner Home: a deliberately simple, big-button screen for the business owner.
+// Standalone page (no public site header/footer). Uses the existing admin login + APIs.
+const PHONE = '(661) 996-6950';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>T&amp;M Owner Home</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0f2438" />
+    <link rel="manifest" href="/owner.webmanifest" />
+    <link rel="icon" type="image/png" href="/TM-L-Round-150x150.png" />
+    <link rel="apple-touch-icon" href="/TM-L-Round-300x300.png" />
+    <style is:inline>
+      :root { --navy: #0f2438; --blue: #1e5a9a; --red: #c8232f; --green: #1b7a3d; --bg: #eef2f7; --card: #ffffff; --line: #c9d3df; --text: #0f2438; --muted: #4a5d73; }
+      * { box-sizing: border-box; }
+      html { font-size: 22px; -webkit-text-size-adjust: 100%; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.4; }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 16px 16px 60px; }
+      .top { display: flex; align-items: center; gap: 14px; padding: 6px 0 14px; }
+      .top img { width: 64px; height: 64px; border-radius: 50%; }
+      .top b { font-size: 1.15rem; display: block; }
+      .top span { color: var(--muted); font-size: 0.85rem; }
+      h1 { font-size: 1.7rem; margin: 6px 0 14px; line-height: 1.15; }
+      h2 { font-size: 1.3rem; margin: 18px 0 8px; }
+      p { margin: 0 0 12px; }
+      .muted { color: var(--muted); }
+      .view[hidden] { display: none; }
+
+      .btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 76px; padding: 14px 20px; border: 0; border-radius: 16px; font: inherit; font-size: 1.15rem; font-weight: 800; text-align: center; text-decoration: none; cursor: pointer; color: #fff; background: var(--blue); margin: 10px 0; }
+      .btn:active { transform: scale(0.98); }
+      .btn.red { background: var(--red); }
+      .btn.green { background: var(--green); }
+      .btn.navy { background: var(--navy); }
+      .btn.light { background: #fff; color: var(--navy); border: 3px solid var(--navy); }
+      .btn.small { min-height: 56px; font-size: 1rem; }
+      .btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+      .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+      label { display: block; font-weight: 800; margin: 16px 0 6px; font-size: 1.05rem; }
+      label small { font-weight: 500; color: var(--muted); }
+      input[type='text'], input[type='tel'], input[type='email'], input[type='password'], textarea { width: 100%; min-height: 64px; padding: 12px 14px; font: inherit; font-size: 1.1rem; border: 3px solid var(--line); border-radius: 14px; background: #fff; color: var(--text); }
+      textarea { min-height: 120px; resize: vertical; }
+      input:focus, textarea:focus { outline: 4px solid #9cc3ee; border-color: var(--blue); }
+      .pw { position: relative; }
+      .pw button { position: absolute; right: 8px; top: 8px; min-height: 48px; padding: 0 16px; border: 0; border-radius: 10px; background: var(--navy); color: #fff; font: inherit; font-weight: 800; }
+      .msg { min-height: 1.4em; font-weight: 800; margin: 8px 0; }
+      .msg.err { color: var(--red); }
+      .msg.ok { color: var(--green); }
+
+      .tiles { display: grid; gap: 14px; margin-top: 8px; }
+      .tile { display: flex; align-items: center; gap: 18px; width: 100%; padding: 20px 20px; border: 0; border-radius: 20px; background: var(--card); color: var(--navy); font: inherit; text-align: left; text-decoration: none; cursor: pointer; border-left: 14px solid var(--blue); box-shadow: 0 2px 0 var(--line); }
+      .tile:active { transform: scale(0.98); }
+      .tile .ico { font-size: 3rem; line-height: 1; }
+      .tile b { display: block; font-size: 1.35rem; line-height: 1.15; }
+      .tile span { display: block; color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+      .tile.red { background: var(--red); color: #fff; border-left-color: #7d0f18; }
+      .tile.red span { color: #ffe3e5; }
+      .tile.green { border-left-color: var(--green); }
+      .tile.amber { border-left-color: #d98b00; }
+
+      .card { background: var(--card); border-radius: 18px; padding: 16px 18px; margin: 12px 0; border: 2px solid var(--line); }
+      .card h3 { margin: 0 0 4px; font-size: 1.3rem; }
+      .card .when { color: var(--muted); font-size: 0.9rem; }
+      .card .what { margin: 8px 0; white-space: pre-wrap; word-break: break-word; font-size: 1rem; }
+      .badge { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 800; background: #dff3e5; color: var(--green); margin-left: 6px; }
+      .badge.gray { background: #e5eaf1; color: var(--muted); }
+
+      .steps { display: flex; gap: 8px; margin: 4px 0 10px; }
+      .steps i { flex: 1; height: 10px; border-radius: 6px; background: var(--line); }
+      .steps i.on { background: var(--blue); }
+
+      .terms { background: #fff; border: 3px solid var(--line); border-radius: 14px; padding: 4px 16px; margin: 10px 0; }
+      .terms p { margin: 12px 0; font-size: 1.02rem; }
+      .check { display: flex; align-items: flex-start; gap: 14px; background: #fff; border: 3px solid var(--line); border-radius: 14px; padding: 14px; margin: 14px 0; font-weight: 800; }
+      .check input { width: 38px; height: 38px; flex: none; margin-top: 2px; }
+      .media-choice { margin: 16px 0; padding: 12px; border: 1px solid var(--line); border-radius: 12px; }
+      .media-choice .check { margin: 8px 0; }
+      .pad { width: 100%; height: 240px; background: #fff; border: 4px dashed var(--navy); border-radius: 14px; touch-action: none; display: block; }
+      .padhint { color: var(--muted); font-size: 0.9rem; margin: 6px 0; }
+      .btn.kind.on { background: var(--navy); color: #fff; }
+      .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+      .thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 2px solid var(--line); }
+
+      /* printing: only the paper form is printed */
+      #print-area { display: none; }
+      @media print {
+        @page { margin: 0.55in; }
+        html { font-size: 12pt; }
+        body { background: #fff; }
+        .wrap, .view { display: none !important; }
+        #print-area { display: block; color: #000; font-family: Arial, Helvetica, sans-serif; line-height: 1.35; }
+        #print-area h1 { font-size: 20pt; margin: 0; text-align: center; letter-spacing: 1px; }
+        #print-area .sub { text-align: center; font-size: 10.5pt; margin: 2px 0 12px; }
+        #print-area .line { display: flex; gap: 14px; margin: 10px 0; align-items: flex-end; }
+        #print-area .line div { flex: 1; border-bottom: 1.5px solid #000; min-height: 22pt; padding: 0 2px 1px; }
+        #print-area .line div small { display: block; font-size: 8pt; color: #333; margin-top: 1px; border-top: 0; position: relative; top: 14pt; }
+        #print-area .fill { font-size: 12pt; }
+        #print-area h2 { font-size: 12pt; margin: 14px 0 4px; text-transform: uppercase; letter-spacing: 1px; }
+        #print-area ol { margin: 4px 0 10px 18px; padding: 0; font-size: 10.5pt; }
+        #print-area li { margin: 4px 0; }
+        #print-area .sig { display: flex; gap: 24px; margin-top: 26px; }
+        #print-area .sig div { flex: 1; }
+        #print-area .sig .ln { border-bottom: 1.5px solid #000; height: 54pt; display: flex; align-items: flex-end; }
+        #print-area .sig img { max-height: 52pt; max-width: 100%; }
+        #print-area .sig small { font-size: 8.5pt; }
+        #print-area .paper-media { break-inside: avoid; font-size: 10.5pt; }
+        #print-area .foot { margin-top: 14px; font-size: 9pt; text-align: center; color: #333; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <img src="/TM-L-Round-150x150.png" alt="" width="64" height="64" />
+        <div><b>T&amp;M Hauling</b><span>Owner Home</span></div>
+      </div>
+
+      <!-- LOGIN -->
+      <section class="view" id="v-login">
+        <h1>Welcome</h1>
+        <p>Type your password, then press the green button.</p>
+        <form id="login-form" autocomplete="on">
+          <label for="pw">Your password</label>
+          <div class="pw">
+            <input id="pw" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" />
+            <button type="button" id="pw-show">Show</button>
+          </div>
+          <p class="msg" id="login-msg" role="status" aria-live="polite"></p>
+          <button class="btn green" type="submit" id="login-btn">OPEN</button>
+        </form>
+      </section>
+
+      <!-- HOME -->
+      <section class="view" id="v-home" hidden>
+        <h1>What do you want to do?</h1>
+        <div class="tiles">
+          <button class="tile red" data-go="sign1"><span class="ico">✍️</span><div><b>New customer signs here</b><span>Fill in the job, customer signs with a finger, print a copy</span></div></button>
+          <button class="tile" data-go="print"><span class="ico">🖨️</span><div><b>Print a blank form</b><span>Paper agreement to fill in by hand</span></div></button>
+          <button class="tile green" data-go="leads"><span class="ico">📋</span><div><b>My customers</b><span id="leads-sub">People who asked for a quote</span></div></button>
+          <button class="tile amber" data-go="jobs"><span class="ico">📅</span><div><b>Booked jobs</b><span>Customers who paid the deposit</span></div></button>
+          <button class="tile" data-go="photos"><span class="ico">📷</span><div><b>Add job photos</b><span>Take pictures with your phone</span></div></button>
+          <button class="tile" data-go="help"><span class="ico">❓</span><div><b>Help</b><span>Simple tips</span></div></button>
+        </div>
+        <button class="btn light small" id="logout" style="margin-top:22px">Log out</button>
+      </section>
+
+      <!-- SIGN: step 1 -->
+      <section class="view" id="v-sign1" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <div class="steps"><i class="on"></i><i></i><i></i></div>
+        <h1>Step 1 of 3: Who is the customer?</h1>
+        <label for="s-name">Customer name</label>
+        <input id="s-name" type="text" autocomplete="off" />
+        <label for="s-phone">Phone number</label>
+        <input id="s-phone" type="tel" autocomplete="off" inputmode="tel" />
+        <label for="s-email">Email <small>(optional — they get a receipt)</small></label>
+        <input id="s-email" type="email" autocomplete="off" inputmode="email" autocapitalize="none" />
+        <p class="msg err" id="s1-msg" role="status"></p>
+        <button class="btn" id="s1-next">NEXT →</button>
+      </section>
+
+      <!-- SIGN: step 2 -->
+      <section class="view" id="v-sign2" hidden>
+        <button class="btn light small" data-go="sign1">← Back</button>
+        <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
+        <h1>Step 2 of 3: The job</h1>
+        <label for="s-addr">Job address</label>
+        <input id="s-addr" type="text" autocomplete="off" />
+        <label for="s-job">What are we hauling?</label>
+        <textarea id="s-job"></textarea>
+        <label for="s-price">Price <small>(example: $250)</small></label>
+        <input id="s-price" type="text" autocomplete="off" inputmode="decimal" />
+        <p class="msg err" id="s2-msg" role="status"></p>
+        <button class="btn" id="s2-next">NEXT: HAND PHONE TO CUSTOMER →</button>
+      </section>
+
+      <!-- SIGN: step 3 (customer) -->
+      <section class="view" id="v-sign3" hidden>
+        <button class="btn light small" data-go="sign2">← Back</button>
+        <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+        <h1>Step 3 of 3: Customer reads and signs</h1>
+        <p class="muted">Please read, then sign with your finger.</p>
+        <div class="terms" id="terms"></div>
+        <label class="check"><input type="checkbox" id="s-agree" /> <span>I have read this and I agree.</span></label>
+        <fieldset class="media-choice" id="s-media">
+          <legend><b>Job photos and video</b></legend>
+          <p id="media-terms">If I allow it, T&amp;M Hauling may take photos and silent video of the work area before and during this job to document its condition and the work performed. I have authority to give permission for the work area. The crew will keep people, private documents and unrelated areas out of the footage. This permission is for job records only. Public posting or advertising requires separate permission. I can decline without affecting my service or ask the crew to stop recording at any time.</p>
+          <label class="check"><input type="radio" name="job-media" value="allow" /> <span>I allow job photos and silent video.</span></label>
+          <label class="check"><input type="radio" name="job-media" value="decline" /> <span>I do not allow job photos or video.</span></label>
+        </fieldset>
+        <label>Sign inside the box <small>(use your finger)</small></label>
+        <canvas class="pad" id="pad" width="800" height="300"></canvas>
+        <div class="row2"><button class="btn light small" id="pad-clear" type="button">Clear and redo</button><span></span></div>
+        <p class="msg err" id="s3-msg" role="status"></p>
+        <button class="btn green" id="s3-save" disabled>I AGREE — SAVE</button>
+        <button class="btn red" id="s3-print" type="button" hidden>🖨️ PRINT THE PAPER COPY ANYWAY</button>
+      </section>
+
+      <!-- SIGN: done -->
+      <section class="view" id="v-done" hidden>
+        <h1>✅ Saved</h1>
+        <p id="done-text"></p>
+        <button class="btn red" id="done-print">🖨️ PRINT OR SAVE A COPY</button>
+        <button class="btn" data-go="sign1" id="again">✍️ Sign another customer</button>
+        <button class="btn light" data-go="home">← Home</button>
+      </section>
+
+      <!-- PRINT BLANK -->
+      <section class="view" id="v-print" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <h1>Blank paper form</h1>
+        <p>Press the button. When the print screen opens, choose your printer. Choose "Save as PDF" if you want a file instead.</p>
+        <button class="btn red" id="blank-print">🖨️ PRINT BLANK FORM</button>
+      </section>
+
+      <!-- CUSTOMERS -->
+      <section class="view" id="v-leads" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <h1>My customers</h1>
+        <input id="find" type="text" placeholder="Search a name or phone number" />
+        <p class="msg" id="leads-msg" role="status"></p>
+        <div id="leads-list"></div>
+      </section>
+
+      <!-- JOBS -->
+      <section class="view" id="v-jobs" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <h1>Booked jobs</h1>
+        <p class="muted">These customers paid the $30 deposit online.</p>
+        <p class="msg" id="jobs-msg" role="status"></p>
+        <div id="jobs-list"></div>
+      </section>
+
+      <!-- PHOTOS -->
+      <section class="view" id="v-photos" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <h1>Add job photos</h1>
+        <label for="p-label">Job name <small>(example: Smith garage)</small></label>
+        <input id="p-label" type="text" autocomplete="off" />
+        <label>Before or after?</label>
+        <div class="row2">
+          <button type="button" class="btn light kind" data-kind="Before">Before</button>
+          <button type="button" class="btn light kind" data-kind="After">After</button>
+        </div>
+        <button class="btn" id="p-pick" type="button">📷 TAKE OR CHOOSE PHOTOS</button>
+        <input id="p-file" type="file" accept="image/*" multiple hidden />
+        <p class="msg" id="p-count"></p>
+        <div id="p-thumbs" class="thumbs"></div>
+        <p class="msg" id="p-msg" role="status" aria-live="polite"></p>
+        <button class="btn green" id="p-send" disabled>UPLOAD PHOTOS</button>
+      </section>
+
+      <!-- HELP -->
+      <section class="view" id="v-help" hidden>
+        <button class="btn light small" data-go="home">← Back</button>
+        <h1>Help</h1>
+        <div class="card"><h3>Put this on your home screen</h3><p>On an iPhone or iPad: tap the Share button, then "Add to Home Screen". On Android: tap the three dots, then "Add to Home screen". Next time, just tap the T&amp;M picture.</p></div>
+        <div class="card"><h3>Customer signs on your phone</h3><p>Tap <b>New customer signs here</b>. Fill in 2 short pages. Then hand the phone to the customer to sign with a finger. Then tap <b>Print</b>.</p></div>
+        <div class="card"><h3>No printer?</h3><p>On the print screen, pick <b>Save as PDF</b>. You can text or email that file to the customer.</p></div>
+        <div class="card"><h3>If something looks stuck</h3><p>Close this page and open it again. Type your password once more.</p></div>
+        <div class="card"><h3>Your business number</h3><p>{PHONE}</p></div>
+      </section>
+    </div>
+
+    <!-- The paper form (hidden on screen, shown when printing) -->
+    <div id="print-area" aria-hidden="true"></div>
+
+    <script is:inline>
+      (function () {
+        var $ = function (s) { return document.querySelector(s); };
+        var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+        var TERMS = [
+          ['Payment', 'Payment is required in full immediately upon project completion. Any deviations from this policy must be documented and approved prior to the commencement of work.'],
+          ['Waste Restrictions', 'Customer warrants that all materials provided for disposal are free of hazardous substances (e.g., paint, oil, asbestos, batteries, etc.).'],
+          ['Fees', 'Customer is liable for all fees associated with undisclosed hazardous waste and any unforeseen disposal/dumping costs.'],
+          ['Electronic Payment', 'Customer consents to the use of electronic payment processing if deemed necessary by T&M.'],
+          ['Liability Waiver', 'T&M shall not be held liable for any items removed from the premises in error.']
+        ];
+        var token = '';
+        // One login for every page: the older admin pages read the same key.
+        try { token = sessionStorage.getItem('tm_admin_token') || sessionStorage.getItem('tm_owner') || ''; } catch (e) {}
+        var wanted = (location.hash || '').slice(1);
+        if (['photos', 'leads', 'jobs', 'help', 'print'].indexOf(wanted) === -1) wanted = '';
+        function why(e) {
+          if (e && e.status === 503) return 'The customer list is not connected yet. Please ask for help.';
+          if (e && e.status >= 500) return "The customer list can't reach its database right now. Your website forms still send you emails. Please ask for help.";
+          return 'Could not load. Check your internet and try again.';
+        }
+        var form = {};          // values for the current on-site signing
+        var leadsCache = [];
+
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+        function digits(s) { return String(s || '').replace(/[^\d+]/g, ''); }
+        function when(t) { try { return new Date(t).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return ''; } }
+        function today() { return new Date().toLocaleDateString([], { month: 'long', day: 'numeric', year: 'numeric' }); }
+        function isoToday() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+
+        /* ---------- navigation ---------- */
+        function show(id, push) {
+          if (!token && id !== 'login') id = 'login';
+          $$('.view').forEach(function (v) { v.hidden = v.id !== 'v-' + id; });
+          window.scrollTo(0, 0);
+          if (push !== false) { try { history.pushState({ id: id }, '', '#' + id); } catch (e) {} }
+          if (id === 'home') loadLeadsSummary();
+          if (id === 'leads') loadLeads();
+          if (id === 'jobs') loadJobs();
+          if (id === 'sign1' && push !== false && !form._keep) { form = {}; ['s-name', 's-phone', 's-email', 's-addr', 's-job', 's-price'].forEach(function (i) { $('#' + i).value = ''; }); $('#s-agree').checked = false; var choice = $('[name="job-media"]:checked'); if (choice) choice.checked = false; $('#s3-print').hidden = true; clearPad(); }
+          form._keep = false;
+        }
+        document.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-go]');
+          if (b) { if (b.dataset.go === 'sign2' || b.dataset.go === 'sign1') form._keep = true; show(b.dataset.go); }
+        });
+        window.addEventListener('popstate', function (e) { show((e.state && e.state.id) || (token ? 'home' : 'login'), false); });
+
+        /* ---------- api ---------- */
+        function api(path, opts) {
+          opts = opts || {};
+          opts.headers = Object.assign({ 'Content-Type': 'application/json' }, token ? { Authorization: 'Bearer ' + token } : {}, opts.headers || {});
+          return fetch(path, opts).then(function (r) {
+            return r.json().catch(function () { return {}; }).then(function (j) {
+              if (r.status === 401 && token) { logout('Please type your password again.'); }
+              if (!r.ok) { var e = new Error(j.error || 'Error'); e.status = r.status; throw e; }
+              return j;
+            });
+          });
+        }
+
+        /* ---------- login ---------- */
+        $('#pw-show').addEventListener('click', function () {
+          var p = $('#pw'); var hidden = p.type === 'password'; p.type = hidden ? 'text' : 'password'; this.textContent = hidden ? 'Hide' : 'Show';
+        });
+        $('#login-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var m = $('#login-msg'); m.className = 'msg'; m.textContent = 'One moment…';
+          var btn = $('#login-btn'); btn.disabled = true;
+          fetch('/api/admin-auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: $('#pw').value }) })
+            .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { r: r, j: j }; }); })
+            .then(function (x) {
+              if (x.r.ok && x.j.token) {
+                token = x.j.token; try { sessionStorage.setItem('tm_owner', token); sessionStorage.setItem('tm_admin_token', token); } catch (e) {}
+                $('#pw').value = ''; m.textContent = ''; show(wanted || 'home'); wanted = '';
+              } else if (x.r.status === 429) { m.className = 'msg err'; m.textContent = 'Too many tries. Please wait 15 minutes and try again.'; }
+              else if (x.r.status === 503) { m.className = 'msg err'; m.textContent = 'This is not set up yet. Please ask for help.'; }
+              else { m.className = 'msg err'; m.textContent = "That password didn't work. Please try again."; }
+            })
+            .catch(function () { m.className = 'msg err'; m.textContent = 'No internet. Please check your connection and try again.'; })
+            .then(function () { btn.disabled = false; });
+        });
+        function logout(note) {
+          token = ''; try { sessionStorage.removeItem('tm_owner'); sessionStorage.removeItem('tm_admin_token'); } catch (e) {}
+          show('login'); var m = $('#login-msg'); m.className = 'msg err'; m.textContent = note || '';
+        }
+        $('#logout').addEventListener('click', function () { logout(''); });
+
+        /* ---------- customers & jobs ---------- */
+        function loadLeadsSummary() {
+          api('/api/admin-data?type=leads').then(function (j) {
+            leadsCache = j.data || [];
+            var week = Date.now() - 7 * 864e5;
+            var n = leadsCache.filter(function (l) { return new Date(l.created_at).getTime() > week; }).length;
+            $('#leads-sub').textContent = n ? n + ' new in the last 7 days' : 'People who asked for a quote';
+          }).catch(function () {});
+        }
+        function leadCard(l) {
+          var tel = digits(l.phone);
+          var buttons = tel ? '<div class="row2"><a class="btn small green" href="tel:' + esc(tel) + '">📞 Call</a><a class="btn small" href="sms:' + esc(tel) + '">💬 Text</a></div>' : '';
+          var signed = l.signature ? '<span class="badge">✓ Signed</span>' : '';
+          return '<div class="card"><h3>' + esc(l.name || 'No name') + signed + '</h3><div class="when">' + esc(when(l.created_at)) + (l.service ? ' · ' + esc(l.service) : '') + '</div>' +
+            (l.phone ? '<div class="what"><b>' + esc(l.phone) + '</b></div>' : '') + (l.message ? '<div class="what">' + esc(l.message) + '</div>' : '') + buttons + '</div>';
+        }
+        function renderLeads() {
+          var q = ($('#find').value || '').toLowerCase().trim();
+          var list = leadsCache.filter(function (l) { return !q || (String(l.name || '') + ' ' + String(l.phone || '') + ' ' + String(l.email || '')).toLowerCase().indexOf(q) !== -1; });
+          $('#leads-list').innerHTML = list.length ? list.slice(0, 100).map(leadCard).join('') : '<p class="muted">Nobody found.</p>';
+        }
+        function loadLeads() {
+          var m = $('#leads-msg'); m.className = 'msg'; m.textContent = 'Loading…';
+          api('/api/admin-data?type=leads').then(function (j) { leadsCache = j.data || []; m.textContent = leadsCache.length ? '' : 'No customers yet.'; renderLeads(); })
+            .catch(function (e) { m.className = 'msg err'; m.textContent = why(e); });
+        }
+        $('#find').addEventListener('input', renderLeads);
+        function loadJobs() {
+          var m = $('#jobs-msg'); m.className = 'msg'; m.textContent = 'Loading…';
+          api('/api/admin-data?type=bookings').then(function (j) {
+            var d = j.data || []; m.textContent = d.length ? '' : 'No booked jobs yet.';
+            $('#jobs-list').innerHTML = d.map(function (b) {
+              var tel = digits(b.customer_phone);
+              var paid = b.status === 'paid' ? '<span class="badge">$' + esc(b.amount_usd) + ' paid</span>' : '<span class="badge gray">Not paid yet</span>';
+              return '<div class="card"><h3>' + esc(b.customer_name || b.customer_email || 'Customer') + paid + '</h3><div class="when">' + esc(when(b.created)) + '</div>' +
+                (b.customer_phone ? '<div class="what"><b>' + esc(b.customer_phone) + '</b></div>' : '') +
+                (tel ? '<div class="row2"><a class="btn small green" href="tel:' + esc(tel) + '">📞 Call</a><a class="btn small" href="sms:' + esc(tel) + '">💬 Text</a></div>' : '') + '</div>';
+            }).join('');
+          }).catch(function (e) { m.className = 'msg err'; m.textContent = why(e); });
+        }
+
+        /* ---------- photos ---------- */
+        var picked = [], kind = '';
+        $$('.kind').forEach(function (b) { b.addEventListener('click', function () { kind = b.dataset.kind; $$('.kind').forEach(function (x) { x.classList.toggle('on', x === b); }); }); });
+        $('#p-pick').addEventListener('click', function () { $('#p-file').click(); });
+        function photoState() { $('#p-send').disabled = !(picked.length && $('#p-label').value.trim().length > 1); $('#p-count').textContent = picked.length ? picked.length + ' photo' + (picked.length > 1 ? 's' : '') + ' ready' : ''; }
+        $('#p-label').addEventListener('input', photoState);
+        $('#p-file').addEventListener('change', function () {
+          picked = picked.concat(Array.prototype.slice.call(this.files).filter(function (f) { return /^image\//.test(f.type); })).slice(0, 12);
+          this.value = '';
+          $('#p-thumbs').innerHTML = '';
+          picked.forEach(function (f) { var i = new Image(); i.src = URL.createObjectURL(f); $('#p-thumbs').appendChild(i); });
+          photoState();
+        });
+        function shrink(file) {
+          return new Promise(function (res, rej) {
+            var img = new Image(), url = URL.createObjectURL(file);
+            img.onload = function () {
+              var k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight)), w = Math.round(img.naturalWidth * k), h = Math.round(img.naturalHeight * k);
+              var c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(img, 0, 0, w, h);
+              URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', 0.8).split(',')[1]);
+            };
+            img.onerror = function () { rej(new Error('bad image')); }; img.src = url;
+          });
+        }
+        $('#p-send').addEventListener('click', function () {
+          var btn = this, m = $('#p-msg'), job = $('#p-label').value.trim(), files = picked.slice(), done = 0;
+          btn.disabled = true; m.className = 'msg';
+          var label = job + (kind ? ' - ' + kind : '');
+          (function next() {
+            if (!files.length) { m.className = 'msg ok'; m.textContent = '✓ ' + done + ' photo' + (done > 1 ? 's' : '') + ' saved.'; picked = []; $('#p-thumbs').innerHTML = ''; photoState(); return; }
+            m.textContent = 'Uploading ' + (done + 1) + ' of ' + (done + files.length) + '…';
+            shrink(files[0]).then(function (b64) { return api('/api/upload-photo', { method: 'POST', body: JSON.stringify({ label: label, description: kind, image: b64, mime_type: 'image/jpeg' }) }); })
+              .then(function () { files.shift(); done++; next(); })
+              .catch(function (e) {
+                m.className = 'msg err';
+                m.textContent = (e && e.status >= 500) ? "Photos can't be saved right now — the photo storage isn't connected. Please ask for help." : 'Could not upload. Check your internet and try again.';
+                picked = files; btn.disabled = false;
+              });
+          })();
+        });
+
+        /* ---------- terms + paper form ---------- */
+        $('#terms').innerHTML = TERMS.map(function (t) { return '<p><b>' + esc(t[0]) + ':</b> ' + esc(t[1]) + '</p>'; }).join('');
+        var mediaTerms = $('#media-terms').textContent.trim();
+        var mediaDecisions = { allow: 'Allowed', decline: 'Declined' };
+
+        function paperForm(v, sigDataUrl) {
+          var blank = !v;
+          v = v || {};
+          var val = function (x) { return blank ? '' : esc(x || ''); };
+          return '<h1>T&amp;M HAULING</h1><div class="sub">Service Agreement · Bakersfield, CA · (661) 996-6950 · tandmbak.com</div>' +
+            '<div class="line"><div class="fill">' + val(v.name) + '<small>Customer name</small></div><div class="fill">' + val(v.phone) + '<small>Phone</small></div></div>' +
+            '<div class="line"><div class="fill">' + val(v.email) + '<small>Email</small></div><div class="fill">' + (blank ? '' : esc(today())) + '<small>Date</small></div></div>' +
+            '<div class="line"><div class="fill">' + val(v.addr) + '<small>Job address</small></div></div>' +
+            '<div class="line"><div class="fill">' + val(v.job) + '<small>Work to be done</small></div></div>' +
+            (blank ? '<div class="line"><div>&nbsp;</div></div>' : '') +
+            '<div class="line"><div class="fill">' + val(v.price) + '<small>Agreed price</small></div><div class="fill"><small>Deposit paid</small></div></div>' +
+            '<h2>Terms of service</h2><ol>' + TERMS.map(function (t) { return '<li><b>' + esc(t[0]) + ':</b> ' + esc(t[1]) + '</li>'; }).join('') + '</ol>' +
+            '<section class="paper-media"><h2>Job photos and video</h2><p>' + esc(mediaTerms) + '</p>' +
+            (blank ? '<p>Initial one: ______ Allow &nbsp;&nbsp; ______ Decline. An unmarked choice means no permission.</p>' :
+              '<p><b>Customer choice:</b> ' + esc(mediaDecisions[v.media] || 'Not recorded') + '</p>') +
+            '<p>By signing, the customer agrees to the service terms and confirms the media choice above.</p></section>' +
+            '<div class="sig"><div><div class="ln">' + (sigDataUrl ? '<img alt="" src="' + sigDataUrl + '">' : '') + '</div><small>Customer signature' + (blank ? '' : ' — ' + esc(v.name || '')) + '</small></div>' +
+            '<div><div class="ln"></div><small>T&amp;M Hauling representative</small></div></div>' +
+            '<div class="foot">Thank you for choosing T&amp;M Hauling — we leave the floor swept.</div>';
+        }
+        function doPrint(html) { $('#print-area').innerHTML = html; setTimeout(function () { window.print(); }, 60); }
+        $('#blank-print').addEventListener('click', function () { doPrint(paperForm(null, '')); });
+
+        /* ---------- on-the-spot signing ---------- */
+        function msg(id, t) { $('#' + id).textContent = t || ''; }
+        $('#s1-next').addEventListener('click', function () {
+          var name = $('#s-name').value.trim(), phone = $('#s-phone').value.trim(), email = $('#s-email').value.trim();
+          if (name.length < 2) { return msg('s1-msg', "Please type the customer's name."); }
+          if (digits(phone).length < 7) { return msg('s1-msg', 'Please type a phone number.'); }
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { return msg('s1-msg', 'That email does not look right. Fix it or leave it empty.'); }
+          msg('s1-msg', ''); form.name = name; form.phone = phone; form.email = email; form._keep = true; show('sign2');
+        });
+        $('#s2-next').addEventListener('click', function () {
+          var addr = $('#s-addr').value.trim(), job = $('#s-job').value.trim();
+          if (addr.length < 3) { return msg('s2-msg', 'Please type the job address.'); }
+          if (job.length < 3) { return msg('s2-msg', 'Please type what we are hauling.'); }
+          msg('s2-msg', ''); form.addr = addr; form.job = job; form.price = $('#s-price').value.trim(); show('sign3');
+        });
+
+        var pad = $('#pad'), ctx = pad.getContext('2d'), drawing = false, inked = false;
+        function padSetup() {
+          var r = pad.getBoundingClientRect(); var ratio = window.devicePixelRatio || 1;
+          if (r.width && pad.width !== Math.round(r.width * ratio)) { pad.width = Math.round(r.width * ratio); pad.height = Math.round(r.height * ratio); }
+          ctx.lineWidth = 4 * ratio; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#0f2438';
+        }
+        function pt(e) { var r = pad.getBoundingClientRect(); return { x: (e.clientX - r.left) * (pad.width / r.width), y: (e.clientY - r.top) * (pad.height / r.height) }; }
+        function clearPad() { padSetup(); ctx.clearRect(0, 0, pad.width, pad.height); inked = false; updateSave(); }
+        pad.addEventListener('pointerdown', function (e) { padSetup(); drawing = true; pad.setPointerCapture(e.pointerId); var p = pt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + 0.1, p.y + 0.1); ctx.stroke(); e.preventDefault(); });
+        pad.addEventListener('pointermove', function (e) { if (!drawing) return; var p = pt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); inked = true; e.preventDefault(); });
+        function endDraw() { if (drawing) { drawing = false; updateSave(); } }
+        pad.addEventListener('pointerup', endDraw); pad.addEventListener('pointercancel', endDraw); pad.addEventListener('pointerleave', endDraw);
+        $('#pad-clear').addEventListener('click', clearPad);
+        var savingAgreement = false;
+        function updateSave() {
+          $('#s3-save').disabled = savingAgreement || !($('#s-agree').checked && $('[name="job-media"]:checked') && inked);
+        }
+        $('#s-agree').addEventListener('change', updateSave);
+        $('#s-media').addEventListener('change', function () {
+          $('#s3-print').hidden = true;
+          clearPad();
+        });
+
+        $('#s3-save').addEventListener('click', function () {
+          var choice = $('[name="job-media"]:checked');
+          if (savingAgreement || !choice || !$('#s-agree').checked || !inked) return;
+          savingAgreement = true;
+          $('#s-media').disabled = true;
+          updateSave();
+          msg('s3-msg', 'Saving…'); $('#s3-msg').className = 'msg';
+          var sig = pad.toDataURL('image/png');
+          var signedForm = Object.assign({}, form, { media: choice.value });
+          var message = 'JOB MEDIA CHOICE: ' + mediaDecisions[signedForm.media] + '\n' + mediaTerms + '\n\nADDRESS: ' + form.addr + '\nJOB: ' + form.job + (form.price ? '\nPRICE: ' + form.price : '') + '\n(Signed on the spot by the customer)';
+          api('/api/leads', { method: 'POST', body: JSON.stringify({ name: form.name, phone: form.phone, email: form.email, message: message, service: 'On-site signed agreement', signature: form.name, signature_date: isoToday(), accept_terms: true }) })
+            .then(function () { return form.email ? api('/api/tos-sign', { method: 'POST', body: JSON.stringify({ fullName: form.name, email: form.email }) }).catch(function () {}) : null; })
+            .then(function () {
+              $('#print-area').innerHTML = paperForm(signedForm, sig);
+              $('#done-text').textContent = form.name + ' is saved in "My customers" with the signature.';
+              msg('s3-msg', ''); show('done');
+            })
+            .catch(function (e) {
+              $('#s3-msg').className = 'msg err';
+              msg('s3-msg', (e && e.status >= 500)
+                ? "The customer list could not save this right now (database problem). The signature is still on screen — print the paper copy so nothing is lost."
+                : "Could not save — check your internet. Nothing is lost. Tap the button to try again.");
+              $('#print-area').innerHTML = paperForm(signedForm, sig); $('#s3-print').hidden = false;
+            })
+            .finally(function () {
+              savingAgreement = false;
+              $('#s-media').disabled = false;
+              updateSave();
+            });
+        });
+        $('#s3-print').addEventListener('click', function () { setTimeout(function () { window.print(); }, 30); });
+        $('#done-print').addEventListener('click', function () { setTimeout(function () { window.print(); }, 30); });
+
+        /* ---------- start ---------- */
+        var first = token ? (wanted || 'home') : 'login';
+        show(first, false);
+        try { history.replaceState({ id: first }, '', location.pathname + '#' + first); } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>
