@@ -75,7 +75,7 @@
       },
       {
         "q": "How much does appliance hauling cost in Bakersfield?",
-        "a": "Single appliance pickup typically runs $75–$150 depending on size, weight, and access. Multiple appliances get a bulk rate. Text us a photo for a fast, no-obligation estimate."
+        "a": "Single appliance pickup typically runs $100–$175 depending on size, weight, and access. Multiple appliances get a bulk rate. Text us a photo for a fast, no-obligation estimate."
       },
       {
         "q": "Can you haul from upstairs or tight spaces?",
@@ -213,7 +213,7 @@
       },
       {
         "q": "How much does garage clean up cost in Bakersfield?",
-        "a": "Pricing is based on how much truck space your items take up. A typical single-car garage haul runs $150–$350 depending on volume and material type. Text us photos for a fast, no-obligation estimate — we usually respond within 10 minutes."
+        "a": "A medium garage cleanout typically runs $275–$500. Prices vary with load size, weight and distance. The crew confirms the price on site after seeing the job."
       },
       {
         "q": "Can you haul large or heavy items like old shelving, freezers, or car parts?",
@@ -257,7 +257,7 @@
       },
       {
         "q": "How is junk removal priced?",
-        "a": "We price by truck space — the more room your items take up, the more it costs. A single item pickup starts around $75. A full truck load ranges $300–$600 depending on weight. We confirm the exact price before loading anything."
+        "a": "Typical ranges are $100–$175 for a small load or single item, $275–$500 for a medium load, and $500–$750 for a full truck load from floor to ceiling. Prices may vary with weight and distance. The crew confirms the price on site after seeing the job."
       },
       {
         "q": "Do I need to carry anything to the curb?",
@@ -561,6 +561,29 @@
     "related": [],
     "ldTypes": [
       "BreadcrumbList"
+    ]
+  },
+  {
+    "slug": "furniture-moving",
+    "title": "Furniture Moving in Bakersfield | T&M Hauling",
+    "description": "On-site furniture moving and heavy lifting in Bakersfield. Text T&M Hauling a photo for a free estimate.",
+    "h1": "Furniture Moving in Bakersfield",
+    "accent": "Bakersfield",
+    "eyebrow": "On-site furniture moving",
+    "lede": "Need help moving a couch, dresser, or other heavy furniture around your property? Tell us what needs to move and where it needs to go.",
+    "pills": [
+      "On-site heavy lifting",
+      "Free photo estimate"
+    ],
+    "qa": [
+      {
+        "q": "What furniture can you help move?",
+        "a": "Send us photos of the furniture and the path it needs to travel. Include stairs, tight doorways, or other access details so we can confirm what the crew can handle."
+      },
+      {
+        "q": "Can you haul away furniture I no longer want?",
+        "a": "Yes. If you want to dispose of unwanted furniture, ask for a junk removal quote and tell us what needs to go."
+      }
     ]
   }
 ]

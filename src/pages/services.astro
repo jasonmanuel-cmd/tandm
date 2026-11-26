@@ -3,6 +3,11 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../data/site';
 import services from '../data/services.json';
 const name = (h1: string) => h1.replace(/ in Bakersfield$/, '');
+const loadPrices = [
+  ['Small load', 'Single items or small pickups', '$100–$175'],
+  ['Medium load', 'Garage cleanouts or construction debris', '$275–$500'],
+  ['Full truck load', 'Floor-to-ceiling loads', '$500–$750'],
+];
 const schema = [
   {
     '@type': 'ItemList',
@@ -23,7 +28,7 @@ const schema = [
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Services</nav>
       <span class="eyebrow">Core capabilities</span>
       <h1>Junk removal services in <span class="accent">Bakersfield</span></h1>
-      <p class="lede">One crew, one truck, one honest price — whatever needs to go.</p>
+      <p class="lede">Junk removal, cleanouts, appliance pickups, and on-site furniture moving in Bakersfield.</p>
     </div>
   </section>
   <section class="section">
@@ -37,6 +42,24 @@ const schema = [
           </a>
         ))}
       </div>
+      <section class="service-detail" aria-labelledby="typical-pricing">
+        <h2 id="typical-pricing">Typical hauling prices</h2>
+        <div class="grid cols-3">
+          {loadPrices.map(([label, details, price]) => (
+            <div class="card"><h3>{label}</h3><strong>{price}</strong><p>{details}</p></div>
+          ))}
+        </div>
+        <p>These are typical ranges. Prices may vary with weight and distance. The crew confirms the price on site after seeing the job.</p>
+        <p>Single appliance pickup typically runs <strong>$100–$175</strong>, depending on size, weight, and access. Multiple appliances get a bulk rate. <a href={`sms:${SITE.phoneTel}`}>Text us a photo for a fast, no-obligation estimate.</a></p>
+      </section>
+      <section class="service-detail" aria-labelledby="coverage">
+        <h2 id="coverage">Bakersfield service area</h2>
+        <div class="coverage-map">
+          <iframe title="Map of Bakersfield and nearby communities" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-119.34%2C35.14%2C-118.70%2C35.60&amp;layer=mapnik"></iframe>
+          <div class="coverage-circle" aria-hidden="true"></div>
+        </div>
+        <p>The red circle shows our approximate Bakersfield coverage. We also serve nearby Kern County communities. <a href="/service-areas.html">See service areas</a> or <a href={`tel:${SITE.phoneTel}`}>call to confirm your address</a>.</p>
+      </section>
       <div class="cta-band" style="margin-top:3.5rem">
         <h2>Not sure what category your job is?</h2>
         <p>Text a photo — we'll tell you what it takes and what it costs.</p>
@@ -48,3 +71,23 @@ const schema = [
     </div>
   </section>
 </Base>
+
+<style>
+  .service-detail { margin-top: 3.5rem; }
+  .service-detail h2 { margin-bottom: 1rem; }
+  .service-detail > p { margin-top: 1rem; }
+  .coverage-map { position: relative; isolation: isolate; overflow: hidden; border-radius: 1rem; }
+  .coverage-map iframe { display: block; width: 100%; height: clamp(19rem, 45vw, 27rem); border: 0; }
+  .coverage-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(64%, 17rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 3px solid #c8212d;
+    border-radius: 50%;
+    background: rgb(200 33 45 / 8%);
+    pointer-events: none;
+  }
+</style>
